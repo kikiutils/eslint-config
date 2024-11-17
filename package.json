@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@antfu/eslint-config": "^3.9.1",
+    "eslint": "^9.15.0",
+    "eslint-plugin-sort-keys-plus": "^1.4.0"
+  },
+  "devDependencies": {
+    "@kikiutils/changelogen": "^0.7.0",
+    "@kikiutils/tsconfigs": "^3.0.2",
+    "ts-project-builder": "^3.3.1"
+  }
+}
