@@ -1,4 +1,16 @@
 {
+  "name": "@kikiutils/eslint-config",
+  "version": "0.1.0",
+  "author": "kiki-kanri",
+  "description": "Using antfu/eslint-config as a base for eslint-config, slightly modified the settings and added additional plugins, mainly for my own use.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kiki-kanri/eslint-config.git"
+  },
+  "engines": {
+    "node": ">=18.12.1"
+  },
   "dependencies": {
     "@antfu/eslint-config": "^3.9.1",
     "eslint": "^9.15.0",
