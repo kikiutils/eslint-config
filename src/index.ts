@@ -13,6 +13,7 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
 			rules: {
 				'antfu/curly': 'off',
 				'antfu/if-newline': 'off',
+				'antfu/no-top-level-await': 'off',
 				'curly': ['error', 'multi-line'],
 				'max-classes-per-file': ['error', 1],
 				'perfectionist/sort-imports': [
@@ -46,6 +47,7 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
 					{ blankLine: 'always', next: '*', prev: ['class', 'function'] },
 				],
 				'style/semi': ['error', 'always'],
+				'ts/no-redeclare': 'off',
 			},
 		},
 		{
