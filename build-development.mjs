@@ -1,5 +1,5 @@
 import { build } from 'esbuild';
-import { rm } from 'fs/promises';
+import { rm } from 'node:fs/promises';
 
 const outDir = './dist';
 
@@ -9,8 +9,8 @@ const outDir = './dist';
 		bundle: false,
 		entryPoints: ['./src/**/*.ts'],
 		format: 'esm',
-		outdir: outDir,
 		outExtension: { '.js': '.mjs' },
+		outdir: outDir,
 		platform: 'node',
 		target: 'esnext',
 	});
