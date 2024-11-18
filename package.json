@@ -8,6 +8,17 @@
     "type": "git",
     "url": "git+https://github.com/kiki-kanri/eslint-config.git"
   },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": null
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "./dist"
+  ],
   "engines": {
     "node": ">=18.12.1"
   },
