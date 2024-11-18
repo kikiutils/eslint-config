@@ -30,7 +30,7 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
 						internalPattern: ['@/**', '~/**'],
 					},
 				],
-				'sort-keys-plus/sort-keys': ['error', 'asc', { caseSensitive: true, natural: false }],
+				'sort-keys-plus/sort-keys': ['error', 'asc', { caseSensitive: true, natural: true }],
 				'style/array-bracket-newline': ['error', 'consistent'],
 				'style/array-element-newline': ['error', 'consistent'],
 				'style/arrow-parens': ['error', 'always'],
