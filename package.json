@@ -1,6 +1,6 @@
 {
   "name": "@kikiutils/eslint-config",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Using antfu/eslint-config as a base for eslint-config, slightly modified the settings and added additional plugins, mainly for my own use.",
   "author": "kiki-kanri",
   "license": "MIT",

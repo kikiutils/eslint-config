@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.3.0
+
+[compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.2.0...v0.3.0)
+
+### 🚀 Enhancements
+
+- Add more style-related configurations ([e61dd4d](https://github.com/kiki-kanri/eslint-config/commit/e61dd4d))
+
+### 🏡 Chore
+
+- Modify lint scripts ([af152b0](https://github.com/kiki-kanri/eslint-config/commit/af152b0))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.2.0
 
 [compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.1.0...v0.2.0)
