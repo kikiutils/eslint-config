@@ -6,7 +6,7 @@ import sortKeysPlus from 'eslint-plugin-sort-keys-plus';
 
 export function createConfig(environment: 'bun' | 'node' = 'node', options?: Parameters<typeof antfu>[0]): FlatConfigComposer<TypedFlatConfigItem, ConfigNames> {
 	return antfu(
-		{ lessOpinionated: true, typescript: true, ...options },
+		{ typescript: true, ...options },
 		{
 			files: ['**/*.{cjs,js,mjs,ts}'],
 			plugins: { 'sort-keys-plus': sortKeysPlus },
