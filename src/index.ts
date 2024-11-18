@@ -1,10 +1,12 @@
 import antfu from '@antfu/eslint-config';
+import type { ConfigNames, TypedFlatConfigItem } from '@antfu/eslint-config';
+import type { FlatConfigComposer } from 'eslint-flat-config-utils';
 // @ts-expect-error No Type Definition File.
 import sortKeysPlus from 'eslint-plugin-sort-keys-plus';
 
-export function createConfig(environment: 'bun' | 'node' = 'node', options?: Parameters<typeof antfu>[0]) {
+export function createConfig(environment: 'bun' | 'node' = 'node', options?: Parameters<typeof antfu>[0]): FlatConfigComposer<TypedFlatConfigItem, ConfigNames> {
 	return antfu(
-		{ typescript: true, ...options },
+		{ lessOpinionated: true, typescript: true, ...options },
 		{
 			files: ['**/*.{cjs,js,mjs,ts}'],
 			plugins: { 'sort-keys-plus': sortKeysPlus },
@@ -12,6 +14,7 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
 				'antfu/curly': 'off',
 				'antfu/if-newline': 'off',
 				'curly': ['error', 'multi-line'],
+				'max-classes-per-file': ['error', 1],
 				'perfectionist/sort-imports': [
 					'error',
 					{
@@ -23,7 +26,7 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
 							'sibling',
 						],
 						ignoreCase: false,
-						internalPattern: ['@/**'],
+						internalPattern: ['@/**', '~/**'],
 					},
 				],
 				'sort-keys-plus/sort-keys': ['error', 'asc', { caseSensitive: true, natural: false }],
