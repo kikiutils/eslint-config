@@ -66,7 +66,7 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
 		{
 			files: ['**/.vscode/*.json'],
 			rules: {
-				'jsonc/sort-array-values': ['error', { order: { type: 'asc' }, pathPattern: '^.*$' }],
+				'jsonc/sort-array-values': ['error', { order: { natural: true, type: 'asc' }, pathPattern: '^.*$' }],
 				'jsonc/sort-keys': ['error', 'asc', { caseSensitive: true, natural: true }],
 			},
 		},
