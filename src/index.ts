@@ -32,6 +32,7 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
 				'sort-keys-plus/sort-keys': ['error', 'asc', { caseSensitive: true, natural: false }],
 				'style/brace-style': ['error', '1tbs', { allowSingleLine: false }],
 				'style/indent': ['error', 'tab'],
+				'style/member-delimiter-style': ['error', { multiline: { delimiter: 'semi', requireLast: true } }],
 				'style/no-tabs': 'off',
 				'style/padding-line-between-statements': [
 					'error',
