@@ -33,7 +33,11 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
 				'style/brace-style': ['error', '1tbs', { allowSingleLine: false }],
 				'style/indent': ['error', 'tab'],
 				'style/no-tabs': 'off',
-				'style/padding-line-between-statements': ['error', { blankLine: 'always', next: ['class', 'function'], prev: '*' }],
+				'style/padding-line-between-statements': [
+					'error',
+					{ blankLine: 'always', next: ['class', 'function'], prev: '*' },
+					{ blankLine: 'always', next: '*', prev: ['class', 'function'] },
+				],
 				'style/semi': ['error', 'always'],
 			},
 		},
