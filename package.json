@@ -25,8 +25,8 @@
   "scripts": {
     "build": "ts-project-builder ./src/index.ts -f esm --clean",
     "dev": "nodemon --ext json,ts --watch ./src --exec 'node ./build-development.mjs'",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
     "release": "pnpm run lint && pnpm run build && changelogen --push --release && npm publish"
   },
   "dependencies": {
