@@ -2,7 +2,7 @@
 
 ## v0.1.0
 
-[compare changes](https://github.com/kiki-kanri/kikiutils-node/compare/4bf5b8b58089157661e4fc1480074872c310e814...v0.1.0)
+[compare changes](https://github.com/kiki-kanri/eslint-config/compare/4bf5b8b58089157661e4fc1480074872c310e814...v0.1.0)
 
 ### 🚀 Enhancements
 
