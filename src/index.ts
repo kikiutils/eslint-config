@@ -59,6 +59,7 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
 					{ blankLine: 'always', next: '*', prev: ['class', 'function'] },
 				],
 				'style/semi': ['error', 'always'],
+				'ts/consistent-generic-constructors': ['error', 'constructor'],
 				'ts/no-redeclare': 'off',
 			},
 		},
