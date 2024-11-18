@@ -1,8 +1,8 @@
 {
   "name": "@kikiutils/eslint-config",
   "version": "0.1.0",
-  "author": "kiki-kanri",
   "description": "Using antfu/eslint-config as a base for eslint-config, slightly modified the settings and added additional plugins, mainly for my own use.",
+  "author": "kiki-kanri",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -11,13 +11,14 @@
   "engines": {
     "node": ">=18.12.1"
   },
+  "scripts": {
+    "dev": "nodemon --ext json,ts --watch ./src --exec 'node ./build-development.mjs'"
+  },
   "dependencies": {
     "@antfu/eslint-config": "^3.9.1",
     "eslint": "^9.15.0",
+    "eslint-flat-config-utils": "^0.4.0",
     "eslint-plugin-sort-keys-plus": "^1.4.0"
-  },
-  "scripts": {
-    "dev": "nodemon --ext json,ts --watch ./src --exec 'node ./build-development.mjs'"
   },
   "devDependencies": {
     "@kikiutils/changelogen": "^0.7.0",
