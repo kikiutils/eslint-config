@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.4.0
+
+[compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.3.1...v0.4.0)
+
+### 🚀 Enhancements
+
+- Configure `ts/consistent-generic-constructors` rule ([e9cf0da](https://github.com/kiki-kanri/eslint-config/commit/e9cf0da))
+
+### 🏡 Chore
+
+- Enable natural sort for `sort-keys-plus/sort-keys` rule ([a9f99a1](https://github.com/kiki-kanri/eslint-config/commit/a9f99a1))
+- Configure most perfectionist/sort-related rules and remove sort-keys-plus plugin ([38432ed](https://github.com/kiki-kanri/eslint-config/commit/38432ed))
+- Set `jsonc/sort-array-values` rule to natural sorting order ([842fa63](https://github.com/kiki-kanri/eslint-config/commit/842fa63))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.3.1
 
 [compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.3.0...v0.3.1)
