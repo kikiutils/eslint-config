@@ -32,14 +32,13 @@
   "dependencies": {
     "@antfu/eslint-config": "^3.9.1",
     "eslint": "^9.15.0",
-    "eslint-flat-config-utils": "^0.4.0",
-    "eslint-plugin-sort-keys-plus": "^1.4.0"
+    "eslint-flat-config-utils": "^0.4.0"
   },
   "devDependencies": {
     "@kikiutils/changelogen": "^0.7.0",
     "@kikiutils/tsconfigs": "^3.0.2",
     "esbuild": "^0.24.0",
     "nodemon": "^3.1.7",
-    "ts-project-builder": "^3.3.1"
+    "ts-project-builder": "^3.3.2"
   }
 }
