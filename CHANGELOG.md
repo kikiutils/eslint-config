@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.3.1
+
+[compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.3.0...v0.3.1)
+
+### 🏡 Chore
+
+- Enable top-level await and disable ts/no-redeclare rule ([429f533](https://github.com/kiki-kanri/eslint-config/commit/429f533))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.3.0
 
 [compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.2.0...v0.3.0)
