@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.2.0
+
+[compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.1.0...v0.2.0)
+
+### 🚀 Enhancements
+
+- Add `style/member-delimiter-style` rule ([35e3a51](https://github.com/kiki-kanri/eslint-config/commit/35e3a51))
+
+### 🩹 Fixes
+
+- Correct incorrect URL in changelog ([6ef2007](https://github.com/kiki-kanri/eslint-config/commit/6ef2007))
+
+### 🏡 Chore
+
+- Add release script ([e8a298f](https://github.com/kiki-kanri/eslint-config/commit/e8a298f))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.1.0
 
 [compare changes](https://github.com/kiki-kanri/eslint-config/compare/4bf5b8b58089157661e4fc1480074872c310e814...v0.1.0)
