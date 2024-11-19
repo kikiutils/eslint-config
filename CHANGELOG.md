@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.4.1
+
+[compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.4.0...v0.4.1)
+
+### 🏡 Chore
+
+- Remove `style/newline-per-chained-call` rule ([d7dc160](https://github.com/kiki-kanri/eslint-config/commit/d7dc160))
+- Configure `style/padding-line-between-statements` rule to require newline before enum ([33a1dac](https://github.com/kiki-kanri/eslint-config/commit/33a1dac))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.4.0
 
 [compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.3.1...v0.4.0)
