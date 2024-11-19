@@ -54,7 +54,7 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
 				'style/no-tabs': 'off',
 				'style/padding-line-between-statements': [
 					'error',
-					{ blankLine: 'always', next: ['class', 'function'], prev: '*' },
+					{ blankLine: 'always', next: ['class', 'enum', 'function'], prev: '*' },
 					{ blankLine: 'always', next: '*', prev: ['class', 'function'] },
 				],
 				'style/semi': ['error', 'always'],
