@@ -50,7 +50,6 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
 				'style/function-call-spacing': ['error', 'never'],
 				'style/indent': ['error', 'tab'],
 				'style/member-delimiter-style': ['error', { multiline: { delimiter: 'semi', requireLast: true } }],
-				'style/newline-per-chained-call': ['error', { ignoreChainWithDepth: 3 }],
 				'style/no-extra-semi': 'error',
 				'style/no-tabs': 'off',
 				'style/padding-line-between-statements': [
