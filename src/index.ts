@@ -51,7 +51,6 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
                 'style/indent': ['error', 4],
                 'style/member-delimiter-style': ['error', { multiline: { delimiter: 'semi', requireLast: true } }],
                 'style/no-extra-semi': 'error',
-                'style/no-tabs': 'off',
                 'style/padding-line-between-statements': [
                     'error',
                     { blankLine: 'always', next: ['class', 'enum', 'function'], prev: '*' },
