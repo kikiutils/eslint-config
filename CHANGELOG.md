@@ -1,5 +1,30 @@
 # Changelog
 
+## v0.5.0
+
+[compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.4.1...v0.5.0)
+
+### 🚀 Enhancements
+
+- Update `sort-imports` rule `internalPattern` to include # prefix ([06ed0b6](https://github.com/kiki-kanri/eslint-config/commit/06ed0b6))
+
+### 🏡 Chore
+
+- ⚠️ Change indentation rule to 4 spaces ([d529ac3](https://github.com/kiki-kanri/eslint-config/commit/d529ac3))
+
+### 🎨 Styles
+
+- Format file ([05f49cc](https://github.com/kiki-kanri/eslint-config/commit/05f49cc))
+- Format `build-development.mjs` ([3bbcc57](https://github.com/kiki-kanri/eslint-config/commit/3bbcc57))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️ Change indentation rule to 4 spaces ([d529ac3](https://github.com/kiki-kanri/eslint-config/commit/d529ac3))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.4.1
 
 [compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.4.0...v0.4.1)
