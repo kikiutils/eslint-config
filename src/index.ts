@@ -48,7 +48,7 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
 				'style/arrow-parens': ['error', 'always'],
 				'style/brace-style': ['error', '1tbs', { allowSingleLine: false }],
 				'style/function-call-spacing': ['error', 'never'],
-				'style/indent': ['error', 'tab'],
+				'style/indent': ['error', 4],
 				'style/member-delimiter-style': ['error', { multiline: { delimiter: 'semi', requireLast: true } }],
 				'style/no-extra-semi': 'error',
 				'style/no-tabs': 'off',
