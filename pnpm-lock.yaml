@@ -14,9 +14,6 @@ importers:
       eslint:
         specifier: ^9.15.0
         version: 9.15.0(jiti@2.4.0)
-      eslint-flat-config-utils:
-        specifier: ^0.4.0
-        version: 0.4.0
     devDependencies:
       '@kikiutils/changelogen':
         specifier: ^0.7.0
@@ -27,6 +24,9 @@ importers:
       esbuild:
         specifier: ^0.24.0
         version: 0.24.0
+      eslint-flat-config-utils:
+        specifier: ^0.4.0
+        version: 0.4.0
       nodemon:
         specifier: ^3.1.7
         version: 3.1.7
