@@ -32,7 +32,7 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
                             'sibling',
                         ],
                         ignoreCase: false,
-                        internalPattern: ['#**', '@/**', '~/**'],
+                        internalPattern: ['^#.*', '^@/.*', '^~/.*'],
                         type: 'natural',
                     },
                 ],
