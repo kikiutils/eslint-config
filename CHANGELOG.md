@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.6.1
+
+[compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.6.0...v0.6.1)
+
+### 🏡 Chore
+
+- Set `nestedBinaryExpressions` to false in `style/no-extra-parens rule` ([707717a](https://github.com/kiki-kanri/eslint-config/commit/707717a))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.6.0
 
 [compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.5.0...v0.6.0)
