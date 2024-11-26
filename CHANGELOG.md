@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.6.0
+
+[compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.5.0...v0.6.0)
+
+### 🚀 Enhancements
+
+- Add new perfectionist related sort rules ([2e546fe](https://github.com/kiki-kanri/eslint-config/commit/2e546fe))
+- Add `style/no-extra-parens` rule ([b698063](https://github.com/kiki-kanri/eslint-config/commit/b698063))
+
+### 🏡 Chore
+
+- Remove `style/no-tabs` rule ([e1f807b](https://github.com/kiki-kanri/eslint-config/commit/e1f807b))
+- Upgrade dependencies ([04c4c3f](https://github.com/kiki-kanri/eslint-config/commit/04c4c3f))
+- Move `eslint-flat-config-utils` to devDependencies ([3b2bbd9](https://github.com/kiki-kanri/eslint-config/commit/3b2bbd9))
+- Modify internalPattern setting in `perfectionist/sort-imports` rule ([201760f](https://github.com/kiki-kanri/eslint-config/commit/201760f))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.5.0
 
 [compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.4.1...v0.5.0)

@@ -9,8 +9,8 @@ const outDir = './dist';
         bundle: false,
         entryPoints: ['./src/**/*.ts'],
         format: 'esm',
-        outExtension: { '.js': '.mjs' },
         outdir: outDir,
+        outExtension: { '.js': '.mjs' },
         platform: 'node',
         target: 'esnext',
     });
