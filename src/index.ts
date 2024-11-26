@@ -21,6 +21,7 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
                 'max-classes-per-file': ['error', 1],
                 'perfectionist/sort-array-includes': ['error', commonPerfectionistSortOptions],
                 'perfectionist/sort-enums': ['error', commonPerfectionistSortOptions],
+                'perfectionist/sort-heritage-clauses': ['error', { ignoreCase: false, type: 'natural' }],
                 'perfectionist/sort-imports': [
                     'error',
                     {
@@ -38,9 +39,11 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
                 ],
                 'perfectionist/sort-interfaces': ['error', commonPerfectionistSortOptions],
                 'perfectionist/sort-intersection-types': ['error', commonPerfectionistSortOptions],
+                'perfectionist/sort-maps': ['error', commonPerfectionistSortOptions],
                 'perfectionist/sort-object-types': ['error', commonPerfectionistSortOptions],
                 'perfectionist/sort-objects': ['error', commonPerfectionistSortOptions],
                 'perfectionist/sort-sets': ['error', commonPerfectionistSortOptions],
+                'perfectionist/sort-switch-case': ['error', { ignoreCase: false, type: 'natural' }],
                 'perfectionist/sort-union-types': ['error', commonPerfectionistSortOptions],
                 'perfectionist/sort-variable-declarations': ['error', commonPerfectionistSortOptions],
                 'style/array-bracket-newline': ['error', 'consistent'],
