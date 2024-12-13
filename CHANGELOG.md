@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.7.2
+
+[compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.7.1...v0.7.2)
+
+### 🏡 Chore
+
+- Set `style/array-bracket-newline` and `style/array-element-newline` rules multiline to true ([149db56](https://github.com/kiki-kanri/eslint-config/commit/149db56))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.7.1
 
 [compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.7.0...v0.7.1)
