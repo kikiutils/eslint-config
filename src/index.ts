@@ -98,7 +98,7 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
                 'tailwindcss/no-unnecessary-arbitrary-value': 'error',
                 'vue/block-order': ['error', { order: ['template', 'script', 'style'] }],
                 'vue/html-indent': ['error', 4],
-                'vue/max-attributes-per-line': ['error', { multiline: 1, singleline: 6 }],
+                'vue/max-attributes-per-line': ['error', { multiline: 1, singleline: 1 }],
                 'vue/max-len': ['error', { code: 256, template: 192 }],
                 'vue/no-multi-spaces': 'error',
             },
