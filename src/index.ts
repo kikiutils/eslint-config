@@ -111,11 +111,17 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
                 ],
                 'style/array-bracket-newline': [
                     'error',
-                    { minItems: 2 },
+                    {
+                        minItems: 2,
+                        multiline: true,
+                    },
                 ],
                 'style/array-element-newline': [
                     'error',
-                    { minItems: 2 },
+                    {
+                        minItems: 2,
+                        multiline: true,
+                    },
                 ],
                 'style/arrow-parens': [
                     'error',
