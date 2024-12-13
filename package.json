@@ -31,8 +31,8 @@
     "release": "pnpm run lint && pnpm run build && changelogen --push --release && npm publish"
   },
   "dependencies": {
-    "@antfu/eslint-config": "^3.10.0",
-    "eslint": "^9.15.0"
+    "@antfu/eslint-config": "^3.12.0",
+    "eslint": "^9.16.0"
   },
   "devDependencies": {
     "@kikiutils/changelogen": "^0.7.0",
@@ -40,6 +40,6 @@
     "esbuild": "^0.24.0",
     "eslint-flat-config-utils": "^0.4.0",
     "nodemon": "^3.1.7",
-    "ts-project-builder": "^3.3.2"
+    "ts-project-builder": "^3.3.3"
   }
 }
