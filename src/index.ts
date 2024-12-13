@@ -1,6 +1,8 @@
 import antfu from '@antfu/eslint-config';
 import type { ConfigNames, TypedFlatConfigItem } from '@antfu/eslint-config';
 import type { FlatConfigComposer } from 'eslint-flat-config-utils';
+// @ts-expect-error No declare file.
+import tailwindcss from 'eslint-plugin-tailwindcss';
 
 const commonPerfectionistSortOptions = Object.freeze({
     ignoreCase: false,
@@ -12,7 +14,7 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
     return antfu(
         { typescript: true, ...options },
         {
-            files: ['**/*.{cjs,js,mjs,ts}'],
+            files: ['**/*.{cjs,js,mjs,ts,vue}'],
             rules: {
                 'antfu/curly': 'off',
                 'antfu/if-newline': 'off',
@@ -63,6 +65,21 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
                 'style/semi': ['error', 'always'],
                 'ts/consistent-generic-constructors': ['error', 'constructor'],
                 'ts/no-redeclare': 'off',
+            },
+        },
+        {
+            files: ['**/*.vue'],
+            plugins: { tailwindcss },
+            rules: {
+                'tailwindcss/classnames-order': 'error',
+                'tailwindcss/enforces-negative-arbitrary-values': 'error',
+                'tailwindcss/enforces-shorthand': 'error',
+                'tailwindcss/no-unnecessary-arbitrary-value': 'error',
+                'vue/block-order': ['error', { order: ['template', 'script', 'style'] }],
+                'vue/html-indent': ['error', 4],
+                'vue/max-attributes-per-line': ['error', { multiline: 1, singleline: 6 }],
+                'vue/max-len': ['error', { code: 256, template: 192 }],
+                'vue/no-multi-spaces': 'error',
             },
         },
         {
