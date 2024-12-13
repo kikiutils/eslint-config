@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.7.1
+
+[compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.7.0...v0.7.1)
+
+### 🏡 Chore
+
+- Update array element line break rule to break line if more than one element ([e0d4de5](https://github.com/kiki-kanri/eslint-config/commit/e0d4de5))
+- Configure `style/object-curly-newline` rule ([2f43471](https://github.com/kiki-kanri/eslint-config/commit/2f43471))
+- Set `vue/max-attributes-per-line` rule singleline to 1 ([3d2bca4](https://github.com/kiki-kanri/eslint-config/commit/3d2bca4))
+
+### 🎨 Styles
+
+- Format and lint codes ([4eb96bc](https://github.com/kiki-kanri/eslint-config/commit/4eb96bc))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.7.0
 
 [compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.6.1...v0.7.0)
