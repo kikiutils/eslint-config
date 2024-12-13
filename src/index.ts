@@ -39,6 +39,27 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
                         type: 'natural',
                     },
                 ],
+                'style/object-curly-newline': [
+                    'error',
+                    {
+                        ExportDeclaration: {
+                            minProperties: 2,
+                            multiline: true,
+                        },
+                        ImportDeclaration: {
+                            minProperties: 2,
+                            multiline: true,
+                        },
+                        ObjectExpression: {
+                            minProperties: 2,
+                            multiline: true,
+                        },
+                        ObjectPattern: {
+                            minProperties: 2,
+                            multiline: true,
+                        },
+                    },
+                ],
                 'perfectionist/sort-interfaces': ['error', commonPerfectionistSortOptions],
                 'perfectionist/sort-intersection-types': ['error', commonPerfectionistSortOptions],
                 'perfectionist/sort-maps': ['error', commonPerfectionistSortOptions],
