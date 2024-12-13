@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.7.0
+
+[compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.6.1...v0.7.0)
+
+### 🚀 Enhancements
+
+- Add rules for vue file ([cf54c8c](https://github.com/kiki-kanri/eslint-config/commit/cf54c8c))
+
+### 🏡 Chore
+
+- Add prepack script to package.json ([f5cd7ed](https://github.com/kiki-kanri/eslint-config/commit/f5cd7ed))
+- Upgrade dependencies ([a36726c](https://github.com/kiki-kanri/eslint-config/commit/a36726c))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.6.1
 
 [compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.6.0...v0.6.1)
