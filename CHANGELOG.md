@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.7.3
+
+[compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.7.2...v0.7.3)
+
+### 🏡 Chore
+
+- Set `node/prefer-global/process` rule to always ([167044b](https://github.com/kiki-kanri/eslint-config/commit/167044b))
+- Upgrade dependencies ([4f6c847](https://github.com/kiki-kanri/eslint-config/commit/4f6c847))
+
+### 🎨 Styles
+
+- Format codes ([697500b](https://github.com/kiki-kanri/eslint-config/commit/697500b))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.7.2
 
 [compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.7.1...v0.7.2)
