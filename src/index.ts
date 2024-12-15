@@ -33,6 +33,10 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
                     'error',
                     1,
                 ],
+                'node/prefer-global/process': [
+                    'error',
+                    'always',
+                ],
                 'perfectionist/sort-array-includes': [
                     'error',
                     commonPerfectionistSortOptions,
