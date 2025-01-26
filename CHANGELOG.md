@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.7.4
+
+[compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.7.3...v0.7.4)
+
+### 🏡 Chore
+
+- Upgrade dependencies ([c9530cd](https://github.com/kiki-kanri/eslint-config/commit/c9530cd))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.7.3
 
 [compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.7.2...v0.7.3)
