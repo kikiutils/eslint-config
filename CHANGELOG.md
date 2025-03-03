@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.8.1
+
+[compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.8.0...v0.8.1)
+
+### 🏡 Chore
+
+- Remove `vue/attributes-order` rule ([bfd234d](https://github.com/kiki-kanri/eslint-config/commit/bfd234d))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.8.0
 
 [compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.7.4...v0.8.0)
