@@ -31,9 +31,9 @@
     "release": "pnpm run lint && pnpm run build && changelogen --push --release && npm publish"
   },
   "dependencies": {
-    "@antfu/eslint-config": "^4.3.0",
-    "eslint": "^9.21.0",
-    "eslint-plugin-tailwindcss": "^3.18.0"
+    "@antfu/eslint-config": "^4.4.0",
+    "@kikiutils/eslint-plugin-tailwindcss": "^1.0.0",
+    "eslint": "^9.21.0"
   },
   "devDependencies": {
     "@kikiutils/changelogen": "^0.7.1",
