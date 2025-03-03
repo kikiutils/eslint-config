@@ -3,9 +3,9 @@ import type {
     ConfigNames,
     TypedFlatConfigItem,
 } from '@antfu/eslint-config';
-import type { FlatConfigComposer } from 'eslint-flat-config-utils';
 // @ts-expect-error No declare file.
-import tailwindcss from 'eslint-plugin-tailwindcss';
+import tailwindcss from '@kikiutils/eslint-plugin-tailwindcss';
+import type { FlatConfigComposer } from 'eslint-flat-config-utils';
 
 const commonPerfectionistSortOptions = Object.freeze({
     ignoreCase: false,
