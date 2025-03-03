@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.8.0
+
+[compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.7.4...v0.8.0)
+
+### 🚀 Enhancements
+
+- Configure eslint rules ([7f13184](https://github.com/kiki-kanri/eslint-config/commit/7f13184))
+
+### 🏡 Chore
+
+- Upgrade dependencies and set `pnpm.onlyBuiltDependencies` in `package.json` ([b39c47c](https://github.com/kiki-kanri/eslint-config/commit/b39c47c))
+- Replace `eslint-plugin-tailwindcss` with `@kikiutils/eslint-plugin-tailwindcss` ([bc8c0dd](https://github.com/kiki-kanri/eslint-config/commit/bc8c0dd))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.7.4
 
 [compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.7.3...v0.7.4)
