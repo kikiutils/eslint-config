@@ -219,10 +219,6 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
                 'tailwindcss/enforces-negative-arbitrary-values': 'error',
                 'tailwindcss/enforces-shorthand': 'error',
                 'tailwindcss/no-unnecessary-arbitrary-value': 'error',
-                'vue/attributes-order': [
-                    'error',
-                    { alphabetical: true },
-                ],
                 'vue/block-order': [
                     'error',
                     {
