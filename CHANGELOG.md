@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.8.2
+
+[compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.8.1...v0.8.2)
+
+### 🩹 Fixes
+
+- Resolve incorrect module imports ([316ab77](https://github.com/kiki-kanri/eslint-config/commit/316ab77))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.8.1
 
 [compare changes](https://github.com/kiki-kanri/eslint-config/compare/v0.8.0...v0.8.1)
