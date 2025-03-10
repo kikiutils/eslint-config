@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kiki-kanri/eslint-config.git"
+    "url": "git+https://github.com/kikiutils/eslint-config.git"
   },
   "exports": {
     ".": {
