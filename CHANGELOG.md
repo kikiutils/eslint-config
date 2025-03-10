@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.8.3
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v0.8.2...v0.8.3)
+
+### 🏡 Chore
+
+- Upgrade dependencies ([0d67bfd](https://github.com/kikiutils/eslint-config/commit/0d67bfd))
+- Update repository URL ([e9505db](https://github.com/kikiutils/eslint-config/commit/e9505db))
+- Add `--hideAuthorEmail` arg to build changelogen command ([766fab4](https://github.com/kikiutils/eslint-config/commit/766fab4))
+- Remove dev-related dependencies and configurations ([24e0152](https://github.com/kikiutils/eslint-config/commit/24e0152))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.8.2
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v0.8.1...v0.8.2)
