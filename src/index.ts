@@ -24,6 +24,7 @@ function createPrettierCssConfig(parser: 'css' | 'sass' | 'scss'): TypedFlatConf
                 'error',
                 {
                     parser,
+                    printWidth: 120,
                     singleQuote: true,
                     tabWidth: 4,
                 },
@@ -163,6 +164,13 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
                     'error',
                     4,
                 ],
+                'style/max-len': [
+                    'error',
+                    {
+                        code: 120,
+                        comments: 120,
+                    },
+                ],
                 'style/member-delimiter-style': [
                     'error',
                     {
@@ -237,6 +245,7 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
             files: ['**/*.vue'],
             plugins: { tailwindcss },
             rules: {
+                'style/max-len': 'off',
                 'tailwindcss/classnames-order': 'error',
                 'tailwindcss/enforces-negative-arbitrary-values': 'error',
                 'tailwindcss/enforces-shorthand': 'error',
@@ -272,8 +281,9 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
                 'vue/max-len': [
                     'error',
                     {
-                        code: 256,
-                        template: 192,
+                        code: 120,
+                        comments: 120,
+                        template: 120,
                     },
                 ],
                 'vue/no-dupe-keys': 'error',
