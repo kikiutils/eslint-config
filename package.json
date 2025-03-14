@@ -31,13 +31,13 @@
     "release": "pnpm run lint && pnpm run build && changelogen --hideAuthorEmail --push --release && npm publish"
   },
   "dependencies": {
-    "@antfu/eslint-config": "^4.8.1",
+    "@antfu/eslint-config": "^4.10.1",
     "@kikiutils/eslint-plugin-tailwindcss": "^3.19.0",
     "eslint": "^9.22.0"
   },
   "devDependencies": {
     "@kikiutils/changelogen": "^0.8.0",
-    "@kikiutils/tsconfigs": "^3.0.2",
+    "@kikiutils/tsconfigs": "^3.0.3",
     "eslint-flat-config-utils": "^2.0.1",
     "ts-project-builder": "^3.4.1"
   },
