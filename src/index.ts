@@ -219,6 +219,14 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
                 'tailwindcss/enforces-negative-arbitrary-values': 'error',
                 'tailwindcss/enforces-shorthand': 'error',
                 'tailwindcss/no-unnecessary-arbitrary-value': 'error',
+                'vue/attribute-hyphenation': 'error',
+                'vue/block-lang': [
+                    'error',
+                    {
+                        script: { allowNoLang: false },
+                        style: { allowNoLang: false },
+                    },
+                ],
                 'vue/block-order': [
                     'error',
                     {
@@ -229,6 +237,12 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
                         ],
                     },
                 ],
+                'vue/component-api-style': 'error',
+                'vue/define-emits-declaration': 'error',
+                'vue/define-props-declaration': 'error',
+                'vue/enforce-style-attribute': 'error',
+                'vue/html-closing-bracket-newline': 'error',
+                'vue/html-closing-bracket-spacing': 'error',
                 'vue/html-indent': [
                     'error',
                     4,
@@ -247,9 +261,17 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
                         template: 192,
                     },
                 ],
+                'vue/no-dupe-keys': 'error',
+                'vue/no-lone-template': 'error',
                 'vue/no-multi-spaces': 'error',
                 'vue/no-multiple-objects-in-class': 'error',
+                'vue/no-root-v-if': 'error',
+                'vue/no-template-target-blank': 'error',
+                'vue/no-v-html': 'error',
+                'vue/prefer-define-options': 'error',
                 'vue/prefer-separate-static-class': 'error',
+                'vue/require-explicit-emits': 'error',
+                'vue/require-typed-ref': 'error',
             },
         },
         {
