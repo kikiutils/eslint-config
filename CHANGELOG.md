@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.10.1
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v0.10.0...v0.10.1)
+
+### 🏡 Chore
+
+- Remove `vue/block-lang` rule usage ([650aee7](https://github.com/kikiutils/eslint-config/commit/650aee7))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.10.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v0.9.0...v0.10.0)
