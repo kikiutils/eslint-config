@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.10.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v0.9.0...v0.10.0)
+
+### 🚀 Enhancements
+
+- Add CSS formatting functionality ([0ca8b4e](https://github.com/kikiutils/eslint-config/commit/0ca8b4e))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.9.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v0.8.3...v0.9.0)
