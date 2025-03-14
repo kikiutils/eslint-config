@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.9.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v0.8.3...v0.9.0)
+
+### 🚀 Enhancements
+
+- Configure additional Vue-related rules ([26a6d3d](https://github.com/kikiutils/eslint-config/commit/26a6d3d))
+
+### 🏡 Chore
+
+- Upgrade dependencies ([cbf87c8](https://github.com/kikiutils/eslint-config/commit/cbf87c8))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.8.3
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v0.8.2...v0.8.3)
