@@ -6,12 +6,31 @@ import type {
 // @ts-expect-error No declare file.
 import tailwindcss from '@kikiutils/eslint-plugin-tailwindcss';
 import type { FlatConfigComposer } from 'eslint-flat-config-utils';
+import format from 'eslint-plugin-format';
 
 const commonPerfectionistSortOptions = Object.freeze({
     ignoreCase: false,
     partitionByNewLine: true,
     type: 'natural',
 });
+
+function createPrettierCssConfig(parser: 'css' | 'sass' | 'scss'): TypedFlatConfigItem {
+    return {
+        files: [`**/*.${parser}`],
+        languageOptions: { parser: format.parserPlain },
+        plugins: { format },
+        rules: {
+            'format/prettier': [
+                'error',
+                {
+                    parser,
+                    singleQuote: true,
+                    tabWidth: 4,
+                },
+            ],
+        },
+    };
+}
 
 export function createConfig(environment: 'bun' | 'node' = 'node', options?: Parameters<typeof antfu>[0]): FlatConfigComposer<TypedFlatConfigItem, ConfigNames> {
     return antfu(
@@ -211,6 +230,9 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
                 'ts/no-redeclare': 'off',
             },
         },
+        createPrettierCssConfig('css'),
+        createPrettierCssConfig('sass'),
+        createPrettierCssConfig('scss'),
         {
             files: ['**/*.vue'],
             plugins: { tailwindcss },

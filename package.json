@@ -33,7 +33,8 @@
   "dependencies": {
     "@antfu/eslint-config": "^4.10.1",
     "@kikiutils/eslint-plugin-tailwindcss": "^3.19.0",
-    "eslint": "^9.22.0"
+    "eslint": "^9.22.0",
+    "eslint-plugin-format": "^1.0.1"
   },
   "devDependencies": {
     "@kikiutils/changelogen": "^0.8.0",
