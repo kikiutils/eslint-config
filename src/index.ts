@@ -242,13 +242,6 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
                 'tailwindcss/enforces-shorthand': 'error',
                 'tailwindcss/no-unnecessary-arbitrary-value': 'error',
                 'vue/attribute-hyphenation': 'error',
-                'vue/block-lang': [
-                    'error',
-                    {
-                        script: { allowNoLang: false },
-                        style: { allowNoLang: false },
-                    },
-                ],
                 'vue/block-order': [
                     'error',
                     {
