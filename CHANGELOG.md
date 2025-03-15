@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.11.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v0.10.1...v0.11.0)
+
+### 🚀 Enhancements
+
+- Add a 120-character per line code length limit ([57258f4](https://github.com/kikiutils/eslint-config/commit/57258f4))
+
+### 🏡 Chore
+
+- Modify `perfectionist/sort-imports` rule options ([06561c1](https://github.com/kikiutils/eslint-config/commit/06561c1))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.10.1
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v0.10.0...v0.10.1)
