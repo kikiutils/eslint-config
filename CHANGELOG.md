@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.11.1
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v0.11.0...v0.11.1)
+
+### 🏡 Chore
+
+- Change `max-len` rule from `error` to `warn` ([58c6ba2](https://github.com/kikiutils/eslint-config/commit/58c6ba2))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.11.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v0.10.1...v0.11.0)
