@@ -187,7 +187,7 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
                     4,
                 ],
                 'style/max-len': [
-                    'error',
+                    'warn',
                     {
                         code: 120,
                         comments: 120,
@@ -301,7 +301,7 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
                     },
                 ],
                 'vue/max-len': [
-                    'error',
+                    'warn',
                     {
                         code: 120,
                         comments: 120,
