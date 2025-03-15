@@ -77,13 +77,35 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
                     {
                         environment,
                         groups: [
+                            'side-effect',
+                            'side-effect-style',
+                            'style',
                             [
                                 'builtin',
-                                'external',
+                                'builtin-type',
                             ],
-                            'internal',
-                            'parent',
-                            'sibling',
+                            [
+                                'external',
+                                'external-type',
+                            ],
+                            [
+                                'internal',
+                                'internal-type',
+                            ],
+                            [
+                                'parent',
+                                'parent-type',
+                            ],
+                            [
+                                'sibling',
+                                'sibling-type',
+                            ],
+                            [
+                                'index',
+                                'index-type',
+                            ],
+                            'object',
+                            'unknown',
                         ],
                         ignoreCase: false,
                         internalPattern: [
