@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.12.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v0.11.1...v0.12.0)
+
+### 🚀 Enhancements
+
+- Add custom `vue/attributes-order` rule configuration ([bd09a74](https://github.com/kikiutils/eslint-config/commit/bd09a74))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.11.1
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v0.11.0...v0.11.1)
