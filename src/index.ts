@@ -5,6 +5,7 @@ import type {
 } from '@antfu/eslint-config';
 // @ts-expect-error No declare file.
 import tailwindcss from '@kikiutils/eslint-plugin-tailwindcss';
+import kikiutilsEslintPluginVue from '@kikiutils/eslint-plugin-vue';
 import type { FlatConfigComposer } from 'eslint-flat-config-utils';
 import format from 'eslint-plugin-format';
 
@@ -265,14 +266,22 @@ export function createConfig(environment: 'bun' | 'node' = 'node', options?: Par
         createPrettierCssConfig('scss'),
         {
             files: ['**/*.vue'],
-            plugins: { tailwindcss },
+            plugins: {
+                '@kikiutils/vue': kikiutilsEslintPluginVue,
+                tailwindcss,
+            },
             rules: {
+                '@kikiutils/vue/attributes-order': [
+                    'error',
+                    { alphabetical: true },
+                ],
                 'style/max-len': 'off',
                 'tailwindcss/classnames-order': 'error',
                 'tailwindcss/enforces-negative-arbitrary-values': 'error',
                 'tailwindcss/enforces-shorthand': 'error',
                 'tailwindcss/no-unnecessary-arbitrary-value': 'error',
                 'vue/attribute-hyphenation': 'error',
+                'vue/attributes-order': 'off',
                 'vue/block-order': [
                     'error',
                     {
