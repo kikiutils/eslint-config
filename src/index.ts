@@ -34,7 +34,10 @@ function createPrettierCssConfig(parser: 'css' | 'sass' | 'scss'): TypedFlatConf
     };
 }
 
-export function createConfig(environment: 'bun' | 'node' = 'node', options?: Parameters<typeof antfu>[0]): FlatConfigComposer<TypedFlatConfigItem, ConfigNames> {
+export function createConfig(
+    environment: 'bun' | 'node' = 'node',
+    options?: Parameters<typeof antfu>[0],
+): FlatConfigComposer<TypedFlatConfigItem, ConfigNames> {
     return antfu(
         {
             typescript: true,
