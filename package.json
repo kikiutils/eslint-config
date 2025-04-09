@@ -1,5 +1,6 @@
 {
   "name": "@kikiutils/eslint-config",
+  "type": "module",
   "version": "0.12.1",
   "description": "Using antfu/eslint-config as a base for eslint-config, slightly modified the settings and added additional plugins, mainly for my own use.",
   "author": "kiki-kanri",
@@ -12,8 +13,7 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": null
+      "import": "./dist/index.mjs"
     }
   },
   "types": "./dist/index.d.ts",
