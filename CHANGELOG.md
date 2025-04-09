@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.12.2
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v0.12.1...v0.12.2)
+
+### 🏡 Chore
+
+- Set type to module in package.json and remove require-based exports configuration ([cf51b69](https://github.com/kikiutils/eslint-config/commit/cf51b69))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.12.1
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v0.12.0...v0.12.1)
