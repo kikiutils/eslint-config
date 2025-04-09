@@ -8,6 +8,7 @@
     "type": "git",
     "url": "git+https://github.com/kikiutils/eslint-config.git"
   },
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
