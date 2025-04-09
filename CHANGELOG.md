@@ -1,5 +1,29 @@
 # Changelog
 
+## v0.12.1
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v0.12.0...v0.12.1)
+
+### 💅 Refactors
+
+- Update import style for some modules ([7fbfa96](https://github.com/kikiutils/eslint-config/commit/7fbfa96))
+
+### 📦 Build
+
+- Enable sourcemap output ([91dfe34](https://github.com/kikiutils/eslint-config/commit/91dfe34))
+- Include src folder in npm pack files list ([8502068](https://github.com/kikiutils/eslint-config/commit/8502068))
+
+### 🏡 Chore
+
+- Upgrade dependencies ([101f1a7](https://github.com/kikiutils/eslint-config/commit/101f1a7))
+- Remove `dev` script from package.json ([a8fe03b](https://github.com/kikiutils/eslint-config/commit/a8fe03b))
+- Format code ([6fb8340](https://github.com/kikiutils/eslint-config/commit/6fb8340))
+- Set `sideEffects` to false in package.json ([b9e45e9](https://github.com/kikiutils/eslint-config/commit/b9e45e9))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.12.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v0.11.1...v0.12.0)
