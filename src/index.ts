@@ -1,4 +1,4 @@
-import antfu from '@antfu/eslint-config';
+import { antfu } from '@antfu/eslint-config';
 import type {
     ConfigNames,
     TypedFlatConfigItem,
