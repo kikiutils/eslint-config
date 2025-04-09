@@ -25,7 +25,6 @@
   },
   "scripts": {
     "build": "ts-project-builder ./src/index.ts -f esm --clean --sourcemaps",
-    "dev": "nodemon --ext json,ts --watch ./src --exec 'node ./build-development.mjs'",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "prepack": "pnpm run build",
