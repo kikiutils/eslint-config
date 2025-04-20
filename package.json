@@ -32,22 +32,23 @@
     "release": "pnpm run lint && pnpm run build && changelogen --hideAuthorEmail --push --release && npm publish"
   },
   "dependencies": {
-    "@antfu/eslint-config": "^4.11.0",
+    "@antfu/eslint-config": "^4.12.0",
     "@kikiutils/eslint-plugin-tailwindcss": "^3.19.0",
     "@kikiutils/eslint-plugin-vue": "^10.1.2",
-    "eslint": "^9.24.0",
+    "eslint": "^9.25.0",
     "eslint-plugin-format": "^1.0.1",
     "eslint-plugin-tailwindcss": "^3.18.0"
   },
   "devDependencies": {
     "@kikiutils/changelogen": "^0.8.0",
-    "@kikiutils/tsconfigs": "^4.0.0",
+    "@kikiutils/tsconfigs": "^5.0.1",
     "eslint-flat-config-utils": "^2.0.1",
-    "ts-project-builder": "^4.0.0"
+    "ts-project-builder": "^5.0.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
-      "esbuild"
+      "esbuild",
+      "unrs-resolver"
     ]
   }
 }
