@@ -386,7 +386,7 @@
 
 ## v0.1.0
 
-[compare changes](https://github.com/kikiutils/eslint-config/compare/4bf5b8b58089157661e4fc1480074872c310e814...v0.1.0)
+[compare changes](https://github.com/kikiutils/eslint-config/compare/4bf5b8b...v0.1.0)
 
 ### 🚀 Enhancements
 
