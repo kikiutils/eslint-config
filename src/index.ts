@@ -4,10 +4,12 @@ import type {
     TypedFlatConfigItem,
 } from '@antfu/eslint-config';
 // @ts-expect-error No declare file.
-import tailwindcss from '@kikiutils/eslint-plugin-tailwindcss';
+import kikiutilsTailwindcss from '@kikiutils/eslint-plugin-tailwindcss';
 import kikiutilsEslintPluginVue from '@kikiutils/eslint-plugin-vue';
 import type { FlatConfigComposer } from 'eslint-flat-config-utils';
 import format from 'eslint-plugin-format';
+// @ts-expect-error No declare file.
+import tailwindcss from 'eslint-plugin-tailwindcss';
 
 const commonPerfectionistSortOptions = {
     ignoreCase: false,
@@ -270,16 +272,18 @@ export function createConfig(
         {
             files: ['**/*.vue'],
             plugins: {
+                '@kikiutils/tailwindcss': kikiutilsTailwindcss,
                 '@kikiutils/vue': kikiutilsEslintPluginVue,
                 tailwindcss,
             },
             rules: {
+                '@kikiutils/tailwindcss/classnames-order': 'error',
                 '@kikiutils/vue/attributes-order': [
                     'error',
                     { alphabetical: true },
                 ],
                 'style/max-len': 'off',
-                'tailwindcss/classnames-order': 'error',
+                'tailwindcss/classnames-order': 'off',
                 'tailwindcss/enforces-negative-arbitrary-values': 'error',
                 'tailwindcss/enforces-shorthand': 'error',
                 'tailwindcss/no-unnecessary-arbitrary-value': 'error',
