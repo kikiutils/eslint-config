@@ -1,5 +1,40 @@
 # Changelog
 
+## v0.12.3
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v0.12.2...v0.12.3)
+
+### 💅 Refactors
+
+- Replace `Object.freeze` with `readonly` type definitions for constants and variables ([cedb5fe](https://github.com/kikiutils/eslint-config/commit/cedb5fe))
+
+### 🏡 Chore
+
+- Format script ([16ca049](https://github.com/kikiutils/eslint-config/commit/16ca049))
+- Update file permissions after installing or updating dependencies ([d141f76](https://github.com/kikiutils/eslint-config/commit/d141f76))
+- Add `--hideAuthorEmail` flag to bumplog command ([382091b](https://github.com/kikiutils/eslint-config/commit/382091b))
+- Add typecheck command to package.json scripts ([2a1f7e0](https://github.com/kikiutils/eslint-config/commit/2a1f7e0))
+- Rename `jest.config.js` to `jest.config.mjs` ([76371a1](https://github.com/kikiutils/eslint-config/commit/76371a1))
+- Reorder lint, test, and build steps in release command ([b63dcb4](https://github.com/kikiutils/eslint-config/commit/b63dcb4))
+- Disable `isolatedDeclarations` in tsconfig ([ed1636f](https://github.com/kikiutils/eslint-config/commit/ed1636f))
+- Update `modify-files-permissions.sh` ([89f72e3](https://github.com/kikiutils/eslint-config/commit/89f72e3))
+- Use self-published package only for `tailwindcss/classnames-order` rule, keep other tailwindcss rules from official packages ([ac9b00a](https://github.com/kikiutils/eslint-config/commit/ac9b00a))
+- Upgrade dependencies ([568530f](https://github.com/kikiutils/eslint-config/commit/568530f))
+- Add `ts-expect-error` to bypass TypeScript error caused by incorrect export in `@kikiutils/eslint-plugin-vue` ([713c49e](https://github.com/kikiutils/eslint-config/commit/713c49e))
+- Update CHANGELOG ([92b8ff1](https://github.com/kikiutils/eslint-config/commit/92b8ff1))
+
+### ✅ Tests
+
+- Add pass test unit ([d7b98bd](https://github.com/kikiutils/eslint-config/commit/d7b98bd))
+
+### 🤖 CI
+
+- Add test github workflow config file ([dd421d1](https://github.com/kikiutils/eslint-config/commit/dd421d1))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.12.2
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v0.12.1...v0.12.2)
