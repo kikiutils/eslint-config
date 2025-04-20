@@ -5,6 +5,7 @@ import type {
 } from '@antfu/eslint-config';
 // @ts-expect-error No declare file.
 import kikiutilsTailwindcss from '@kikiutils/eslint-plugin-tailwindcss';
+// @ts-expect-error Ignore this error.
 import kikiutilsEslintPluginVue from '@kikiutils/eslint-plugin-vue';
 import type { FlatConfigComposer } from 'eslint-flat-config-utils';
 import format from 'eslint-plugin-format';
