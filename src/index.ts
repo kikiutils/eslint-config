@@ -9,11 +9,11 @@ import kikiutilsEslintPluginVue from '@kikiutils/eslint-plugin-vue';
 import type { FlatConfigComposer } from 'eslint-flat-config-utils';
 import format from 'eslint-plugin-format';
 
-const commonPerfectionistSortOptions = Object.freeze({
+const commonPerfectionistSortOptions = {
     ignoreCase: false,
     partitionByNewLine: true,
     type: 'natural',
-});
+} as const;
 
 function createPrettierCssConfig(parser: 'css' | 'sass' | 'scss'): TypedFlatConfigItem {
     return {
