@@ -25,11 +25,13 @@
     "node": ">=18.12.1"
   },
   "scripts": {
-    "build": "ts-project-builder ./src/index.ts -f esm --clean --sourcemaps",
+    "build": "ts-project-builder ./src/index.ts -f esm --clean --preserve-modules --sourcemaps",
+    "bumplog": "changelogen --bump --hideAuthorEmail",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "prepack": "pnpm run build",
-    "release": "pnpm run lint && pnpm run build && changelogen --hideAuthorEmail --push --release && npm publish"
+    "release": "pnpm run lint && pnpm run build && changelogen --hideAuthorEmail --push --release && npm publish",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@antfu/eslint-config": "^4.12.0",
@@ -43,7 +45,8 @@
     "@kikiutils/changelogen": "^0.8.0",
     "@kikiutils/tsconfigs": "^5.0.1",
     "eslint-flat-config-utils": "^2.0.1",
-    "ts-project-builder": "^5.0.0"
+    "ts-project-builder": "^5.0.0",
+    "typescript": "^5.8.3"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
