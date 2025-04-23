@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.12.4
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v0.12.3...v0.12.4)
+
+### 🏡 Chore
+
+- Update destructuring formatting rule to break lines only when more than two elements ([9df8d3a](https://github.com/kikiutils/eslint-config/commit/9df8d3a))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.12.3
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v0.12.2...v0.12.3)
