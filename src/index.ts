@@ -49,6 +49,13 @@ export function createConfig(
         {
             files: ['**/*.{cjs,js,mjs,ts,vue}'],
             rules: {
+                'antfu/consistent-list-newline': [
+                    'error',
+                    {
+                        ArrayExpression: false,
+                        ArrayPattern: false,
+                    },
+                ],
                 'antfu/curly': 'off',
                 'antfu/if-newline': 'off',
                 'antfu/no-top-level-await': 'off',
@@ -164,16 +171,16 @@ export function createConfig(
                 ],
                 'style/array-bracket-newline': [
                     'error',
-                    {
-                        minItems: 2,
-                        multiline: true,
-                    },
+                    { multiline: true },
                 ],
                 'style/array-element-newline': [
                     'error',
                     {
-                        minItems: 2,
-                        multiline: true,
+                        ArrayExpression: {
+                            consistent: true,
+                            minItems: 2,
+                        },
+                        ArrayPattern: { minItems: 3 },
                     },
                 ],
                 'style/arrow-parens': [
@@ -231,7 +238,7 @@ export function createConfig(
                             multiline: true,
                         },
                         ObjectPattern: {
-                            minProperties: 2,
+                            minProperties: 3,
                             multiline: true,
                         },
                     },
