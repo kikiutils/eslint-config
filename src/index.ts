@@ -70,6 +70,7 @@ export function createConfig(
                     'error',
                     1,
                 ],
+                'no-promise-executor-return': 'error',
                 'node/prefer-global/process': [
                     'error',
                     'always',
@@ -175,6 +176,7 @@ export function createConfig(
                 'promise/no-multiple-resolved': 'error',
                 'promise/no-return-in-finally': 'error',
                 'promise/no-return-wrap': 'error',
+                'require-await': 'error',
                 'style/array-bracket-newline': [
                     'error',
                     { multiline: true },
