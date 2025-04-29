@@ -10,6 +10,8 @@ import kikiutilsEslintPluginVue from '@kikiutils/eslint-plugin-vue';
 import type { FlatConfigComposer } from 'eslint-flat-config-utils';
 import format from 'eslint-plugin-format';
 // @ts-expect-error No declare file.
+import promise from 'eslint-plugin-promise';
+// @ts-expect-error No declare file.
 import tailwindcss from 'eslint-plugin-tailwindcss';
 
 const commonPerfectionistSortOptions = {
@@ -48,6 +50,7 @@ export function createConfig(
         },
         {
             files: ['**/*.{cjs,js,mjs,ts,vue}'],
+            plugins: { promise },
             rules: {
                 'antfu/consistent-list-newline': [
                     'error',
@@ -169,6 +172,9 @@ export function createConfig(
                     'error',
                     commonPerfectionistSortOptions,
                 ],
+                'promise/no-multiple-resolved': 'error',
+                'promise/no-return-in-finally': 'error',
+                'promise/no-return-wrap': 'error',
                 'style/array-bracket-newline': [
                     'error',
                     { multiline: true },
