@@ -1,5 +1,22 @@
 # Changelog
 
+## v1.0.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v0.12.4...v1.0.0)
+
+### 🚀 Enhancements
+
+- Add `eslint-plugin-promise` plugin and rules ([2a95ca7](https://github.com/kikiutils/eslint-config/commit/2a95ca7))
+- Set `no-promise-executor-return` and `require-await` rules ([ab0c4ba](https://github.com/kikiutils/eslint-config/commit/ab0c4ba))
+
+### 🏡 Chore
+
+- Upgrade dependencies ([cc5cf28](https://github.com/kikiutils/eslint-config/commit/cc5cf28))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.12.4
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v0.12.3...v0.12.4)
