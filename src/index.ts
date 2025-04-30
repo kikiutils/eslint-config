@@ -43,11 +43,7 @@ export function createConfig(
     environment: 'bun' | 'node' = 'node',
     options?: Parameters<typeof antfu>[0],
 ): FlatConfigComposer<TypedFlatConfigItem, ConfigNames> {
-    return antfu(
-        {
-            typescript: true,
-            ...options,
-        },
+    const userConfigs: Parameters<typeof antfu>[1] = [
         {
             files: ['**/*.{cjs,js,mjs,ts,vue}'],
             plugins: { promise },
@@ -282,9 +278,6 @@ export function createConfig(
                 'ts/no-redeclare': 'off',
             },
         },
-        createPrettierCssConfig('css'),
-        createPrettierCssConfig('sass'),
-        createPrettierCssConfig('scss'),
         {
             files: ['**/*.vue'],
             plugins: {
@@ -376,6 +369,24 @@ export function createConfig(
                 ],
             },
         },
+    ];
+
+    if (options?.formatters && (typeof options.formatters === 'boolean' || options.formatters.css)) {
+        userConfigs.splice(
+            1,
+            0,
+            createPrettierCssConfig('css'),
+            createPrettierCssConfig('sass'),
+            createPrettierCssConfig('scss'),
+        );
+    }
+
+    return antfu(
+        {
+            typescript: true,
+            ...options,
+        },
+        ...userConfigs,
     );
 }
 
