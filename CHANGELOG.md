@@ -1,5 +1,26 @@
 # Changelog
 
+## v1.0.1
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v1.0.0...v1.0.1)
+
+### 💅 Refactors
+
+- Apply css, sass, and scss rules only when CSS formatter is enabled ([2ea5506](https://github.com/kikiutils/eslint-config/commit/2ea5506))
+
+### 📖 Documentation
+
+- Update README badges urls ([499bc71](https://github.com/kikiutils/eslint-config/commit/499bc71))
+
+### 🏡 Chore
+
+- Add option to `upgrade-dependencies.sh` to clean `node_modules` and `pnpm-lock.yaml` before upgrading ([e542b14](https://github.com/kikiutils/eslint-config/commit/e542b14))
+- Upgrade dependencies ([d3ee5a7](https://github.com/kikiutils/eslint-config/commit/d3ee5a7))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v1.0.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v0.12.4...v1.0.0)
