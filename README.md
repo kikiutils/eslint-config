@@ -32,10 +32,10 @@ You can also use `yarn`, `npm`, or `bun`.
 
 <!-- Badges -->
 [npm-version-href]: https://npmjs.com/package/@kikiutils/eslint-config
-[npm-version-src]: https://img.shields.io/npm/v/@kikiutils/eslint-config/latest.svg?style=flat&colorA=18181B&colorB=28CF8D
+[npm-version-src]: https://img.shields.io/npm/v/@kikiutils/eslint-config/latest.svg?colorA=18181b&colorB=28cf8d&style=flat
 
 [npm-downloads-href]: https://npmjs.com/package/@kikiutils/eslint-config
-[npm-downloads-src]: https://img.shields.io/npm/dm/@kikiutils/eslint-config.svg?style=flat&colorA=18181B&colorB=28CF8D
+[npm-downloads-src]: https://img.shields.io/npm/dm/@kikiutils/eslint-config.svg?colorA=18181b&colorB=28cf8d&style=flat
 
 [license-href]: https://github.com/kikiutils/eslint-config/blob/main/LICENSE
-[license-src]: https://img.shields.io/npm/l/@kikiutils/eslint-config.svg?style=flat&colorA=18181B&colorB=28CF8D
+[license-src]: https://img.shields.io/github/license/kikiutils/eslint-config?colorA=18181b&colorB=28cf8d&style=flat
