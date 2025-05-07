@@ -66,7 +66,10 @@ export function createConfig(
                     'error',
                     1,
                 ],
-                'no-promise-executor-return': 'error',
+                'no-promise-executor-return': [
+                    'error',
+                    { allowVoid: true },
+                ],
                 'node/prefer-global/process': [
                     'error',
                     'always',
