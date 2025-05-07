@@ -35,10 +35,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@antfu/eslint-config": "^4.12.0",
+    "@antfu/eslint-config": "^4.13.0",
     "@kikiutils/eslint-plugin-tailwindcss": "^3.19.0",
     "@kikiutils/eslint-plugin-vue": "^10.1.2",
-    "eslint": "^9.25.1",
+    "eslint": "^9.26.0",
     "eslint-plugin-format": "^1.0.1",
     "eslint-plugin-promise": "^7.2.1",
     "eslint-plugin-tailwindcss": "^3.18.0"
@@ -47,7 +47,7 @@
     "@kikiutils/changelogen": "^0.8.0",
     "@kikiutils/tsconfigs": "^5.0.1",
     "eslint-flat-config-utils": "^2.0.1",
-    "ts-project-builder": "^5.0.0",
+    "ts-project-builder": "^5.0.1",
     "typescript": "^5.8.3"
   },
   "pnpm": {
