@@ -1,5 +1,24 @@
 # Changelog
 
+## v1.0.2
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v1.0.1...v1.0.2)
+
+### 📖 Documentation
+
+- Replace `%2F` with `/` in badge URLs in README ([4aaf916](https://github.com/kikiutils/eslint-config/commit/4aaf916))
+
+### 🏡 Chore
+
+- Ensure all scripts change to their own directory before execution ([9be5fbf](https://github.com/kikiutils/eslint-config/commit/9be5fbf))
+- Update ignore files ([c81c294](https://github.com/kikiutils/eslint-config/commit/c81c294))
+- Upgrade dependencies ([63273f9](https://github.com/kikiutils/eslint-config/commit/63273f9))
+- Set `no-promise-executor-return` rule `allowVoid` to true ([eabe5a9](https://github.com/kikiutils/eslint-config/commit/eabe5a9))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v1.0.1
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v1.0.0...v1.0.1)
