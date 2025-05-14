@@ -1,5 +1,29 @@
 # Changelog
 
+## v1.1.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v1.0.2...v1.1.0)
+
+### 🚀 Enhancements
+
+- Add vue export ([d3f1d5d](https://github.com/kikiutils/eslint-config/commit/d3f1d5d))
+- Enable `@kikiutils/vue/no-extra-space-in-class` rule for vue ([dba5553](https://github.com/kikiutils/eslint-config/commit/dba5553))
+
+### 🏡 Chore
+
+- **scripts:** Ensure all scripts `cd` to their current directory correctly ([5362c3b](https://github.com/kikiutils/eslint-config/commit/5362c3b))
+- Set `--max-warnings=0` for `lint` and `lint:fix` ([bffe476](https://github.com/kikiutils/eslint-config/commit/bffe476))
+- Upgrade dependencies ([b339660](https://github.com/kikiutils/eslint-config/commit/b339660))
+
+### 🤖 CI
+
+- Update test workflow ([1519e46](https://github.com/kikiutils/eslint-config/commit/1519e46))
+- Update condition for uploading to Codecov in workflow job ([39851ac](https://github.com/kikiutils/eslint-config/commit/39851ac))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v1.0.2
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v1.0.1...v1.0.2)
