@@ -294,6 +294,7 @@ export function createConfig(
                     'error',
                     { alphabetical: true },
                 ],
+                '@kikiutils/vue/no-extra-space-in-class': 'error',
                 'style/max-len': 'off',
                 'tailwindcss/classnames-order': 'off',
                 'tailwindcss/enforces-negative-arbitrary-values': 'error',
