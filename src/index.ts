@@ -395,3 +395,10 @@ export function createConfig(
 
 export const bun = createConfig('bun');
 export const node = createConfig('node');
+export const vue = createConfig(
+    'node',
+    {
+        formatters: { css: true },
+        vue: true,
+    },
+);
