@@ -28,8 +28,8 @@
   "scripts": {
     "build": "ts-project-builder ./src/index.ts -f esm --clean --preserve-modules --sourcemaps",
     "bumplog": "changelogen --bump --hideAuthorEmail",
-    "lint": "eslint",
-    "lint:fix": "eslint --fix",
+    "lint": "eslint --max-warnings 0",
+    "lint:fix": "eslint --fix --max-warnings 0",
     "prepack": "pnpm run build",
     "release": "pnpm run lint && pnpm run build && changelogen --hideAuthorEmail --push --release && npm publish",
     "typecheck": "tsc --noEmit"
