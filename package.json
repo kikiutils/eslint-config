@@ -37,7 +37,7 @@
   "dependencies": {
     "@antfu/eslint-config": "^4.13.0",
     "@kikiutils/eslint-plugin-tailwindcss": "^3.19.0",
-    "@kikiutils/eslint-plugin-vue": "^10.1.2",
+    "@kikiutils/eslint-plugin-vue": "^10.2.2",
     "eslint": "^9.26.0",
     "eslint-plugin-format": "^1.0.1",
     "eslint-plugin-promise": "^7.2.1",
