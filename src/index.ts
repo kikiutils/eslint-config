@@ -20,25 +20,6 @@ const commonPerfectionistSortOptions = {
     type: 'natural',
 } as const;
 
-function createPrettierCssConfig(parser: 'css' | 'sass' | 'scss'): TypedFlatConfigItem {
-    return {
-        files: [`**/*.${parser}`],
-        languageOptions: { parser: format.parserPlain },
-        plugins: { format },
-        rules: {
-            'format/prettier': [
-                'error',
-                {
-                    parser,
-                    printWidth: 120,
-                    singleQuote: true,
-                    tabWidth: 4,
-                },
-            ],
-        },
-    };
-}
-
 export function createConfig(
     environment: 'bun' | 'node' = 'node',
     options?: Parameters<typeof antfu>[0],
@@ -426,6 +407,25 @@ export function createConfig(
         },
         ...userConfigs,
     );
+}
+
+function createPrettierCssConfig(parser: 'css' | 'sass' | 'scss'): TypedFlatConfigItem {
+    return {
+        files: [`**/*.${parser}`],
+        languageOptions: { parser: format.parserPlain },
+        plugins: { format },
+        rules: {
+            'format/prettier': [
+                'error',
+                {
+                    parser,
+                    printWidth: 120,
+                    singleQuote: true,
+                    tabWidth: 4,
+                },
+            ],
+        },
+    };
 }
 
 export const bun = createConfig('bun');
