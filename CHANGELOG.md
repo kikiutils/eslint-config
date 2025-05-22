@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.2.1
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v1.2.0...v1.2.1)
+
+### 🏡 Chore
+
+- Update `perfectionist/sort-modules` grouping configuration ([65e11ce](https://github.com/kikiutils/eslint-config/commit/65e11ce))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v1.2.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v1.1.0...v1.2.0)
