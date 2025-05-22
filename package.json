@@ -31,23 +31,23 @@
     "lint": "eslint --max-warnings 0",
     "lint:fix": "eslint --fix --max-warnings 0",
     "prepack": "pnpm run build",
-    "release": "pnpm run lint && pnpm run build && changelogen --hideAuthorEmail --push --release && npm publish",
+    "release": "pnpm run lint && pnpm run typecheck && pnpm run build && changelogen --hideAuthorEmail --push --release && npm publish",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@antfu/eslint-config": "^4.13.0",
+    "@antfu/eslint-config": "^4.13.2",
     "@kikiutils/eslint-plugin-tailwindcss": "^3.19.0",
     "@kikiutils/eslint-plugin-vue": "^10.2.2",
-    "eslint": "^9.26.0",
+    "eslint": "^9.27.0",
     "eslint-plugin-format": "^1.0.1",
     "eslint-plugin-promise": "^7.2.1",
     "eslint-plugin-tailwindcss": "^3.18.0"
   },
   "devDependencies": {
     "@kikiutils/changelogen": "^0.8.0",
-    "@kikiutils/tsconfigs": "^5.0.1",
-    "eslint-flat-config-utils": "^2.0.1",
-    "ts-project-builder": "^5.0.1",
+    "@kikiutils/tsconfigs": "^5.0.4",
+    "eslint-flat-config-utils": "^2.1.0",
+    "ts-project-builder": "^5.0.2",
     "typescript": "^5.8.3"
   },
   "pnpm": {
