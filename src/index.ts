@@ -145,6 +145,40 @@ export function createConfig(
                     'error',
                     commonPerfectionistSortOptions,
                 ],
+                'perfectionist/sort-modules': [
+                    'error',
+                    {
+                        ...commonPerfectionistSortOptions,
+                        groups: [
+                            [
+                                'declare-type',
+                                'export-type',
+                                'type',
+                            ],
+                            [
+                                'declare-interface',
+                                'export-interface',
+                                'interface',
+                            ],
+                            [
+                                'declare-enum',
+                                'enum',
+                                'export-enum',
+                            ],
+                            [
+                                'class',
+                                'declare-class',
+                                'export-class',
+                            ],
+                            [
+                                'declare-function',
+                                'export-function',
+                                'function',
+                            ],
+                        ],
+                        partitionByNewLine: false,
+                    },
+                ],
                 'perfectionist/sort-object-types': [
                     'error',
                     commonPerfectionistSortOptions,
