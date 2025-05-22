@@ -131,28 +131,28 @@ export function createConfig(
                     {
                         ...basePerfectionistSortOptions,
                         groups: [
+                            'declare-type',
                             [
-                                'declare-type',
                                 'export-type',
                                 'type',
                             ],
+                            'declare-interface',
                             [
-                                'declare-interface',
                                 'export-interface',
                                 'interface',
                             ],
+                            'declare-enum',
                             [
-                                'declare-enum',
                                 'enum',
                                 'export-enum',
                             ],
+                            'declare-class',
                             [
                                 'class',
-                                'declare-class',
                                 'export-class',
                             ],
+                            'declare-function',
                             [
-                                'declare-function',
                                 'export-function',
                                 'function',
                             ],
