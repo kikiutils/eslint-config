@@ -14,9 +14,9 @@ import promise from 'eslint-plugin-promise';
 // @ts-expect-error No declare file.
 import tailwindcss from 'eslint-plugin-tailwindcss';
 
-const commonPerfectionistSortOptions = {
+const basePerfectionistSortOptions = {
     ignoreCase: false,
-    partitionByNewLine: true,
+    partitionByComment: true,
     type: 'natural',
 } as const;
 
@@ -57,11 +57,11 @@ export function createConfig(
                 ],
                 'perfectionist/sort-array-includes': [
                     'error',
-                    commonPerfectionistSortOptions,
+                    basePerfectionistSortOptions,
                 ],
                 'perfectionist/sort-enums': [
                     'error',
-                    commonPerfectionistSortOptions,
+                    basePerfectionistSortOptions,
                 ],
                 'perfectionist/sort-heritage-clauses': [
                     'error',
@@ -116,20 +116,20 @@ export function createConfig(
                 ],
                 'perfectionist/sort-interfaces': [
                     'error',
-                    commonPerfectionistSortOptions,
+                    basePerfectionistSortOptions,
                 ],
                 'perfectionist/sort-intersection-types': [
                     'error',
-                    commonPerfectionistSortOptions,
+                    basePerfectionistSortOptions,
                 ],
                 'perfectionist/sort-maps': [
                     'error',
-                    commonPerfectionistSortOptions,
+                    basePerfectionistSortOptions,
                 ],
                 'perfectionist/sort-modules': [
                     'error',
                     {
-                        ...commonPerfectionistSortOptions,
+                        ...basePerfectionistSortOptions,
                         groups: [
                             [
                                 'declare-type',
@@ -157,20 +157,19 @@ export function createConfig(
                                 'function',
                             ],
                         ],
-                        partitionByNewLine: false,
                     },
                 ],
                 'perfectionist/sort-object-types': [
                     'error',
-                    commonPerfectionistSortOptions,
+                    basePerfectionistSortOptions,
                 ],
                 'perfectionist/sort-objects': [
                     'error',
-                    commonPerfectionistSortOptions,
+                    basePerfectionistSortOptions,
                 ],
                 'perfectionist/sort-sets': [
                     'error',
-                    commonPerfectionistSortOptions,
+                    basePerfectionistSortOptions,
                 ],
                 'perfectionist/sort-switch-case': [
                     'error',
@@ -181,11 +180,11 @@ export function createConfig(
                 ],
                 'perfectionist/sort-union-types': [
                     'error',
-                    commonPerfectionistSortOptions,
+                    basePerfectionistSortOptions,
                 ],
                 'perfectionist/sort-variable-declarations': [
                     'error',
-                    commonPerfectionistSortOptions,
+                    basePerfectionistSortOptions,
                 ],
                 'promise/no-multiple-resolved': 'error',
                 'promise/no-return-in-finally': 'error',
