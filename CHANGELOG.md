@@ -1,5 +1,24 @@
 # Changelog
 
+## v1.2.2
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v1.2.1...v1.2.2)
+
+### 🏡 Chore
+
+- Upgrade dependencies and remove `@types/node` ([32aaf31](https://github.com/kikiutils/eslint-config/commit/32aaf31))
+- Wrap all variable expansions in scripts with `${}` ([82c47c9](https://github.com/kikiutils/eslint-config/commit/82c47c9))
+- Remove `partitionByComment` option from `basePerfectionistSortOptions` ([4036d23](https://github.com/kikiutils/eslint-config/commit/4036d23))
+
+### 🤖 CI
+
+- Set `--prod=false` when install dependencies ([93d7945](https://github.com/kikiutils/eslint-config/commit/93d7945))
+- Remove `--prod=false` flag when install dependencies ([249def0](https://github.com/kikiutils/eslint-config/commit/249def0))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v1.2.1
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v1.2.0...v1.2.1)
