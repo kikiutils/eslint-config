@@ -16,7 +16,6 @@ import tailwindcss from 'eslint-plugin-tailwindcss';
 
 const basePerfectionistSortOptions = {
     ignoreCase: false,
-    partitionByComment: true,
     type: 'natural',
 } as const;
 
