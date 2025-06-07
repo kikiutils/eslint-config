@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.2.3
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v1.2.2...v1.2.3)
+
+### 🏡 Chore
+
+- Temporarily pin `@antfu/eslint-config` version to avoid errors ([92b65f0](https://github.com/kikiutils/eslint-config/commit/92b65f0))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v1.2.2
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v1.2.1...v1.2.2)
