@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.2.4
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v1.2.3...v1.2.4)
+
+### 🏡 Chore
+
+- Update dependencies and restore `@antfu/eslint-config` to latest stable version ([0d5c8e5](https://github.com/kikiutils/eslint-config/commit/0d5c8e5))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v1.2.3
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v1.2.2...v1.2.3)
