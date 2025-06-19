@@ -263,6 +263,19 @@ export function createConfig(
                         },
                     },
                 ],
+                'style/operator-linebreak': [
+                    'error',
+                    'after',
+                    {
+                        overrides: {
+                            '&&': 'before',
+                            ':': 'before',
+                            '?': 'before',
+                            '|': 'before',
+                            '||': 'before',
+                        },
+                    },
+                ],
                 'style/padding-line-between-statements': [
                     'error',
                     {
