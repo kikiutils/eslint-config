@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.2.6
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v1.2.5...v1.2.6)
+
+### 🏡 Chore
+
+- Update `style/operator-linebreak` rule ([a003df1](https://github.com/kikiutils/eslint-config/commit/a003df1))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v1.2.5
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v1.2.4...v1.2.5)
