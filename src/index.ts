@@ -268,6 +268,7 @@ export function createConfig(
                     'after',
                     {
                         overrides: {
+                            '&': 'before',
                             '&&': 'before',
                             ':': 'before',
                             '?': 'before',
