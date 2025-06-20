@@ -265,17 +265,8 @@ export function createConfig(
                 ],
                 'style/operator-linebreak': [
                     'error',
-                    'after',
-                    {
-                        overrides: {
-                            '&': 'before',
-                            '&&': 'before',
-                            ':': 'before',
-                            '?': 'before',
-                            '|': 'before',
-                            '||': 'before',
-                        },
-                    },
+                    'before',
+                    { overrides: { '=': 'after' } },
                 ],
                 'style/padding-line-between-statements': [
                     'error',
