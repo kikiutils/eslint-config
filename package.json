@@ -23,31 +23,35 @@
     "./src"
   ],
   "engines": {
-    "node": ">=18.12.1"
+    "node": ">=20.0.0"
   },
   "scripts": {
     "build": "ts-project-builder ./src/index.ts -f esm --clean --preserve-modules --sourcemaps",
     "bumplog": "changelogen --bump --hideAuthorEmail",
+    "depcheck": "depcheck",
     "lint": "eslint --max-warnings 0",
     "lint:fix": "eslint --fix --max-warnings 0",
     "prepack": "pnpm run build",
     "release": "pnpm run lint && pnpm run typecheck && pnpm run build && changelogen --hideAuthorEmail --push --release && npm publish",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "unused-exports": "ts-unused-exports ./tsconfig.json"
   },
   "dependencies": {
-    "@antfu/eslint-config": "^4.15.0",
+    "@antfu/eslint-config": "^5.0.0",
     "@kikiutils/eslint-plugin-tailwindcss": "^3.19.0",
     "@kikiutils/eslint-plugin-vue": "^10.2.2",
-    "eslint": "^9.29.0",
+    "eslint": "^9.32.0",
     "eslint-plugin-format": "^1.0.1",
     "eslint-plugin-promise": "^7.2.1",
-    "eslint-plugin-tailwindcss": "^3.18.0"
+    "eslint-plugin-tailwindcss": "^3.18.2"
   },
   "devDependencies": {
-    "@kikiutils/changelogen": "^0.8.0",
+    "@kikiutils/changelogen": "^0.8.1",
     "@kikiutils/tsconfigs": "^5.0.4",
+    "depcheck": "^1.4.7",
     "eslint-flat-config-utils": "^2.1.0",
     "ts-project-builder": "^5.0.2",
+    "ts-unused-exports": "^11.0.1",
     "typescript": "^5.8.3"
   },
   "pnpm": {
