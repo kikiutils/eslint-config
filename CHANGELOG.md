@@ -1,5 +1,26 @@
 # Changelog
 
+## v2.0.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v1.2.7...v2.0.0)
+
+### 🏡 Chore
+
+- Update dependencies and modify scripts ([374cc56](https://github.com/kikiutils/eslint-config/commit/374cc56))
+- ⚠️ Drop support for Node.js 18.12.1, set minimum supported version to 20 ([32c6ad3](https://github.com/kikiutils/eslint-config/commit/32c6ad3))
+
+### ✅ Tests
+
+- Change vitest config file to mjs ([5c3bc1f](https://github.com/kikiutils/eslint-config/commit/5c3bc1f))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️ Drop support for Node.js 18.12.1, set minimum supported version to 20 ([32c6ad3](https://github.com/kikiutils/eslint-config/commit/32c6ad3))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v1.2.7
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v1.2.6...v1.2.7)
