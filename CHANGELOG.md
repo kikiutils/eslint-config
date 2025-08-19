@@ -1,5 +1,23 @@
 # Changelog
 
+## v2.1.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v2.0.0...v2.1.0)
+
+### 🚀 Enhancements
+
+- Add tsx support ([7c601d0](https://github.com/kikiutils/eslint-config/commit/7c601d0))
+
+### 🏡 Chore
+
+- Bump tsconfig target to es2023 ([b9185b7](https://github.com/kikiutils/eslint-config/commit/b9185b7))
+- Update `.gitignore` ([1465997](https://github.com/kikiutils/eslint-config/commit/1465997))
+- Update dependencies ([d2897e2](https://github.com/kikiutils/eslint-config/commit/d2897e2))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v2.0.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v1.2.7...v2.0.0)
