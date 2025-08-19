@@ -37,22 +37,22 @@
     "unused-exports": "ts-unused-exports ./tsconfig.json"
   },
   "dependencies": {
-    "@antfu/eslint-config": "^5.0.0",
+    "@antfu/eslint-config": "^5.2.1",
     "@kikiutils/eslint-plugin-tailwindcss": "^3.19.0",
     "@kikiutils/eslint-plugin-vue": "^10.2.2",
-    "eslint": "^9.32.0",
+    "eslint": "^9.33.0",
     "eslint-plugin-format": "^1.0.1",
     "eslint-plugin-promise": "^7.2.1",
     "eslint-plugin-tailwindcss": "^3.18.2"
   },
   "devDependencies": {
-    "@kikiutils/changelogen": "^0.8.1",
+    "@kikiutils/changelogen": "^0.9.0",
     "@kikiutils/tsconfigs": "^5.0.4",
     "depcheck": "^1.4.7",
-    "eslint-flat-config-utils": "^2.1.0",
+    "eslint-flat-config-utils": "^2.1.1",
     "ts-project-builder": "^5.0.2",
     "ts-unused-exports": "^11.0.1",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.2"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
