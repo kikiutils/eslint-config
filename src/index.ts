@@ -25,7 +25,7 @@ export function createConfig(
 ): FlatConfigComposer<TypedFlatConfigItem, ConfigNames> {
     const userConfigs: Parameters<typeof antfu>[1] = [
         {
-            files: ['**/*.{cjs,js,mjs,ts,vue}'],
+            files: ['**/*.{cjs,js,mjs,ts,tsx,vue}'],
             plugins: { promise },
             rules: {
                 'antfu/consistent-list-newline': [
