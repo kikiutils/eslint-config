@@ -1,5 +1,18 @@
 # Changelog
 
+## v2.1.1
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v2.1.0...v2.1.1)
+
+### 🏡 Chore
+
+- **ci:** Configure pnpm cache in workflow ([79e2264](https://github.com/kikiutils/eslint-config/commit/79e2264))
+- Upgrade tailwindcss dependencies to v4 beta ([1ea40ef](https://github.com/kikiutils/eslint-config/commit/1ea40ef))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v2.1.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v2.0.0...v2.1.0)
