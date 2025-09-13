@@ -1,13 +1,9 @@
 import { antfu } from '@antfu/eslint-config';
-import type {
-    ConfigNames,
-    TypedFlatConfigItem,
-} from '@antfu/eslint-config';
+import type { TypedFlatConfigItem } from '@antfu/eslint-config';
 // @ts-expect-error No declare file.
 import kikiutilsTailwindcss from '@kikiutils/eslint-plugin-tailwindcss';
 // @ts-expect-error Ignore this error.
 import kikiutilsEslintPluginVue from '@kikiutils/eslint-plugin-vue';
-import type { FlatConfigComposer } from 'eslint-flat-config-utils';
 import format from 'eslint-plugin-format';
 // @ts-expect-error No declare file.
 import promise from 'eslint-plugin-promise';
@@ -19,10 +15,7 @@ const basePerfectionistSortOptions = {
     type: 'natural',
 } as const;
 
-export function createConfig(
-    environment: 'bun' | 'node' = 'node',
-    options?: Parameters<typeof antfu>[0],
-): FlatConfigComposer<TypedFlatConfigItem, ConfigNames> {
+export function createConfig(environment: 'bun' | 'node' = 'node', options?: Parameters<typeof antfu>[0]) {
     const userConfigs: Parameters<typeof antfu>[1] = [
         {
             files: ['**/*.{cjs,js,mjs,ts,tsx,vue}'],
