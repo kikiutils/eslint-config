@@ -1,5 +1,43 @@
 # Changelog
 
+## v3.0.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v2.1.1...v3.0.0)
+
+### 💅 Refactors
+
+- **tsconfig:** Separate references so src and tests use different settings ([df472e2](https://github.com/kikiutils/eslint-config/commit/df472e2))
+
+### 📦 Build
+
+- ⚠️ Switch builder to tsdown and convert package to pure ESM ([d307be4](https://github.com/kikiutils/eslint-config/commit/d307be4))
+
+### 🏡 Chore
+
+- **ci:** Remove pnpm cache configure in workflow ([abc0801](https://github.com/kikiutils/eslint-config/commit/abc0801))
+- ⚠️ Drop support for Node.js 20, set minimum supported version to 22 ([3319820](https://github.com/kikiutils/eslint-config/commit/3319820))
+- Upgrade devDependencies ([57244a0](https://github.com/kikiutils/eslint-config/commit/57244a0))
+- Set tsdown alias and tsconfig paths ([be49779](https://github.com/kikiutils/eslint-config/commit/be49779))
+- Update tsdown config ([fc9e7cb](https://github.com/kikiutils/eslint-config/commit/fc9e7cb))
+- Add `tsconfig.base.json` ([f6ba6dd](https://github.com/kikiutils/eslint-config/commit/f6ba6dd))
+- Update dependencies ([1da643f](https://github.com/kikiutils/eslint-config/commit/1da643f))
+- Set `peerDependencies` and meta ([007f887](https://github.com/kikiutils/eslint-config/commit/007f887))
+- Update eslint config ([66346eb](https://github.com/kikiutils/eslint-config/commit/66346eb))
+- Update eslint config ([99cd82e](https://github.com/kikiutils/eslint-config/commit/99cd82e))
+
+### ✅ Tests
+
+- Fix vitest config to correctly load tsconfig and aliases ([0522f79](https://github.com/kikiutils/eslint-config/commit/0522f79))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️ Switch builder to tsdown and convert package to pure ESM ([d307be4](https://github.com/kikiutils/eslint-config/commit/d307be4))
+- ⚠️ Drop support for Node.js 20, set minimum supported version to 22 ([3319820](https://github.com/kikiutils/eslint-config/commit/3319820))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v2.1.1
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v2.1.0...v2.1.1)
