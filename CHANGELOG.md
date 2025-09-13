@@ -1,5 +1,23 @@
 # Changelog
 
+## v3.0.1
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v3.0.0...v3.0.1)
+
+### 💅 Refactors
+
+- Remove unnecessary code ([bf56f37](https://github.com/kikiutils/eslint-config/commit/bf56f37))
+
+### 🏡 Chore
+
+- Update tsdown entry ([9cbb6bb](https://github.com/kikiutils/eslint-config/commit/9cbb6bb))
+- Disable `isolatedDeclarations` ([85f066e](https://github.com/kikiutils/eslint-config/commit/85f066e))
+- Update eslint config ([09d584b](https://github.com/kikiutils/eslint-config/commit/09d584b))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v3.0.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v2.1.1...v3.0.0)
