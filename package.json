@@ -38,11 +38,19 @@
     "typecheck": "tsc --noEmit",
     "unused-exports": "ts-unused-exports ./tsconfig.json"
   },
+  "peerDependencies": {
+    "eslint": "^9.35.0",
+    "eslint-flat-config-utils": "^2.1.1"
+  },
+  "peerDependenciesMeta": {
+    "eslint-flat-config-utils": {
+      "optional": true
+    }
+  },
   "dependencies": {
     "@antfu/eslint-config": "^5.3.0",
     "@kikiutils/eslint-plugin-tailwindcss": "4.0.0-beta.0",
     "@kikiutils/eslint-plugin-vue": "^10.2.2",
-    "eslint": "^9.35.0",
     "eslint-plugin-format": "^1.0.1",
     "eslint-plugin-promise": "^7.2.1",
     "eslint-plugin-tailwindcss": "4.0.0-beta.0"
