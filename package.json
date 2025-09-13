@@ -12,27 +12,29 @@
   "keywords": [],
   "sideEffects": false,
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs"
-    }
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
   },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "./dist",
     "./src"
   ],
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
-    "build": "ts-project-builder ./src/index.ts -f esm --clean --preserve-modules --sourcemaps",
+    "build": "tsdown",
     "bumplog": "changelogen --bump --hideAuthorEmail",
     "depcheck": "depcheck",
     "lint": "eslint --max-warnings 0",
     "lint:fix": "eslint --fix --max-warnings 0",
     "prepack": "pnpm run build",
-    "release": "pnpm run lint && pnpm run typecheck && pnpm run build && changelogen --hideAuthorEmail --push --release && npm publish",
+    "release": "pnpm run lint && pnpm run typecheck && pnpm run test && pnpm run build && changelogen --hideAuthorEmail --push --release && npm publish",
+    "test": "vitest run --coverage",
+    "test:watch": "vitest watch --coverage",
     "typecheck": "tsc --noEmit",
     "unused-exports": "ts-unused-exports ./tsconfig.json"
   },
@@ -48,11 +50,16 @@
   "devDependencies": {
     "@kikiutils/changelogen": "^0.9.0",
     "@kikiutils/tsconfigs": "^5.0.5",
+    "@vitest/coverage-v8": "^3.2.4",
     "depcheck": "^1.4.7",
     "eslint-flat-config-utils": "^2.1.1",
-    "ts-project-builder": "^5.0.2",
+    "publint": "^0.3.12",
     "ts-unused-exports": "^11.0.1",
-    "typescript": "^5.9.2"
+    "tsconfck": "^3.1.6",
+    "tsdown": "^0.15.1",
+    "typescript": "^5.9.2",
+    "unplugin-unused": "^0.5.3",
+    "vitest": "^3.2.4"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
