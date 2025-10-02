@@ -1,5 +1,57 @@
 # Changelog
 
+## v4.0.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v3.0.1...v4.0.0)
+
+### 🚀 Enhancements
+
+- Add `update-peer-dependencies-meta.ts` ([643c006](https://github.com/kikiutils/eslint-config/commit/643c006))
+
+### 🩹 Fixes
+
+- Resolve alias configuration error in tsdown setup ([656e2e0](https://github.com/kikiutils/eslint-config/commit/656e2e0))
+- Add missing -b flag to typecheck command ([cf0c795](https://github.com/kikiutils/eslint-config/commit/cf0c795))
+- Remove custom exports configuration from tsdown ([efb18bc](https://github.com/kikiutils/eslint-config/commit/efb18bc))
+- Remove tsdown `remove-types-js` plugin ([6922c2f](https://github.com/kikiutils/eslint-config/commit/6922c2f))
+- Remove tsdown remove-types-js plugin and custom exports configuration ([735a3a9](https://github.com/kikiutils/eslint-config/commit/735a3a9))
+- Ensure tsdown `customExports` returns after deleting keys containing internals ([7324bab](https://github.com/kikiutils/eslint-config/commit/7324bab))
+- Resolve types error ([5461f6b](https://github.com/kikiutils/eslint-config/commit/5461f6b))
+
+### 📖 Documentation
+
+- Update README ([63ba464](https://github.com/kikiutils/eslint-config/commit/63ba464))
+
+### 📦 Build
+
+- Clean up js files under `dist/types` after tsdown build and update exports config ([2affd31](https://github.com/kikiutils/eslint-config/commit/2affd31))
+- Clean up js files under `dist/types` after tsdown build and update exports config ([299e647](https://github.com/kikiutils/eslint-config/commit/299e647))
+- Clean up js files under `dist/types` after tsdown build and update exports config ([6fa1d2b](https://github.com/kikiutils/eslint-config/commit/6fa1d2b))
+- Update tsdown config to treat all dependencies as external ([f5e4f7a](https://github.com/kikiutils/eslint-config/commit/f5e4f7a))
+- Update tsdown customExports to remove entries with keys containing "internals" ([59b1622](https://github.com/kikiutils/eslint-config/commit/59b1622))
+- Update tsdown entry ([2e67d6b](https://github.com/kikiutils/eslint-config/commit/2e67d6b))
+- Set tsdown external from package.json instead of using wildcard * ([7dc5f28](https://github.com/kikiutils/eslint-config/commit/7dc5f28))
+- Update `customExports` rules to enable IDE import hints for package usage ([e4111c0](https://github.com/kikiutils/eslint-config/commit/e4111c0))
+- Update `customExports` rules to enable IDE import hints for package usage ([fa88888](https://github.com/kikiutils/eslint-config/commit/fa88888))
+
+### 🏡 Chore
+
+- Update all scripts ([fa5e797](https://github.com/kikiutils/eslint-config/commit/fa5e797))
+- Set minimum supported version to 22.12.0 ([76e8cc1](https://github.com/kikiutils/eslint-config/commit/76e8cc1))
+- Remove alias config ([e353604](https://github.com/kikiutils/eslint-config/commit/e353604))
+- Change `update-peer-dependencies-meta.ts` to non-executable permission file ([62a7690](https://github.com/kikiutils/eslint-config/commit/62a7690))
+- Update base tsconfig ([26f4158](https://github.com/kikiutils/eslint-config/commit/26f4158))
+- Add `.editorconfig` ([11056ce](https://github.com/kikiutils/eslint-config/commit/11056ce))
+- ⚠️ Downgrade eslint-plugin-tailwindcss to v3 ([8c0b695](https://github.com/kikiutils/eslint-config/commit/8c0b695))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️ Downgrade eslint-plugin-tailwindcss to v3 ([8c0b695](https://github.com/kikiutils/eslint-config/commit/8c0b695))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v3.0.1
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v3.0.0...v3.0.1)
