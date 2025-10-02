@@ -1,19 +1,72 @@
-import { resolve } from 'node:path';
+import {
+    glob,
+    rm,
+} from 'node:fs/promises';
 
 import { defineConfig } from 'tsdown';
 
+import packageJson from './package.json' with { type: 'json' };
+
+interface PackageJsonExportEntry {
+    import: null | string;
+    require: null | string;
+    types: null | string;
+}
+
 export default defineConfig({
-    alias: { '@': resolve(import.meta.dirname, 'src') },
     clean: true,
     dts: true,
-    entry: [
-        './src/index.ts',
-        '!./src/**/_internals.ts',
-        '!./src/**/_internals/**',
-        '!./src/**/internals/**',
+    entry: ['./src/index.ts'],
+    exports: {
+        customExports(exports) {
+            Object.entries(exports).forEach(([key, value]: [string, string]) => {
+                if (key === './package.json') return;
+                const newExports: PackageJsonExportEntry = {
+                    /* eslint-disable perfectionist/sort-objects */
+                    types: null,
+                    import: null,
+                    require: null,
+                    /* eslint-enable perfectionist/sort-objects */
+                };
+
+                if (!value.includes('internals')) {
+                    if (!value.endsWith('index.js')) return delete exports[key];
+                    exports[`${key}/index`] = { ...newExports };
+                    newExports.types = value.replace(/\.js$/, '.d.ts');
+                    if (!value.startsWith('./dist/types')) newExports.import = value;
+                }
+
+                exports[key] = newExports;
+            });
+
+            exports['./*'] = './dist/*.js';
+            const sortedExports: Record<string, PackageJsonExportEntry> = {};
+            Object.entries(exports).sort().forEach(([key, value]) => sortedExports[key] = value);
+            return sortedExports;
+        },
+    },
+    external: [
+        ...new Set([
+            // eslint-disable-next-line ts/ban-ts-comment
+            // @ts-ignore
+            ...Object.keys(packageJson.dependencies || {}),
+            ...Object.keys(packageJson.devDependencies || {}),
+            // eslint-disable-next-line ts/ban-ts-comment
+            // @ts-ignore
+            ...Object.keys(packageJson.peerDependencies || {}),
+        ]),
     ],
-    exports: true,
     format: 'esm',
+    plugins: [
+        {
+            name: 'remove-types-js',
+            async writeBundle() {
+                const files = [];
+                for await (const file of glob('./dist/types/**/*.js')) files.push(file);
+                await Promise.all(files.map((file) => rm(file, { force: true })));
+            },
+        },
+    ],
     publint: true,
     sourcemap: true,
     tsconfig: './tsconfig.build.json',

@@ -12,7 +12,7 @@ Description
 
 ## Requirements
 
-- **Node.js** `>= 22.0.0`
+- **Node.js** `>=22.12.0`
 
 ## Installation
 

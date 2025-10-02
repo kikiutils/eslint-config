@@ -23,7 +23,7 @@
     "./src"
   ],
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=22.12.0"
   },
   "scripts": {
     "build": "tsdown",
@@ -35,7 +35,7 @@
     "release": "pnpm run lint && pnpm run typecheck && pnpm run test && pnpm run build && changelogen --hideAuthorEmail --push --release && npm publish",
     "test": "vitest run --coverage",
     "test:watch": "vitest watch --coverage",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc -b --noEmit",
     "unused-exports": "ts-unused-exports ./tsconfig.json"
   },
   "peerDependencies": {
@@ -64,7 +64,6 @@
     "eslint-flat-config-utils": "^2.1.1",
     "publint": "^0.3.12",
     "ts-unused-exports": "^11.0.1",
-    "tsconfck": "^3.1.6",
     "tsdown": "^0.15.1",
     "typescript": "^5.9.2",
     "unplugin-unused": "^0.5.3",
