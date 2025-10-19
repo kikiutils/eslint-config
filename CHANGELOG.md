@@ -1,5 +1,30 @@
 # Changelog
 
+## v4.0.1
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v4.0.0...v4.0.1)
+
+### 💅 Refactors
+
+- Rename func parameters in `arr.map` and similar methods to `item` for consistency ([c5768ac](https://github.com/kikiutils/eslint-config/commit/c5768ac))
+- Tidy up code ([1a92f2c](https://github.com/kikiutils/eslint-config/commit/1a92f2c))
+
+### 🏡 Chore
+
+- Upgrade devDependencies ([aca04e8](https://github.com/kikiutils/eslint-config/commit/aca04e8))
+- Replace `@kikiutils/changelogen` with `changelogen` ([8d1d648](https://github.com/kikiutils/eslint-config/commit/8d1d648))
+- Update script ([44312fb](https://github.com/kikiutils/eslint-config/commit/44312fb))
+- Update `pnpm.onlyBuiltDependencies` ([9788a78](https://github.com/kikiutils/eslint-config/commit/9788a78))
+- Upgrade dependencies ([dd22498](https://github.com/kikiutils/eslint-config/commit/dd22498))
+
+### 🤖 CI
+
+- Update config file ([cfba23c](https://github.com/kikiutils/eslint-config/commit/cfba23c))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v4.0.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v3.0.1...v4.0.0)
