@@ -1,5 +1,27 @@
 # Changelog
 
+## v5.0.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v4.0.1...v5.0.0)
+
+### 💅 Refactors
+
+- ⚠️  Split original create configs into multiple groups (base, vue, style) and separate files, make some dependencies optional ([6922fa6](https://github.com/kikiutils/eslint-config/commit/6922fa6))
+
+### 🏡 Chore
+
+- Update tsdown config ([59407a9](https://github.com/kikiutils/eslint-config/commit/59407a9))
+- Disable tsdown `fixedExtension` config ([9039405](https://github.com/kikiutils/eslint-config/commit/9039405))
+- Upgrade deps ([bdbdfd9](https://github.com/kikiutils/eslint-config/commit/bdbdfd9))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  Split original create configs into multiple groups (base, vue, style) and separate files, make some dependencies optional ([6922fa6](https://github.com/kikiutils/eslint-config/commit/6922fa6))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v4.0.1
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v4.0.0...v4.0.1)
