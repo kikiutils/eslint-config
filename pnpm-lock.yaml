@@ -11,25 +11,19 @@ importers:
       '@antfu/eslint-config':
         specifier: ^6.2.0
         version: 6.2.0(@vue/compiler-sfc@3.5.24)(eslint-plugin-format@1.0.2(eslint@9.39.1(jiti@1.21.7)))(eslint@9.39.1(jiti@1.21.7))(typescript@5.9.3)(vitest@4.0.8(@types/debug@4.1.12)(@types/node@24.10.0)(jiti@1.21.7)(yaml@2.8.1))
-      '@kikiutils/eslint-plugin-tailwindcss':
-        specifier: 4.0.0-beta.0
-        version: 4.0.0-beta.0(tailwindcss@3.4.18(yaml@2.8.1))
-      '@kikiutils/eslint-plugin-vue':
-        specifier: ^10.2.2
-        version: 10.2.2(eslint@9.39.1(jiti@1.21.7))(vue-eslint-parser@10.2.0(eslint@9.39.1(jiti@1.21.7)))
       eslint:
         specifier: ^9.35.0
         version: 9.39.1(jiti@1.21.7)
-      eslint-plugin-format:
-        specifier: ^1.0.2
-        version: 1.0.2(eslint@9.39.1(jiti@1.21.7))
       eslint-plugin-promise:
         specifier: ^7.2.1
         version: 7.2.1(eslint@9.39.1(jiti@1.21.7))
-      eslint-plugin-tailwindcss:
-        specifier: ^3.18.2
-        version: 3.18.2(tailwindcss@3.4.18(yaml@2.8.1))
     devDependencies:
+      '@kikiutils/eslint-plugin-tailwindcss':
+        specifier: ^3.19.0
+        version: 3.19.0(tailwindcss@3.4.18(yaml@2.8.1))
+      '@kikiutils/eslint-plugin-vue':
+        specifier: ^10.2.2
+        version: 10.2.2(eslint@9.39.1(jiti@1.21.7))(vue-eslint-parser@10.2.0(eslint@9.39.1(jiti@1.21.7)))
       '@kikiutils/tsconfigs':
         specifier: ^5.0.5
         version: 5.0.5
@@ -48,6 +42,12 @@ importers:
       eslint-flat-config-utils:
         specifier: ^2.1.4
         version: 2.1.4
+      eslint-plugin-format:
+        specifier: ^1.0.2
+        version: 1.0.2(eslint@9.39.1(jiti@1.21.7))
+      eslint-plugin-tailwindcss:
+        specifier: ^3.18.2
+        version: 3.18.2(tailwindcss@3.4.18(yaml@2.8.1))
       publint:
         specifier: ^0.3.15
         version: 0.3.15
@@ -457,11 +457,11 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@kikiutils/eslint-plugin-tailwindcss@4.0.0-beta.0':
-    resolution: {integrity: sha512-W+jCpUgGbtrvmoN6BvhbW72AdwLPuhZXG+dHfIMLots0oVUNiF5eRUgqRpCzuSyo5MXDEpUKnR8HpbZHiRpCUQ==}
+  '@kikiutils/eslint-plugin-tailwindcss@3.19.0':
+    resolution: {integrity: sha512-6vnD/Zkk51bzPldVjY+XPcqe8pXdIUvIL69k81oesEP3p+5Jk5NMt+UGP8b9elvdi75UcdgtqcK2WxHYiE8Zmg==}
     engines: {node: '>=18.12.0'}
     peerDependencies:
-      tailwindcss: ^3.4.0 || ^4.0.0
+      tailwindcss: ^3.4.0
 
   '@kikiutils/eslint-plugin-vue@10.2.2':
     resolution: {integrity: sha512-vNcqjcdQJy7m0GW9LD3w0nIc0yKrJVXZZqlAJ2B35oqArbjiYHAbSDklUxM2rJbrD49La0Q3A9dVBASbuHUMBw==}
@@ -2450,11 +2450,6 @@ packages:
     resolution: {integrity: sha512-JJoOEKTfL1urb1mDoEblhD9NhEbWmq9jHEMEnxoC4ujUaZ4itA8vKgwkFAyNClgxplLi9tsUKX+EduK0p/l7sg==}
     engines: {node: ^14.18.0 || >=16.0.0}
 
-  tailwind-api-utils@1.0.3:
-    resolution: {integrity: sha512-KpzUHkH1ug1sq4394SLJX38ZtpeTiqQ1RVyFTTSY2XuHsNSTWUkRo108KmyyrMWdDbQrLYkSHaNKj/a3bmA4sQ==}
-    peerDependencies:
-      tailwindcss: ^3.3.0 || ^4.0.0 || ^4.0.0-beta
-
   tailwindcss@3.4.18:
     resolution: {integrity: sha512-6A2rnmW5xZMdw11LYjhcI5846rt9pbLSabY5XPxo+XWdxwZaFEn47Go4NzFiHu9sNNmr/kXivP1vStfvMaK1GQ==}
     engines: {node: '>=14.0.0'}
@@ -3111,12 +3106,10 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@kikiutils/eslint-plugin-tailwindcss@4.0.0-beta.0(tailwindcss@3.4.18(yaml@2.8.1))':
+  '@kikiutils/eslint-plugin-tailwindcss@3.19.0(tailwindcss@3.4.18(yaml@2.8.1))':
     dependencies:
       fast-glob: 3.3.3
       postcss: 8.5.6
-      synckit: 0.11.11
-      tailwind-api-utils: 1.0.3(tailwindcss@3.4.18(yaml@2.8.1))
       tailwindcss: 3.4.18(yaml@2.8.1)
 
   '@kikiutils/eslint-plugin-vue@10.2.2(eslint@9.39.1(jiti@1.21.7))(vue-eslint-parser@10.2.0(eslint@9.39.1(jiti@1.21.7)))':
@@ -5303,13 +5296,6 @@ snapshots:
     dependencies:
       '@pkgr/core': 0.1.2
       tslib: 2.8.1
-
-  tailwind-api-utils@1.0.3(tailwindcss@3.4.18(yaml@2.8.1)):
-    dependencies:
-      enhanced-resolve: 5.18.3
-      jiti: 2.6.1
-      local-pkg: 1.1.2
-      tailwindcss: 3.4.18(yaml@2.8.1)
 
   tailwindcss@3.4.18(yaml@2.8.1):
     dependencies:

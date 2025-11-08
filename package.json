@@ -12,17 +12,7 @@
   "keywords": [],
   "sideEffects": false,
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": null
-    },
     "./*": "./dist/*.js",
-    "./index": {
-      "types": null,
-      "import": null,
-      "require": null
-    },
     "./package.json": "./package.json"
   },
   "main": "./dist/index.js",
@@ -49,29 +39,45 @@
     "unused-exports": "ts-unused-exports ./tsconfig.json"
   },
   "peerDependencies": {
+    "@kikiutils/eslint-plugin-tailwindcss": "^3.19.0",
+    "@kikiutils/eslint-plugin-vue": "^10.2.2",
     "eslint": "^9.35.0",
-    "eslint-flat-config-utils": "^2.1.1"
+    "eslint-flat-config-utils": "^2.1.1",
+    "eslint-plugin-format": "^1.0.2",
+    "eslint-plugin-tailwindcss": "^3.18.2"
   },
   "peerDependenciesMeta": {
+    "@kikiutils/eslint-plugin-tailwindcss": {
+      "optional": true
+    },
+    "@kikiutils/eslint-plugin-vue": {
+      "optional": true
+    },
     "eslint-flat-config-utils": {
+      "optional": true
+    },
+    "eslint-plugin-format": {
+      "optional": true
+    },
+    "eslint-plugin-tailwindcss": {
       "optional": true
     }
   },
   "dependencies": {
     "@antfu/eslint-config": "^6.2.0",
-    "@kikiutils/eslint-plugin-tailwindcss": "^3.19.0",
-    "@kikiutils/eslint-plugin-vue": "^10.2.2",
-    "eslint-plugin-format": "^1.0.2",
-    "eslint-plugin-promise": "^7.2.1",
-    "eslint-plugin-tailwindcss": "^3.18.2"
+    "eslint-plugin-promise": "^7.2.1"
   },
   "devDependencies": {
+    "@kikiutils/eslint-plugin-tailwindcss": "^3.19.0",
+    "@kikiutils/eslint-plugin-vue": "^10.2.2",
     "@kikiutils/tsconfigs": "^5.0.5",
     "@types/node": "^24.10.0",
     "@vitest/coverage-v8": "^4.0.8",
     "changelogen": "^0.6.2",
     "depcheck": "^1.4.7",
     "eslint-flat-config-utils": "^2.1.4",
+    "eslint-plugin-format": "^1.0.2",
+    "eslint-plugin-tailwindcss": "^3.18.2",
     "publint": "^0.3.15",
     "ts-unused-exports": "^11.0.1",
     "tsdown": "^0.16.1",

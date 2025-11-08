@@ -1,4 +1,13 @@
-// eslint-disable-next-line antfu/no-import-dist
-import { createConfig } from './dist/index.js';
+import { antfu } from '@antfu/eslint-config';
 
-export default createConfig('node', { type: 'lib' }).overrideRules({ 'ts/explicit-function-return-type': 'off' });
+// eslint-disable-next-line antfu/no-import-dist
+import { createBaseConfigs } from './dist/base.js';
+
+export default antfu(
+    {
+        type: 'lib',
+        typescript: true,
+    },
+    createBaseConfigs(),
+    { rules: { 'ts/explicit-function-return-type': 'off' } },
+);
