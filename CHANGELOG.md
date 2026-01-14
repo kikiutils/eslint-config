@@ -1,5 +1,21 @@
 # Changelog
 
+## v5.0.1
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v5.0.0...v5.0.1)
+
+### 🏡 Chore
+
+- Update eslint config ([e75c3d7](https://github.com/kikiutils/eslint-config/commit/e75c3d7))
+- Upgrade deps ([4adb44d](https://github.com/kikiutils/eslint-config/commit/4adb44d))
+- Update deps ([912e07e](https://github.com/kikiutils/eslint-config/commit/912e07e))
+- Upgrade deps ([cba24ab](https://github.com/kikiutils/eslint-config/commit/cba24ab))
+- Update `perfectionist/sort-imports` rule groups config ([f9e8e6f](https://github.com/kikiutils/eslint-config/commit/f9e8e6f))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v5.0.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v4.0.1...v5.0.0)
