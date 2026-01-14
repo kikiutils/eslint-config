@@ -1,5 +1,17 @@
 # Changelog
 
+## v5.0.2
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v5.0.1...v5.0.2)
+
+### 🏡 Chore
+
+- Update `perfectionist/sort-enums` rule config ([a4b2658](https://github.com/kikiutils/eslint-config/commit/a4b2658))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v5.0.1
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v5.0.0...v5.0.1)
