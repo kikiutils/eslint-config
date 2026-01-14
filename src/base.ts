@@ -45,7 +45,10 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
                 ],
                 'perfectionist/sort-enums': [
                     'error',
-                    basePerfectionistSortOptions,
+                    {
+                        ...basePerfectionistSortOptions,
+                        sortByValue: 'never',
+                    },
                 ],
                 'perfectionist/sort-heritage-clauses': [
                     'error',
