@@ -10,6 +10,15 @@ const basePerfectionistSortOptions = {
 export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFlatConfigItem[] {
     return [
         {
+            files: ['**/*.{cjs,js,mjs,ts,tsx}'],
+            rules: {
+                'node/prefer-global/process': [
+                    'error',
+                    'always',
+                ],
+            },
+        },
+        {
             files: ['**/*.{cjs,js,mjs,ts,tsx,vue}'],
             plugins: { promise },
             rules: {
@@ -34,10 +43,6 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
                 'no-promise-executor-return': [
                     'error',
                     { allowVoid: true },
-                ],
-                'node/prefer-global/process': [
-                    'error',
-                    'always',
                 ],
                 'perfectionist/sort-array-includes': [
                     'error',
