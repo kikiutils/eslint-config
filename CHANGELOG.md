@@ -1,5 +1,21 @@
 # Changelog
 
+## v5.0.3
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v5.0.2...v5.0.3)
+
+### 🩹 Fixes
+
+- Scope `node/prefer-global/process` rule to exclude `.vue` files ([60de977](https://github.com/kikiutils/eslint-config/commit/60de977))
+
+### 🏡 Chore
+
+- Upgrade deps ([cea0818](https://github.com/kikiutils/eslint-config/commit/cea0818))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v5.0.2
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v5.0.1...v5.0.2)
