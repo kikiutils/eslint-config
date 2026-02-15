@@ -1,5 +1,17 @@
 # Changelog
 
+## v5.0.4
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v5.0.3...v5.0.4)
+
+### 🏡 Chore
+
+- Update deps and `peerDependencies` ([d0e3854](https://github.com/kikiutils/eslint-config/commit/d0e3854))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v5.0.3
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v5.0.2...v5.0.3)
