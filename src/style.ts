@@ -1,5 +1,4 @@
 import type { TypedFlatConfigItem } from '@antfu/eslint-config';
-// @ts-expect-error Ignore this error.
 import format from 'eslint-plugin-format';
 
 function createPrettierCssConfig(parser: 'css' | 'sass' | 'scss'): TypedFlatConfigItem {
