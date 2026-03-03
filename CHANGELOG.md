@@ -1,5 +1,32 @@
 # Changelog
 
+## v6.0.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v5.0.4...v6.0.0)
+
+### 🩹 Fixes
+
+- Adjust `customExports` order in `tsdown.config` to move wildcard (`*`) exports to the end ([0b3f357](https://github.com/kikiutils/eslint-config/commit/0b3f357))
+
+### 💅 Refactors
+
+- ⚠️  Split vscode json rules to single file ([cadff8e](https://github.com/kikiutils/eslint-config/commit/cadff8e))
+
+### 🏡 Chore
+
+- Update vscode settings ([7b2f6f9](https://github.com/kikiutils/eslint-config/commit/7b2f6f9))
+- Upgrade deps ([3e8c7d4](https://github.com/kikiutils/eslint-config/commit/3e8c7d4))
+- Update eslint config ([9d2d735](https://github.com/kikiutils/eslint-config/commit/9d2d735))
+- Remove unused `@ts-expect-error` comment ([80932e1](https://github.com/kikiutils/eslint-config/commit/80932e1))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  Split vscode json rules to single file ([cadff8e](https://github.com/kikiutils/eslint-config/commit/cadff8e))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v5.0.4
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v5.0.3...v5.0.4)
