@@ -12,8 +12,8 @@
   "keywords": [],
   "sideEffects": false,
   "exports": {
-    "./*": "./dist/*.js",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./*": "./dist/*.js"
   },
   "files": [
     "./dist",
