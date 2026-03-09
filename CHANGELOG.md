@@ -1,5 +1,18 @@
 # Changelog
 
+## v7.0.1
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v7.0.0...v7.0.1)
+
+### 🏡 Chore
+
+- Update deps and configs ([6082b0e](https://github.com/kikiutils/eslint-config/commit/6082b0e))
+- Add `rimraf` to `e18e/ban-dependencies` allowed list ([93eb6aa](https://github.com/kikiutils/eslint-config/commit/93eb6aa))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v7.0.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v6.0.0...v7.0.0)
