@@ -10,6 +10,15 @@ const basePerfectionistSortOptions = {
 export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFlatConfigItem[] {
     return [
         {
+            rules: {
+                'e18e/ban-dependencies': [
+                    'error',
+                    { allowed: ['axios'] },
+                ],
+                'e18e/prefer-static-regex': ['off'],
+            },
+        },
+        {
             files: ['**/*.{cjs,js,mjs,ts,tsx}'],
             rules: {
                 'node/prefer-global/process': [
