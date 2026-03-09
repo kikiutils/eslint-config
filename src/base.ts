@@ -80,23 +80,10 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
                 ],
             },
         },
-        // Vue
-        {
-            files: ['**/*.{vue}'],
-            plugins: { promise },
-            rules: {
-                ...createBaseRules(environment),
-                'ts/consistent-generic-constructors': [
-                    'error',
-                    'constructor',
-                ],
-                'ts/no-redeclare': 'off',
-            },
-        },
     ];
 }
 
-function createBaseRules(environment: 'bun' | 'node' = 'node'): Rules {
+export function createBaseRules(environment: 'bun' | 'node' = 'node'): Rules {
     return {
         'antfu/consistent-list-newline': [
             'error',

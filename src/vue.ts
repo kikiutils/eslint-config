@@ -4,17 +4,23 @@ import kikiutilsTailwindcss from '@kikiutils/eslint-plugin-tailwindcss';
 // @ts-expect-error Ignore this error.
 import kikiutilsEslintPluginVue from '@kikiutils/eslint-plugin-vue';
 // @ts-expect-error No declare file.
+import promise from 'eslint-plugin-promise';
+// @ts-expect-error No declare file.
 import tailwindcss from 'eslint-plugin-tailwindcss';
 
-export function createVueConfig(): TypedFlatConfigItem {
+import { createBaseRules } from './base';
+
+export function createVueConfig(environment: 'bun' | 'node' = 'node'): TypedFlatConfigItem {
     return {
         files: ['**/*.vue'],
         plugins: {
             '@kikiutils/tailwindcss': kikiutilsTailwindcss,
             '@kikiutils/vue': kikiutilsEslintPluginVue,
+            promise,
             tailwindcss,
         },
         rules: {
+            ...createBaseRules(environment),
             '@kikiutils/tailwindcss/classnames-order': 'error',
             '@kikiutils/vue/attributes-order': [
                 'error',
