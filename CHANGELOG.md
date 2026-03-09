@@ -1,5 +1,29 @@
 # Changelog
 
+## v7.0.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v6.0.0...v7.0.0)
+
+### 💅 Refactors
+
+- ⚠️  Merge `createVsCodeJsonConfigs` into `createBaseConfigs` and split base configs rules files exts ([8f1d2bc](https://github.com/kikiutils/eslint-config/commit/8f1d2bc))
+
+### 🏡 Chore
+
+- Update eslint config ([77a5f00](https://github.com/kikiutils/eslint-config/commit/77a5f00))
+- Update deps ([d63a322](https://github.com/kikiutils/eslint-config/commit/d63a322))
+- Update deps, tsdown config and package scripts ([5ada952](https://github.com/kikiutils/eslint-config/commit/5ada952))
+- Update base rules ([e194363](https://github.com/kikiutils/eslint-config/commit/e194363))
+- Update deps and configs ([cbdef5f](https://github.com/kikiutils/eslint-config/commit/cbdef5f))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  Merge `createVsCodeJsonConfigs` into `createBaseConfigs` and split base configs rules files exts ([8f1d2bc](https://github.com/kikiutils/eslint-config/commit/8f1d2bc))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v6.0.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v5.0.4...v6.0.0)
