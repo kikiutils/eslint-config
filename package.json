@@ -25,15 +25,15 @@
   "scripts": {
     "build": "tsdown",
     "bumplog": "changelogen --bump --hideAuthorEmail",
-    "depcheck": "depcheck",
+    "knip:deps": "knip --dependencies",
+    "knip:exports": "knip --exports",
     "lint": "eslint --max-warnings 0",
     "lint:fix": "eslint --fix --max-warnings 0",
     "prepack": "pnpm run build",
     "release": "pnpm run lint && pnpm run typecheck && pnpm run test && pnpm run build && changelogen --hideAuthorEmail --push --release && npm publish",
     "test": "vitest run --coverage",
     "test:watch": "vitest watch --coverage",
-    "typecheck": "tsc -b --noEmit",
-    "unused-exports": "ts-unused-exports ./tsconfig.json"
+    "typecheck": "tsc -b --noEmit"
   },
   "peerDependencies": {
     "@kikiutils/eslint-plugin-tailwindcss": "^3.19.0",
@@ -71,12 +71,11 @@
     "@types/node": "^25.3.5",
     "@vitest/coverage-v8": "^4.0.18",
     "changelogen": "^0.6.2",
-    "depcheck": "^1.4.7",
     "eslint-flat-config-utils": "^3.0.1",
     "eslint-plugin-format": "^2.0.1",
     "eslint-plugin-tailwindcss": "^3.18.2",
+    "knip": "^5.86.0",
     "publint": "^0.3.18",
-    "ts-unused-exports": "^11.0.1",
     "tsdown": "^0.21.0",
     "typescript": "^5.9.3",
     "unplugin-unused": "^0.5.7",
