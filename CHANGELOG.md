@@ -1,5 +1,17 @@
 # Changelog
 
+## v7.0.2
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v7.0.1...v7.0.2)
+
+### 🩹 Fixes
+
+- Resolve Vue rules being overwritten ([beb2733](https://github.com/kikiutils/eslint-config/commit/beb2733))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v7.0.1
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v7.0.0...v7.0.1)
