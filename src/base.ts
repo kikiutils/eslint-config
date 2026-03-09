@@ -17,7 +17,12 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
             rules: {
                 'e18e/ban-dependencies': [
                     'error',
-                    { allowed: ['axios'] },
+                    {
+                        allowed: [
+                            'axios',
+                            'rimraf',
+                        ],
+                    },
                 ],
                 'e18e/prefer-static-regex': ['off'],
             },
