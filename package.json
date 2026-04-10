@@ -60,24 +60,24 @@
     }
   },
   "dependencies": {
-    "@antfu/eslint-config": "^7.7.0",
+    "@antfu/eslint-config": "^8.1.1",
     "eslint-plugin-promise": "^7.2.1"
   },
   "devDependencies": {
     "@kikiutils/eslint-plugin-tailwindcss": "^3.19.0",
     "@kikiutils/eslint-plugin-vue": "^10.2.2",
-    "@kikiutils/tsconfigs": "^5.1.0",
-    "@types/node": "^25.3.5",
-    "@vitest/coverage-v8": "^4.0.18",
+    "@kikiutils/tsconfigs": "^6.0.0",
+    "@types/node": "^25.5.2",
+    "@vitest/coverage-v8": "^4.1.4",
     "changelogen": "^0.6.2",
     "eslint-plugin-format": "^2.0.1",
     "eslint-plugin-tailwindcss": "^3.18.2",
-    "knip": "^5.86.0",
+    "knip": "^6.3.1",
     "publint": "^0.3.18",
-    "tsdown": "^0.21.0",
-    "typescript": "^5.9.3",
+    "tsdown": "^0.21.7",
+    "typescript": "^6.0.2",
     "unplugin-unused": "^0.5.7",
-    "vitest": "^4.0.18"
+    "vitest": "^4.1.4"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
