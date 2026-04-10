@@ -1,5 +1,18 @@
 # Changelog
 
+## v7.0.3
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v7.0.2...v7.0.3)
+
+### 🏡 Chore
+
+- Upgrade deps ([f3deede](https://github.com/kikiutils/eslint-config/commit/f3deede))
+- Remove unused `@ts-expect-error` comment ([c5d3e52](https://github.com/kikiutils/eslint-config/commit/c5d3e52))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v7.0.2
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v7.0.1...v7.0.2)
