@@ -1,7 +1,6 @@
 import type { TypedFlatConfigItem } from '@antfu/eslint-config';
 // @ts-expect-error No declare file.
 import kikiutilsTailwindcss from '@kikiutils/eslint-plugin-tailwindcss';
-// @ts-expect-error Ignore this error.
 import kikiutilsEslintPluginVue from '@kikiutils/eslint-plugin-vue';
 // @ts-expect-error No declare file.
 import promise from 'eslint-plugin-promise';
