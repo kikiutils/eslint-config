@@ -1,5 +1,25 @@
 # Changelog
 
+## v8.0.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v7.0.3...v8.0.0)
+
+### 💅 Refactors
+
+- ⚠️  Remove `eslint-plugin-tailwindcss` and migrate to `eslint-plugin-better-tailwindcss` ([68537d8](https://github.com/kikiutils/eslint-config/commit/68537d8))
+
+### 🏡 Chore
+
+- Upgrade deps ([c61eae5](https://github.com/kikiutils/eslint-config/commit/c61eae5))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  Remove `eslint-plugin-tailwindcss` and migrate to `eslint-plugin-better-tailwindcss` ([68537d8](https://github.com/kikiutils/eslint-config/commit/68537d8))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v7.0.3
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v7.0.2...v7.0.3)
