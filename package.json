@@ -60,19 +60,19 @@
     }
   },
   "dependencies": {
-    "@antfu/eslint-config": "^8.1.1",
+    "@antfu/eslint-config": "^8.2.0",
     "eslint-plugin-promise": "^7.2.1"
   },
   "devDependencies": {
     "@kikiutils/eslint-plugin-tailwindcss": "^3.19.0",
     "@kikiutils/eslint-plugin-vue": "^10.2.2",
     "@kikiutils/tsconfigs": "^6.0.0",
-    "@types/node": "^25.5.2",
+    "@types/node": "^25.6.0",
     "@vitest/coverage-v8": "^4.1.4",
     "changelogen": "^0.6.2",
     "eslint-plugin-format": "^2.0.1",
     "eslint-plugin-tailwindcss": "^3.18.2",
-    "knip": "^6.3.1",
+    "knip": "^6.4.1",
     "publint": "^0.3.18",
     "tsdown": "^0.21.7",
     "typescript": "^6.0.2",
