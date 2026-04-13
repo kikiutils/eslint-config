@@ -1,11 +1,8 @@
 import type { TypedFlatConfigItem } from '@antfu/eslint-config';
-// @ts-expect-error No declare file.
-import kikiutilsTailwindcss from '@kikiutils/eslint-plugin-tailwindcss';
 import kikiutilsEslintPluginVue from '@kikiutils/eslint-plugin-vue';
+import betteTailwindcss from 'eslint-plugin-better-tailwindcss';
 // @ts-expect-error No declare file.
 import promise from 'eslint-plugin-promise';
-// @ts-expect-error No declare file.
-import tailwindcss from 'eslint-plugin-tailwindcss';
 
 import { createBaseRules } from './base';
 
@@ -13,24 +10,25 @@ export function createVueConfig(environment: 'bun' | 'node' = 'node'): TypedFlat
     return {
         files: ['**/*.vue'],
         plugins: {
-            '@kikiutils/tailwindcss': kikiutilsTailwindcss,
             '@kikiutils/vue': kikiutilsEslintPluginVue,
+            'better-tailwindcss': betteTailwindcss,
             promise,
-            tailwindcss,
         },
         rules: {
             ...createBaseRules(environment),
-            '@kikiutils/tailwindcss/classnames-order': 'error',
             '@kikiutils/vue/attributes-order': [
                 'error',
                 { alphabetical: true },
             ],
-            '@kikiutils/vue/no-extra-space-in-class': 'error',
+            'better-tailwindcss/enforce-consistent-class-order': 'error',
+            'better-tailwindcss/enforce-consistent-important-position': 'error',
+            'better-tailwindcss/enforce-consistent-variable-syntax': 'error',
+            'better-tailwindcss/enforce-consistent-variant-order': 'error',
+            'better-tailwindcss/enforce-shorthand-classes': 'error',
+            'better-tailwindcss/no-deprecated-classes': 'warn',
+            'better-tailwindcss/no-duplicate-classes': 'error',
+            'better-tailwindcss/no-unnecessary-whitespace': 'error',
             'style/max-len': 'off',
-            'tailwindcss/classnames-order': 'off',
-            'tailwindcss/enforces-negative-arbitrary-values': 'error',
-            'tailwindcss/enforces-shorthand': 'error',
-            'tailwindcss/no-unnecessary-arbitrary-value': 'error',
             'vue/attribute-hyphenation': 'error',
             'vue/attributes-order': 'off',
             'vue/block-order': [
