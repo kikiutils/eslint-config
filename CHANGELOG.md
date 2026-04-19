@@ -1,5 +1,22 @@
 # Changelog
 
+## v9.0.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v8.0.0...v9.0.0)
+
+### 🏡 Chore
+
+- Upgrade deps ([98a3fef](https://github.com/kikiutils/eslint-config/commit/98a3fef))
+- ⚠️  Remove `@kikiutils/eslint-plugin-vue` and related rules ([cf404a2](https://github.com/kikiutils/eslint-config/commit/cf404a2))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  Remove `@kikiutils/eslint-plugin-vue` and related rules ([cf404a2](https://github.com/kikiutils/eslint-config/commit/cf404a2))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v8.0.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v7.0.3...v8.0.0)
