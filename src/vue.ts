@@ -1,5 +1,4 @@
 import type { TypedFlatConfigItem } from '@antfu/eslint-config';
-import kikiutilsEslintPluginVue from '@kikiutils/eslint-plugin-vue';
 import betteTailwindcss from 'eslint-plugin-better-tailwindcss';
 // @ts-expect-error No declare file.
 import promise from 'eslint-plugin-promise';
@@ -10,16 +9,11 @@ export function createVueConfig(environment: 'bun' | 'node' = 'node'): TypedFlat
     return {
         files: ['**/*.vue'],
         plugins: {
-            '@kikiutils/vue': kikiutilsEslintPluginVue,
             'better-tailwindcss': betteTailwindcss,
             promise,
         },
         rules: {
             ...createBaseRules(environment),
-            '@kikiutils/vue/attributes-order': [
-                'error',
-                { alphabetical: true },
-            ],
             'better-tailwindcss/enforce-consistent-class-order': 'error',
             'better-tailwindcss/enforce-consistent-important-position': 'error',
             'better-tailwindcss/enforce-consistent-variable-syntax': 'error',
@@ -30,7 +24,13 @@ export function createVueConfig(environment: 'bun' | 'node' = 'node'): TypedFlat
             'better-tailwindcss/no-unnecessary-whitespace': 'error',
             'style/max-len': 'off',
             'vue/attribute-hyphenation': 'error',
-            'vue/attributes-order': 'off',
+            'vue/attributes-order': [
+                'error',
+                {
+                    alphabetical: true,
+                    sortLineLength: true,
+                },
+            ],
             'vue/block-order': [
                 'error',
                 {

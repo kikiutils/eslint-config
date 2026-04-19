@@ -24,9 +24,6 @@ importers:
       '@html-eslint/parser':
         specifier: ^0.59.0
         version: 0.59.0
-      '@kikiutils/eslint-plugin-vue':
-        specifier: ^10.2.2
-        version: 10.2.2(eslint@9.39.4(jiti@2.6.1))(vue-eslint-parser@10.4.0(eslint@9.39.4(jiti@2.6.1)))
       '@kikiutils/tsconfigs':
         specifier: ^6.0.0
         version: 6.0.0
@@ -353,13 +350,6 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
-
-  '@kikiutils/eslint-plugin-vue@10.2.2':
-    resolution: {integrity: sha512-vNcqjcdQJy7m0GW9LD3w0nIc0yKrJVXZZqlAJ2B35oqArbjiYHAbSDklUxM2rJbrD49La0Q3A9dVBASbuHUMBw==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-    peerDependencies:
-      eslint: ^8.57.0 || ^9.0.0
-      vue-eslint-parser: ^10.0.0
 
   '@kikiutils/tsconfigs@6.0.0':
     resolution: {integrity: sha512-xEqCyrTnprJBna7gpHUHMKv8+pRLC5VRHSeyVHhUSCeWRf5drpty7GoeK1oDov4sbgxta47J7TMM9hYoSTFcQg==}
@@ -2328,10 +2318,6 @@ packages:
   pnpm-workspace-yaml@1.6.0:
     resolution: {integrity: sha512-uUy4dK3E11sp7nK+hnT7uAWfkBMe00KaUw8OG3NuNlYQoTk4sc9pcdIy1+XIP85v9Tvr02mK3JPaNNrP0QyRaw==}
 
-  postcss-selector-parser@6.1.2:
-    resolution: {integrity: sha512-Q8qQfPiZ+THO/3ZrOrO0cJJKfpYCagtMUkXbnEfmgUjwXg6z/WBeOyS9APBBPCTSiDV+s4SwQGu8yFsiMRIudg==}
-    engines: {node: '>=4'}
-
   postcss-selector-parser@7.1.1:
     resolution: {integrity: sha512-orRsuYpJVw8LdAwqqLykBj9ecS5/cRHlI5+nvTo8LcCKmzDmqVORXtOIYEEQuL9D4BxtA1lm5isAqzQZCoQ6Eg==}
     engines: {node: '>=4'}
@@ -3147,17 +3133,6 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
-
-  '@kikiutils/eslint-plugin-vue@10.2.2(eslint@9.39.4(jiti@2.6.1))(vue-eslint-parser@10.4.0(eslint@9.39.4(jiti@2.6.1)))':
-    dependencies:
-      '@eslint-community/eslint-utils': 4.9.1(eslint@9.39.4(jiti@2.6.1))
-      eslint: 9.39.4(jiti@2.6.1)
-      natural-compare: 1.4.0
-      nth-check: 2.1.1
-      postcss-selector-parser: 6.1.2
-      semver: 7.7.4
-      vue-eslint-parser: 10.4.0(eslint@9.39.4(jiti@2.6.1))
-      xml-name-validator: 4.0.0
 
   '@kikiutils/tsconfigs@6.0.0': {}
 
@@ -5179,11 +5154,6 @@ snapshots:
   pnpm-workspace-yaml@1.6.0:
     dependencies:
       yaml: 2.8.3
-
-  postcss-selector-parser@6.1.2:
-    dependencies:
-      cssesc: 3.0.0
-      util-deprecate: 1.0.2
 
   postcss-selector-parser@7.1.1:
     dependencies:
