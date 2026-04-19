@@ -24,13 +24,7 @@ export function createVueConfig(environment: 'bun' | 'node' = 'node'): TypedFlat
             'better-tailwindcss/no-unnecessary-whitespace': 'error',
             'style/max-len': 'off',
             'vue/attribute-hyphenation': 'error',
-            'vue/attributes-order': [
-                'error',
-                {
-                    alphabetical: true,
-                    sortLineLength: true,
-                },
-            ],
+            'vue/attributes-order': 'error',
             'vue/block-order': [
                 'error',
                 {
