@@ -1,5 +1,17 @@
 # Changelog
 
+## v9.0.1
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v9.0.0...v9.0.1)
+
+### 🏡 Chore
+
+- Update `vue/attributes-order` rule ([a0f1a40](https://github.com/kikiutils/eslint-config/commit/a0f1a40))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v9.0.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v8.0.0...v9.0.0)
