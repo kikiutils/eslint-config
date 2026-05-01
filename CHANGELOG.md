@@ -1,5 +1,21 @@
 # Changelog
 
+## v9.1.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v9.0.1...v9.1.0)
+
+### 🚀 Enhancements
+
+- Add `@kikiutils/eslint-plugin-vue` and update vue `attributes-order` related rule ([42e08f3](https://github.com/kikiutils/eslint-config/commit/42e08f3))
+
+### 🏡 Chore
+
+- Upgrade deps ([1d46c4c](https://github.com/kikiutils/eslint-config/commit/1d46c4c))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v9.0.1
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v9.0.0...v9.0.1)
