@@ -37,7 +37,8 @@
   },
   "peerDependencies": {
     "@eslint/css": "^1.1.0",
-    "@html-eslint/parser": "^0.59.0",
+    "@html-eslint/parser": "^0.60.0",
+    "@kikiutils/eslint-plugin-vue": "^10.9.0",
     "eslint": ">= 9.0.0",
     "eslint-plugin-better-tailwindcss": "^4.4.0",
     "eslint-plugin-format": ">= 1.0.0",
@@ -50,6 +51,9 @@
       "optional": true
     },
     "@html-eslint/parser": {
+      "optional": true
+    },
+    "@kikiutils/eslint-plugin-vue": {
       "optional": true
     },
     "eslint": {
@@ -78,6 +82,7 @@
   "devDependencies": {
     "@eslint/css": "^1.2.0",
     "@html-eslint/parser": "^0.60.0",
+    "@kikiutils/eslint-plugin-vue": "^10.9.0",
     "@kikiutils/tsconfigs": "^6.0.0",
     "@types/node": "^25.6.0",
     "@vitest/coverage-v8": "^4.1.5",
