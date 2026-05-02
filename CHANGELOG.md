@@ -1,5 +1,17 @@
 # Changelog
 
+## v9.1.1
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v9.1.0...v9.1.1)
+
+### 🏡 Chore
+
+- Upgrade deps ([db567da](https://github.com/kikiutils/eslint-config/commit/db567da))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v9.1.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v9.0.1...v9.1.0)
