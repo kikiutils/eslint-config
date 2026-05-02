@@ -18,7 +18,10 @@ export function createVueConfig(environment: 'bun' | 'node' = 'node'): TypedFlat
             ...createBaseRules(environment),
             '@kikiutils/vue/attributes-order': [
                 'error',
-                { alphabeticalWithinGroup: true },
+                {
+                    alphabetical: true,
+                    alphabeticalEnhanced: true,
+                },
             ],
             'better-tailwindcss/enforce-consistent-class-order': 'error',
             'better-tailwindcss/enforce-consistent-important-position': 'error',
