@@ -98,10 +98,5 @@
     "unplugin-unused": "^0.5.7",
     "vitest": "^4.1.8",
     "vue-eslint-parser": "^10.4.1"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
   }
 }
