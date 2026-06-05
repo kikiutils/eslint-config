@@ -1,5 +1,24 @@
 # Changelog
 
+## v9.1.3
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v9.1.2...v9.1.3)
+
+### 🏡 Chore
+
+- Add `.gitattributes` ([4645112](https://github.com/kikiutils/eslint-config/commit/4645112))
+- Upgrade deps ([b190ae6](https://github.com/kikiutils/eslint-config/commit/b190ae6))
+- Remove pnpm config from package.json ([e0736b1](https://github.com/kikiutils/eslint-config/commit/e0736b1))
+- Tidy up deps list ([a6db657](https://github.com/kikiutils/eslint-config/commit/a6db657))
+
+### 🤖 CI
+
+- Update node versions ([8f4edfd](https://github.com/kikiutils/eslint-config/commit/8f4edfd))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v9.1.2
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v9.1.1...v9.1.2)
