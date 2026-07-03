@@ -1,5 +1,27 @@
 # Changelog
 
+## v9.2.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v9.1.3...v9.2.0)
+
+### 🚀 Enhancements
+
+- **vue:** Enable class hex color case rule ([fc5703e](https://github.com/kikiutils/eslint-config/commit/fc5703e))
+
+### 🏡 Chore
+
+- Add `.omx/` to `.gitignore` ([a9a8cfa](https://github.com/kikiutils/eslint-config/commit/a9a8cfa))
+- Move `@antfu/eslint-config` to `peerDependencies` ([20f3247](https://github.com/kikiutils/eslint-config/commit/20f3247))
+- Update scripts ([723523c](https://github.com/kikiutils/eslint-config/commit/723523c))
+
+### ✅ Tests
+
+- Add config factory unit tests ([dd391d7](https://github.com/kikiutils/eslint-config/commit/dd391d7))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v9.1.3
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v9.1.2...v9.1.3)
