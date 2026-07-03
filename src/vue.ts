@@ -23,6 +23,7 @@ export function createVueConfig(environment: 'bun' | 'node' = 'node'): TypedFlat
                     alphabeticalEnhanced: true,
                 },
             ],
+            '@kikiutils/vue/class-hex-color-case': 'error',
             'better-tailwindcss/enforce-consistent-class-order': 'error',
             'better-tailwindcss/enforce-consistent-important-position': 'error',
             'better-tailwindcss/enforce-consistent-variable-syntax': 'error',

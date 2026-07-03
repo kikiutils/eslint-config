@@ -13,6 +13,9 @@ describe.concurrent('vue config factory', () => {
         expect(config.plugins).toHaveProperty('@kikiutils/vue');
         expect(config.plugins).toHaveProperty('better-tailwindcss');
         expect(config.plugins).toHaveProperty('promise');
+        expect((config.plugins?.['@kikiutils/vue'] as { rules?: Record<string, unknown> }).rules)
+            .toHaveProperty('class-hex-color-case');
+
         expect(config.rules).toMatchObject({
             '@kikiutils/vue/attributes-order': [
                 'error',
@@ -21,6 +24,7 @@ describe.concurrent('vue config factory', () => {
                     alphabeticalEnhanced: true,
                 },
             ],
+            '@kikiutils/vue/class-hex-color-case': 'error',
             'better-tailwindcss/enforce-consistent-class-order': 'error',
             'better-tailwindcss/no-deprecated-classes': 'warn',
             'better-tailwindcss/no-duplicate-classes': 'error',
