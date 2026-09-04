@@ -1,5 +1,24 @@
 # Changelog
 
+## v9.2.1
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v9.2.0...v9.2.1)
+
+### 🏡 Chore
+
+- Ignore local AI tooling artifacts ([7cf272b](https://github.com/kikiutils/eslint-config/commit/7cf272b))
+- Update `modify-files-permissions.sh` ([c56f31f](https://github.com/kikiutils/eslint-config/commit/c56f31f))
+- Update `modify-files-permissions.sh` ([249c4c8](https://github.com/kikiutils/eslint-config/commit/249c4c8))
+- Update `modify-files-permissions.sh` ([4c193c3](https://github.com/kikiutils/eslint-config/commit/4c193c3))
+- Update `.gitignore` ([5d5bbc5](https://github.com/kikiutils/eslint-config/commit/5d5bbc5))
+- Upgrade deps ([e983174](https://github.com/kikiutils/eslint-config/commit/e983174))
+- Update `pnpm-workspace.yaml` ([341c673](https://github.com/kikiutils/eslint-config/commit/341c673))
+- Add `pnpm-workspace.yaml` ([bcd3c17](https://github.com/kikiutils/eslint-config/commit/bcd3c17))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v9.2.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v9.1.3...v9.2.0)
