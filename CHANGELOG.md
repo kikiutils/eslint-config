@@ -1,5 +1,34 @@
 # Changelog
 
+## v9.3.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v9.2.1...v9.3.0)
+
+### 🚀 Enhancements
+
+- Enforce consistent parameter layouts ([dc3849a](https://github.com/kikiutils/eslint-config/commit/dc3849a))
+- Enforce consistent condition layouts ([2ba3a94](https://github.com/kikiutils/eslint-config/commit/2ba3a94))
+- Enforce compact iteration headers ([cdbae8a](https://github.com/kikiutils/eslint-config/commit/cdbae8a))
+- Enforce padding between complete statements ([0779ee1](https://github.com/kikiutils/eslint-config/commit/0779ee1))
+- Enforce arrow expression bodies where appropriate ([eef4919](https://github.com/kikiutils/eslint-config/commit/eef4919))
+
+### 🩹 Fixes
+
+- Preserve intentional single-parameter line breaks ([aeb09d3](https://github.com/kikiutils/eslint-config/commit/aeb09d3))
+- Expand multiline parameter lists and exempt test calls ([163819c](https://github.com/kikiutils/eslint-config/commit/163819c))
+
+### 🏡 Chore
+
+- Update `pnpm-workspace.yaml` ([fe5e43f](https://github.com/kikiutils/eslint-config/commit/fe5e43f))
+- Update `pnpm-workspace.yaml` ([5f000dd](https://github.com/kikiutils/eslint-config/commit/5f000dd))
+- Upgrade deps ([4f0b8da](https://github.com/kikiutils/eslint-config/commit/4f0b8da))
+- Update `.gitignore` ([87bd40c](https://github.com/kikiutils/eslint-config/commit/87bd40c))
+- Update ignore files ([d91f81e](https://github.com/kikiutils/eslint-config/commit/d91f81e))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v9.2.1
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v9.2.0...v9.2.1)
