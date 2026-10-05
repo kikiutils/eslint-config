@@ -81,19 +81,19 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^9.5.1",
-    "@kikiutils/eslint-plugin-vue": "^10.10.0",
+    "@kikiutils/eslint-config": "^9.2.1",
     "@kikiutils/tsconfigs": "^7.0.0",
-    "@types/node": "^26.4.1",
-    "@vitest/coverage-v8": "^4.1.11",
+    "@types/node": "^26.6.4",
+    "@vitest/coverage-v8": "^5.0.3",
     "changelogen": "^0.6.2",
-    "eslint": "^10.9.1",
+    "eslint": "^10.12.0",
     "eslint-plugin-better-tailwindcss": "^4.7.0",
     "eslint-plugin-format": "^2.0.1",
-    "knip": "^6.34.0",
-    "publint": "^0.3.24",
-    "tsdown": "^0.22.14",
+    "knip": "^6.39.0",
+    "publint": "^0.3.25",
+    "tsdown": "^0.23.0",
     "typescript": "^6.0.3",
     "unplugin-unused": "^0.6.0",
-    "vitest": "^4.1.11"
+    "vitest": "^5.0.3"
   }
 }
