@@ -105,6 +105,10 @@ export function createBaseRules(environment: 'bun' | 'node' = 'node'): Rules {
         'antfu/curly': 'off',
         'antfu/if-newline': 'off',
         'antfu/no-top-level-await': 'off',
+        'arrow-body-style': [
+            'error',
+            'as-needed',
+        ],
         'curly': [
             'error',
             'multi-line',
