@@ -17,6 +17,11 @@
       "import": null,
       "require": null
     },
+    "./internals/rules/compact-iteration-layout": {
+      "types": null,
+      "import": null,
+      "require": null
+    },
     "./internals/rules/consistent-condition-layout": {
       "types": null,
       "import": null,

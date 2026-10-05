@@ -109,6 +109,7 @@ export function createBaseRules(environment: 'bun' | 'node' = 'node'): Rules {
             'error',
             'multi-line',
         ],
+        'kikiutils/compact-iteration-layout': 'error',
         'kikiutils/consistent-condition-layout': 'error',
         'kikiutils/consistent-parameter-layout': 'error',
         'max-classes-per-file': [

@@ -38,12 +38,15 @@ describe('consistent-condition-layout', () => {
         'const value = (a ?? b\n    ?? c);',
         'fn({\n    key: 2,\n});',
         'function fn(\n    value,\n) {}',
-    ])('should preserve an already valid or unrelated expression: %s', (input, { expect }) => {
-        const result = new Linter().verifyAndFix(input, ruleConfig);
-        expect(result.messages).toEqual([]);
-        expect(result.output).toBe(input);
-        expect(result.fixed).toBe(false);
-    });
+    ])(
+        'should preserve an already valid or unrelated expression: %s',
+        (input, { expect }) => {
+            const result = new Linter().verifyAndFix(input, ruleConfig);
+            expect(result.messages).toEqual([]);
+            expect(result.output).toBe(input);
+            expect(result.fixed).toBe(false);
+        },
+    );
 
     it.for([
         [
