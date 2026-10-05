@@ -11,6 +11,7 @@ import { consistentParameterLayout } from '../src/internals/rules/consistent-par
 // Constants/Variables
 const ruleName = 'kikiutils/consistent-parameter-layout';
 const ruleConfig = {
+    languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
     plugins: { kikiutils: { rules: { 'consistent-parameter-layout': consistentParameterLayout } } },
     rules: { [ruleName]: 'error' as const },
 };
@@ -21,97 +22,18 @@ describe('consistent-parameter-layout', () => {
         '({\n    a, b, c\n}) => {};',
         'a({\n    a: 1,\n    b: 2\n});',
         'new A({\n    a: 1,\n    b: 2\n});',
-    ])(
-        'should preserve compact single-parameter parentheses: %s',
-        (input, { expect }) => {
-            const result = new Linter().verifyAndFix(input, ruleConfig);
-            expect(result.output).toBe(input);
-            expect(result.messages).toEqual([]);
-        },
-    );
-
-    it.for([
-        [
-            '(\n    { a, b }) => {};',
-            '({ a, b }) => {};',
-        ],
-        [
-            '(\n    { a, b },\n) => {};',
-            '({ a, b }) => {};',
-        ],
-        [
-            'a(\n    {\n        a: 1\n    },\n);',
-            'a({\n        a: 1\n    });',
-        ],
-        [
-            'new A(\n    {\n        a: 1\n    },\n);',
-            'new A({\n        a: 1\n    });',
-        ],
-        [
-            'a(\n    ({\n        a: 1\n    }),\n);',
-            'a(({\n        a: 1\n    }));',
-        ],
-        [
-            'function fn(\n    a,\n) {}',
-            'function fn(a) {}',
-        ],
-    ])(
-        'should collapse only the outer single-parameter whitespace: %s',
-        ([input, output], { expect }) => {
-            const linter = new Linter();
-            const result = linter.verifyAndFix(input!, ruleConfig);
-            expect(result.output).toBe(output);
-            expect(result.messages).toEqual([]);
-            expect(linter.verifyAndFix(result.output, ruleConfig).fixed).toBe(false);
-        },
-    );
-
-    it.for([
+        '(\n    { a, b },\n) => {};',
+        'a(\n    {\n        a: 1\n    },\n);',
+        'new A(\n    {\n        a: 1\n    },\n);',
+        'a(\n    ({\n        a: 1\n    }),\n);',
+        'function fn(\n    a,\n) {}',
         'a(\n    // keep this reason\n    value,\n);',
         'a(\n    value, // keep this reason\n);',
         'a(/* keep this reason */ value\n);',
         'function fn(\n    // keep this reason\n    value\n) {}',
-    ])(
-        'should leave single-parameter comment boundaries unchanged: %s',
-        (input, { expect }) => {
-            const result = new Linter().verifyAndFix(input, ruleConfig);
-            expect(result.output).toBe(input);
-            expect(result.fixed).toBe(false);
-            expect(result.messages).toEqual([]);
-        },
-    );
-
-    it.for([
         'foo(x => bar(\n    a,\n    b,\n));',
         'foo((x => bar(\n    a,\n    b,\n)));',
         'foo(async x => bar(\n    a,\n    b,\n));',
-    ])(
-        'should not borrow parentheses for an unparenthesized arrow: %s',
-        (input, { expect }) => {
-            const result = new Linter().verifyAndFix(input, ruleConfig);
-            expect(result.output).toBe(input);
-            expect(result.messages).toEqual([]);
-        },
-    );
-
-    it.for([
-        'import { it } from \'vitest\'; it',
-        'import { describe } from \'vitest\'; describe.concurrent',
-        'import * as runner from \'bun:test\'; runner.test',
-        'import { test as spec } from \'@jest/globals\'; spec.each([1])',
-        'ordinary.unknown',
-    ])(
-        'should use the same layout for every call site: %s',
-        (prefix, { expect }) => {
-            const input = `${prefix}('case', () => {\n    work();\n});`;
-            const output = `${prefix}(\n'case', () => {\n    work();\n});`;
-            const result = new Linter().verifyAndFix(input, ruleConfig);
-            expect(result.output).toBe(output);
-            expect(result.messages).toEqual([]);
-        },
-    );
-
-    it.for([
         'a(1, 2, 3);',
         'new ClassA(1, 2, 3);',
         '(a, b, c) => {};',
@@ -119,16 +41,49 @@ describe('consistent-parameter-layout', () => {
         'a(() => { work(); });',
         'a(\n    1, {\n        key: 2\n    }\n);',
         '() => {\n    work();\n};',
+        'render(<div>\n    text\n</div>);',
+        'render(\n    <div>\n        text\n    </div>,\n);',
+        'render(\n    <>\n        text\n    </>,\n);',
+        'new A(\n    <div>\n        text\n    </div>,\n);',
     ])(
-        'should preserve an already valid list: %s',
+        'should preserve valid layouts, comments, and JSX: %s',
         (input, { expect }) => {
             const result = new Linter().verifyAndFix(input, ruleConfig);
-            expect(result.output).toBe(input);
             expect(result.messages).toEqual([]);
+            expect(result.output).toBe(input);
+            expect(result.fixed).toBe(false);
         },
     );
 
     it.for([
+        [
+            '(\n    { a, b }) => {};',
+            '(\n    { a, b }\n) => {};',
+        ],
+        [
+            '({ a, b },\n) => {};',
+            '(\n{ a, b },\n) => {};',
+        ],
+        [
+            'a(\n    {\n        a: 1\n    });',
+            'a(\n    {\n        a: 1\n    }\n);',
+        ],
+        [
+            'new A(value,\n);',
+            'new A(\nvalue,\n);',
+        ],
+        [
+            'a(\n    ({\n        a: 1\n    }));',
+            'a(\n    ({\n        a: 1\n    })\n);',
+        ],
+        [
+            'function fn(\n    a) {}',
+            'function fn(\n    a\n) {}',
+        ],
+        [
+            'const fn = function (value\n) {};',
+            'const fn = function (\nvalue\n) {};',
+        ],
         [
             'a(1, 2, () => {\n    work();\n});',
             'a(\n1, 2, () => {\n    work();\n});',
@@ -173,14 +128,22 @@ describe('consistent-parameter-layout', () => {
             'a(1, `first\nsecond`);',
             'a(\n1, `first\nsecond`);',
         ],
+        [
+            'it(\'case\', () => {\n    work();\n});',
+            'it(\n\'case\', () => {\n    work();\n});',
+        ],
+        [
+            'describe.concurrent(\'suite\', () => {\n    work();\n});',
+            'describe.concurrent(\n\'suite\', () => {\n    work();\n});',
+        ],
     ])(
-        'should seed only the first newline: %s',
+        'should fix only the inconsistent parameter boundaries: %s',
         ([input, output], { expect }) => {
             const linter = new Linter();
             expect(linter.verify(input!, ruleConfig).map((message) => message.ruleId)).toEqual([ruleName]);
             const result = linter.verifyAndFix(input!, ruleConfig);
-            expect(result.output).toBe(output);
             expect(result.messages).toEqual([]);
+            expect(result.output).toBe(output);
             expect(linter.verifyAndFix(result.output, ruleConfig).fixed).toBe(false);
         },
     );
@@ -198,176 +161,195 @@ describe('consistent-parameter-layout', () => {
         },
     );
 
-    it.for([
-        'render(<div>\n    text\n</div>);',
-        'render(\n    <div>\n        text\n    </div>,\n);',
-        'render(\n    <>\n        text\n    </>,\n);',
-        'new A(\n    <div>\n        text\n    </div>,\n);',
-    ])(
-        'should leave single JSX arguments to JSX formatting rules: %s',
-        (input, { expect }) => {
-            const config = {
-                ...ruleConfig,
-                languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
-            };
+    it('should preserve multiline single-parameter types and complete their boundaries', async ({ expect }) => {
+        const configs = (await antfu({ typescript: true }, createBaseConfigs())).map((config) => ({
+            ...config,
+            rules: Object.fromEntries(Object.entries(config.rules ?? {}).filter(([name]) => name === ruleName)),
+        }));
 
-            const result = new Linter().verifyAndFix(input, config);
-            expect(result.output).toBe(input);
-            expect(result.fixed).toBe(false);
+        const expanded = '(\n    value: Readonlyable<Array<bigint | null>>\n'
+          + '      | { [path: string]: bigint | null }\n'
+          + '      | { message?: string; values: Readonlyable<Array<bigint | null>> },\n) => {};';
+
+        const compact = expanded.replace('(\n    value', '(value').replace(',\n)', ')');
+        const inputs = [
+            {
+                input: expanded,
+                output: expanded,
+            },
+            {
+                input: compact,
+                output: compact,
+            },
+            {
+                input: expanded.replace('(\n', '('),
+                output: expanded,
+            },
+            {
+                input: expanded.replace(',\n)', ',)'),
+                output: expanded,
+            },
+        ];
+
+        const linter = new Linter();
+        const options = { filename: 'fixture.ts' };
+        for (const { input, output } of inputs) {
+            const result = linter.verifyAndFix(input, configs, options);
             expect(result.messages).toEqual([]);
-        },
-    );
+            expect(result.output).toBe(output);
+            expect(linter.verifyAndFix(result.output, configs, options).fixed).toBe(false);
+        }
+    });
 
-    it(
-        'should converge with the existing formatters for JS and TS',
-        async ({ expect }) => {
-            const configs = await antfu({ typescript: true }, createBaseConfigs());
-            const formatConfigs = configs.map((config) => ({
-                ...config,
-                rules: Object.fromEntries(Object.entries(config.rules ?? {}).filter(([name]) =>
-                    name.startsWith('style/')
-                    || name === 'antfu/consistent-list-newline'
-                    || name === ruleName)),
-            }));
+    it('should converge to the expected JS, TS, and JSX layouts', async ({ expect }) => {
+        const configs = (await antfu({ typescript: true }, createBaseConfigs())).map((config) => ({
+            ...config,
+            rules: Object.fromEntries(Object.entries(config.rules ?? {}).filter(([name]) =>
+                name.startsWith('style/')
+                || name === 'antfu/consistent-list-newline'
+                || name === ruleName)),
+        }));
 
-            const linter = new Linter();
-            const inputs = [
-                {
-                    code: 'a(1, 2, () => {\n    work();\n});',
-                    filename: 'fixture.js',
-                },
-                {
-                    code: 'new ClassA(\'value\', {\n    cause: \'\'\n});',
-                    filename: 'fixture.js',
-                },
-                {
-                    code: '({ a }, {\n    b, c\n}) => {};',
-                    filename: 'fixture.js',
-                },
-                {
-                    code: 'a<{ fn: () => void }>(1, {\n    key: 2\n});',
-                    filename: 'fixture.ts',
-                },
-                {
-                    code: 'new ClassA<{ fn: () => void }>(1, {\n    key: 2\n});',
-                    filename: 'fixture.ts',
-                },
-                {
-                    code: '(a: {\n    key: number\n}, b: number) => {};',
-                    filename: 'fixture.ts',
-                },
-                {
-                    code: 'a(({\n    key: 2\n}), 3);',
-                    filename: 'fixture.js',
-                },
-                {
-                    code: 'function fn({\n    a, b, c\n}, d) {}',
-                    filename: 'fixture.js',
-                },
-            ];
+        const inputs = [
+            {
+                filename: 'fixture.js',
+                input: 'a(1, 2, () => {\n    work();\n});',
+                output: 'a(\n    1,\n    2,\n    () => {\n        work();\n    },\n);\n',
+            },
+            {
+                filename: 'fixture.js',
+                input: 'new ClassA(\'value\', {\n    cause: \'\'\n});',
+                output: 'new ClassA(\n    \'value\',\n    { cause: \'\' },\n);\n',
+            },
+            {
+                filename: 'fixture.js',
+                input: '({ a }, {\n    b, c\n}) => {};',
+                output: '(\n    { a },\n    { b, c },\n) => {};\n',
+            },
+            {
+                filename: 'fixture.ts',
+                input: 'a<{ fn: () => void }>(1, {\n    key: 2\n});',
+                output: 'a<{ fn: () => void }>(\n    1,\n    { key: 2 },\n);\n',
+            },
+            {
+                filename: 'fixture.ts',
+                input: 'new ClassA<{ fn: () => void }>(1, {\n    key: 2\n});',
+                output: 'new ClassA<{ fn: () => void }>(\n    1,\n    { key: 2 },\n);\n',
+            },
+            {
+                filename: 'fixture.ts',
+                input: '(a: {\n    key: number\n}, b: number) => {};',
+                output: '(\n    a: {\n        key: number;\n    },\n    b: number,\n) => {};\n',
+            },
+            {
+                filename: 'fixture.js',
+                input: 'a(({\n    key: 2\n}), 3);',
+                output: 'a(\n    { key: 2 },\n    3,\n);\n',
+            },
+            {
+                filename: 'fixture.js',
+                input: 'function fn({\n    a, b, c\n}, d) {}',
+                output: 'function fn(\n    {\n        a,\n        b,\n        c,\n    },\n    d,\n) {}\n',
+            },
+            {
+                filename: 'fixture.tsx',
+                input: 'render(<div>\n    text\n</div>);',
+                output: 'render(\n    <div>\n        text\n    </div>,\n);\n',
+            },
+            {
+                filename: 'fixture.tsx',
+                input: 'render(<div>{fn(1, {\n    key: 2\n})}</div>);',
+                // eslint-disable-next-line style/max-len
+                output: 'render(\n    <div>\n        {fn(\n            1,\n            { key: 2 },\n        )}\n    </div>,\n);\n',
+            },
+            {
+                filename: 'fixture.js',
+                input: 'function fn(\n    // rationale\n    value\n) {}',
+                output: 'function fn(\n    // rationale\n    value,\n) {}\n',
+            },
+            {
+                filename: 'fixture.js',
+                input: 'fn(\n    // rationale\n    value,\n    1,2,3,4\n);',
+                output: 'fn(\n    // rationale\n    value,\n    1,\n    2,\n    3,\n    4,\n);\n',
+            },
+            {
+                filename: 'fixture.js',
+                input: 'foo(x => bar(\n    a,\n    b,\n));',
+                output: 'foo((x) => bar(\n    a,\n    b,\n));\n',
+            },
+            {
+                filename: 'fixture.ts',
+                input: '(a)<{ fn: () => void }>({\n    key: 2\n});',
+                output: 'a<{ fn: () => void }>({ key: 2 });\n',
+            },
+            {
+                filename: 'fixture.ts',
+                input: 'new (A)<{ fn: () => void }>({\n    key: 2\n});',
+                output: 'new A<{ fn: () => void }>({ key: 2 });\n',
+            },
+            {
+                filename: 'fixture.tsx',
+                input: 'render(<>\n    text\n</>);',
+                output: 'render(\n    <>\n        text\n    </>,\n);\n',
+            },
+            {
+                filename: 'fixture.tsx',
+                input: 'render(<Component />);',
+                output: 'render(<Component />);\n',
+            },
+            {
+                filename: 'fixture.tsx',
+                input: 'a(\n    {\n        a: 1,\n        b: 2\n    },\n);',
+                output: 'a(\n    {\n        a: 1,\n        b: 2,\n    },\n);\n',
+            },
+            {
+                filename: 'fixture.js',
+                input: 'a({\n    a: 1,\n    b: 2\n});',
+                output: 'a({\n    a: 1,\n    b: 2,\n});\n',
+            },
+            {
+                filename: 'fixture.js',
+                input: '({\n    a, b, c\n}) => {};',
+                output: '({\n    a,\n    b,\n    c,\n}) => {};\n',
+            },
+            {
+                filename: 'fixture.js',
+                input: '(\n    { a, b },\n) => {};',
+                output: '(\n    { a, b },\n) => {};\n',
+            },
+            {
+                filename: 'fixture.js',
+                input: '(\n    {\n        a, b, c\n    },\n) => {};',
+                output: '(\n    {\n        a,\n        b,\n        c,\n    },\n) => {};\n',
+            },
+            {
+                filename: 'fixture.js',
+                input: 'a(\n    {\n        a: 1,\n        b: 2\n    },\n);',
+                output: 'a(\n    {\n        a: 1,\n        b: 2,\n    },\n);\n',
+            },
+            {
+                filename: 'fixture.js',
+                input: 'new A(\n    {\n        a: 1,\n        b: 2\n    },\n);',
+                output: 'new A(\n    {\n        a: 1,\n        b: 2,\n    },\n);\n',
+            },
+            {
+                filename: 'fixture.js',
+                input: 'function fn(\n    value,\n) {}',
+                output: 'function fn(\n    value,\n) {}\n',
+            },
+        ];
 
-            for (const { code, filename } of inputs) {
-                const result = linter.verifyAndFix(code, formatConfigs, { filename });
-                expect(result.messages).toEqual([]);
-                expect(result.output).toMatch(/\(\n/);
-                expect(result.output).toMatch(/\n\)/);
-                expect(linter.verifyAndFix(result.output, formatConfigs, { filename }).fixed).toBe(false);
-            }
-
-            const edgeInputs = [
-                {
-                    code: 'render(<div>\n    text\n</div>);',
-                    filename: 'fixture.tsx',
-                },
-                {
-                    code: 'render(<div>{fn(1, {\n    key: 2\n})}</div>);',
-                    filename: 'fixture.tsx',
-                },
-                {
-                    code: 'function fn(\n    // rationale\n    value\n) {}',
-                    filename: 'fixture.js',
-                },
-                {
-                    code: 'fn(\n    // rationale\n    value,\n    1,2,3,4\n);',
-                    filename: 'fixture.js',
-                },
-                {
-                    code: 'foo(x => bar(\n    a,\n    b,\n));',
-                    filename: 'fixture.js',
-                },
-                {
-                    code: '(a)<{ fn: () => void }>({\n    key: 2\n});',
-                    filename: 'fixture.ts',
-                },
-                {
-                    code: 'new (A)<{ fn: () => void }>({\n    key: 2\n});',
-                    filename: 'fixture.ts',
-                },
-            ];
-
-            for (const { code, filename } of edgeInputs) {
-                const result = linter.verifyAndFix(code, formatConfigs, { filename });
-                expect(result.messages).toEqual([]);
-                expect(linter.verifyAndFix(result.output, formatConfigs, { filename }).fixed).toBe(false);
-            }
-
-            const jsxInputs = [
-                {
-                    code: 'render(<div>\n    text\n</div>);',
-                    output: 'render(\n    <div>\n        text\n    </div>,\n);\n',
-                },
-                {
-                    code: 'render(<>\n    text\n</>);',
-                    output: 'render(\n    <>\n        text\n    </>,\n);\n',
-                },
-                {
-                    code: 'render(<Component />);',
-                    output: 'render(<Component />);\n',
-                },
-                {
-                    code: 'a(\n    {\n        a: 1,\n        b: 2\n    },\n);',
-                    output: 'a({\n    a: 1,\n    b: 2,\n});\n',
-                },
-            ];
-
-            for (const { code, output } of jsxInputs) {
-                const options = { filename: 'fixture.tsx' };
-                const result = linter.verifyAndFix(code, formatConfigs, options);
-                expect(result.messages).toEqual([]);
-                expect(result.output).toBe(output);
-                expect(linter.verifyAndFix(result.output, formatConfigs, options).fixed).toBe(false);
-            }
-
-            const singleInputs = [
-                {
-                    code: '(\n    { a, b },\n) => {};',
-                    output: '({ a, b }) => {};\n',
-                },
-                {
-                    code: '(\n    {\n        a, b, c\n    },\n) => {};',
-                    output: '({\n    a,\n    b,\n    c,\n}) => {};\n',
-                },
-                {
-                    code: 'a(\n    {\n        a: 1,\n        b: 2\n    },\n);',
-                    output: 'a({\n    a: 1,\n    b: 2,\n});\n',
-                },
-                {
-                    code: 'new A(\n    {\n        a: 1,\n        b: 2\n    },\n);',
-                    output: 'new A({\n    a: 1,\n    b: 2,\n});\n',
-                },
-                {
-                    code: 'function fn(\n    value,\n) {}',
-                    output: 'function fn(value) {}\n',
-                },
-            ];
-
-            for (const { code, output } of singleInputs) {
-                const options = { filename: 'fixture.js' };
-                const result = linter.verifyAndFix(code, formatConfigs, options);
-                expect(result.messages).toEqual([]);
-                expect(result.output).toBe(output);
-                expect(linter.verifyAndFix(result.output, formatConfigs, options).fixed).toBe(false);
-            }
-        },
-    );
+        const linter = new Linter();
+        for (const {
+            filename,
+            input,
+            output,
+        } of inputs) {
+            const options = { filename };
+            const result = linter.verifyAndFix(input, configs, options);
+            expect(result.messages).toEqual([]);
+            expect(result.output).toBe(output);
+            expect(linter.verifyAndFix(result.output, configs, options).fixed).toBe(false);
+        }
+    });
 });

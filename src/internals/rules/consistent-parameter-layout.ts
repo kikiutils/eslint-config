@@ -12,7 +12,7 @@ type FunctionNode = Extract<
 type ListItem = CallNode['arguments'][number] | FunctionNode['params'][number];
 type TokenStore = Pick<
     SourceCode,
-    'commentsExistBetween' | 'getFirstToken' | 'getLastToken' | 'getTokenAfter' | 'getTokenBefore' | 'getTokensBetween'
+    'commentsExistBetween' | 'getLastToken' | 'getTokenAfter' | 'getTokenBefore' | 'getTokensBetween'
 >;
 
 interface TemplateParserServices {
@@ -57,8 +57,7 @@ export const consistentParameterLayout: Rule.RuleModule = {
                 openingParen = tokenStore.getTokenBefore(first);
             }
 
-            const firstToken = tokenStore.getFirstToken(first);
-            if (!openingParen || openingParen.value !== '(' || !firstToken) return;
+            if (!openingParen || openingParen.value !== '(') return;
             // An unparenthesized arrow must not borrow its parent's delimiters.
             if (openingParen.range[0] < node.range![0]) return;
             const closingParen = node.type === 'CallExpression' || node.type === 'NewExpression'
@@ -70,34 +69,23 @@ export const consistentParameterLayout: Rule.RuleModule = {
             if (isSingleParameter) {
                 if (!closingParen || closingParen.value !== ')') return;
                 let previous = tokenStore.getTokenBefore(closingParen)!;
-                const hasTrailingComma = previous.value === ',';
-                if (hasTrailingComma) previous = tokenStore.getTokenBefore(previous)!;
+                if (previous.value === ',') previous = tokenStore.getTokenBefore(previous)!;
                 if (
                     tokenStore.commentsExistBetween(openingParen, next)
                     || tokenStore.commentsExistBetween(previous, closingParen)
                 ) return;
 
-                const removalRanges: [number, number][] = [];
-                if (openingParen.loc.end.line !== next.loc.start.line) {
-                    removalRanges.push([
-                        openingParen.range[1],
-                        next.range[0],
-                    ]);
-                }
+                const hasOpeningNewline = openingParen.loc.end.line !== next.loc.start.line;
+                const hasClosingNewline = tokenStore.getTokenBefore(closingParen)!.loc.end.line
+                  !== closingParen.loc.start.line;
 
-                if (hasTrailingComma || previous.loc.end.line !== closingParen.loc.start.line) {
-                    removalRanges.push([
-                        previous.range[1],
-                        closingParen.range[0],
-                    ]);
-                }
-
-                if (!removalRanges.length) return;
-                if (removalRanges.some(([start, end]) => !/^[\s,]*$/.test(sourceCode.text.slice(start, end)))) return;
+                if (hasOpeningNewline === hasClosingNewline) return;
 
                 context.report({
-                    fix: (fixer) => removalRanges.map((range) => fixer.removeRange(range)),
-                    messageId: 'inlineSingle',
+                    fix: (fixer) => hasOpeningNewline
+                        ? fixer.insertTextBefore(closingParen, '\n')
+                        : fixer.insertTextAfter(openingParen, '\n'),
+                    messageId: 'singleBoundary',
                     node,
                 });
 
@@ -140,7 +128,7 @@ export const consistentParameterLayout: Rule.RuleModule = {
                 return;
             }
 
-            if (openingParen.loc.end.line !== firstToken.loc.start.line) return;
+            if (openingParen.loc.end.line !== next.loc.start.line) return;
 
             context.report({
                 fix: (fixer) => fixer.insertTextAfter(openingParen, '\n'),
@@ -172,11 +160,11 @@ export const consistentParameterLayout: Rule.RuleModule = {
         );
     },
     meta: {
-        docs: { description: 'Inline single non-JSX parameters and expand lists with multiline parameters.' },
-        fixable: 'code',
+        docs: { description: 'Preserve consistent single-parameter boundaries and expand multiline parameter lists.' },
+        fixable: 'whitespace',
         messages: {
-            inlineSingle: 'Keep the parentheses beside a single parameter.',
             newline: 'Start the parameter list on a new line when a parameter is multiline.',
+            singleBoundary: 'Use matching newline boundaries around a single parameter.',
         },
         schema: [],
         type: 'layout',
