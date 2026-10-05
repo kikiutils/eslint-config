@@ -13,6 +13,8 @@ type ListItem = CallNode['arguments'][number] | FunctionNode['params'][number];
 
 export const consistentParameterLayout: Rule.RuleModule = {
     create(context) {
+        const isTestFile = /\.test\.[jt]sx?$/.test(context.filename);
+
         function checkParameterLayout(
             node: Rule.Node,
             items: readonly ListItem[],
@@ -26,11 +28,6 @@ export const consistentParameterLayout: Rule.RuleModule = {
             // JSX argument layout belongs to the JSX formatting rules.
             const firstType: string = first.type;
             if (isSingleParameter && (firstType === 'JSXElement' || firstType === 'JSXFragment')) return;
-            if (
-                !isSingleParameter
-                && !items.some((item) => item.loc && item.loc.start.line !== item.loc.end.line)
-            ) return;
-
             let openingParen;
             if (node.type === 'CallExpression' || node.type === 'NewExpression') {
                 const call = node as CallNode;
@@ -77,6 +74,8 @@ export const consistentParameterLayout: Rule.RuleModule = {
                 return;
             }
 
+            if (!closingParen || openingParen.loc.start.line === closingParen.loc.end.line) return;
+
             if (isTemplate) {
                 // Script list formatters do not traverse Vue template expressions.
                 const newlineOffsets: number[] = [];
@@ -92,7 +91,7 @@ export const consistentParameterLayout: Rule.RuleModule = {
                 }
 
                 if (
-                    closingParen?.value === ')'
+                    closingParen.value === ')'
                     && tokenStore.getTokenBefore(closingParen)!.loc.end.line === closingParen.loc.start.line
                 ) newlineOffsets.push(closingParen.range[0]);
 
@@ -125,7 +124,24 @@ export const consistentParameterLayout: Rule.RuleModule = {
         function createVisitor(tokenStore: TokenStore, isTemplate: boolean): Rule.RuleListener {
             return {
                 ArrowFunctionExpression: (node) => checkParameterLayout(node, node.params, tokenStore, isTemplate),
-                CallExpression: (node) => checkParameterLayout(node, node.arguments, tokenStore, isTemplate),
+                CallExpression: (node) => {
+                    const { callee } = node;
+                    if (isTestFile) {
+                        const target = callee.type === 'MemberExpression'
+                          && !callee.computed
+                          && callee.property.type === 'Identifier'
+                          && callee.property.name === 'concurrent'
+                            ? callee.object
+                            : callee;
+
+                        if (
+                            target.type === 'Identifier'
+                            && (target.name === 'describe' || target.name === 'it')
+                        ) return;
+                    }
+
+                    checkParameterLayout(node, node.arguments, tokenStore, isTemplate);
+                },
                 FunctionDeclaration: (node) => checkParameterLayout(node, node.params, tokenStore, isTemplate),
                 FunctionExpression: (node) => checkParameterLayout(node, node.params, tokenStore, isTemplate),
                 NewExpression: (node) => checkParameterLayout(node, node.arguments, tokenStore, isTemplate),
@@ -138,7 +154,7 @@ export const consistentParameterLayout: Rule.RuleModule = {
         docs: { description: 'Preserve consistent single-parameter boundaries and expand multiline parameter lists.' },
         fixable: 'whitespace',
         messages: {
-            newline: 'Start the parameter list on a new line when a parameter is multiline.',
+            newline: 'Start a multiline parameter list on a new line.',
             singleBoundary: 'Use matching newline boundaries around a single parameter.',
         },
         schema: [],

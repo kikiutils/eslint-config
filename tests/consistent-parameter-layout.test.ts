@@ -57,6 +57,18 @@ describe('consistent-parameter-layout', () => {
 
     it.for([
         [
+            'fn(a,\n    b, c);',
+            'fn(\na,\n    b, c);',
+        ],
+        [
+            'new A(a,\n    b, c);',
+            'new A(\na,\n    b, c);',
+        ],
+        [
+            '(a,\n    b, c) => {};',
+            '(\na,\n    b, c) => {};',
+        ],
+        [
             '(\n    { a, b }) => {};',
             '(\n    { a, b }\n) => {};',
         ],
@@ -213,6 +225,18 @@ describe('consistent-parameter-layout', () => {
         const inputs = [
             {
                 filename: 'fixture.js',
+                input: 'fn(a,\n    b, c);',
+                output: 'fn(\n    a,\n    b,\n    c,\n);\n',
+            },
+            {
+                filename: 'fixture.js',
+                // eslint-disable-next-line style/max-len
+                input: 'function fn() { return defineScriptAndTemplateVisitors(context.sourceCode, createVisitor, 1, 2, 3, 4, 5, 5, 5,\n    5, 5\n    , 5, 5); }',
+                // eslint-disable-next-line style/max-len
+                output: 'function fn() {\n    return defineScriptAndTemplateVisitors(\n        context.sourceCode,\n        createVisitor,\n        1,\n        2,\n        3,\n        4,\n        5,\n        5,\n        5,\n        5,\n        5,\n        5,\n        5,\n    );\n}\n',
+            },
+            {
+                filename: 'fixture.js',
                 input: 'a(1, 2, () => {\n    work();\n});',
                 output: 'a(\n    1,\n    2,\n    () => {\n        work();\n    },\n);\n',
             },
@@ -351,5 +375,93 @@ describe('consistent-parameter-layout', () => {
             expect(result.output).toBe(output);
             expect(linter.verifyAndFix(result.output, configs, options).fixed).toBe(false);
         }
+    });
+});
+
+describe('test-call exceptions', () => {
+    const config = {
+        ...ruleConfig,
+        files: ['**/*.{js,jsx,ts,tsx}'],
+    };
+
+    it.for([
+        'fixture.test.js',
+        'fixture.test.jsx',
+        'fixture.test.ts',
+        'fixture.test.tsx',
+    ])(
+        'should skip only the test calls themselves in %s',
+        (filename, { expect }) => {
+            for (const callee of [
+                'describe',
+                'describe.concurrent',
+                'it',
+                'it.concurrent',
+            ]) {
+                const input = `${callee}('case', () => {\n    work();\n});`;
+                const result = new Linter().verifyAndFix(input, config, { filename });
+                expect(result.messages).toEqual([]);
+                expect(result.output).toBe(input);
+                expect(result.fixed).toBe(false);
+            }
+        },
+    );
+
+    it.for([
+        [
+            'fixture.js',
+            'it',
+        ],
+        [
+            'fixture.spec.ts',
+            'describe.concurrent',
+        ],
+        [
+            'fixture.test.ts.js',
+            'it.concurrent',
+        ],
+        [
+            'fixture.test.js',
+            'it.only',
+        ],
+        [
+            'fixture.test.js',
+            'describe.skip',
+        ],
+        [
+            'fixture.test.js',
+            'suite.it',
+        ],
+        [
+            'fixture.test.js',
+            'it.concurrent.each',
+        ],
+        [
+            'fixture.test.js',
+            'it["concurrent"]',
+        ],
+    ])(
+        'should retain other calls and filenames: %s',
+        ([filename, callee], { expect }) => {
+            const input = `${callee}('case', () => {\n    work();\n});`;
+            const messages = new Linter().verify(input, config, { filename: filename! });
+            expect(messages.map((message) => message.ruleId)).toEqual([ruleName]);
+        },
+    );
+
+    it('should still check callbacks and calls inside an excluded test call', ({ expect }) => {
+        const input = 'it.concurrent(\'case\', (a, {\n    b\n}) => { fn(1,\n    2); });';
+        const output = 'it.concurrent(\'case\', (\na, {\n    b\n}) => { fn(\n1,\n    2); });';
+        const linter = new Linter();
+        const options = { filename: 'fixture.test.ts' };
+        expect(linter.verify(input, config, options).map((message) => message.ruleId)).toEqual([
+            ruleName,
+            ruleName,
+        ]);
+
+        const result = linter.verifyAndFix(input, config, options);
+        expect(result.messages).toEqual([]);
+        expect(result.output).toBe(output);
+        expect(linter.verifyAndFix(result.output, config, options).fixed).toBe(false);
     });
 });
