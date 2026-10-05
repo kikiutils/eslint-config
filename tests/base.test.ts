@@ -39,6 +39,7 @@ describe.concurrent('base eslint config factory', () => {
         });
 
         expect(configs[1]?.plugins).toHaveProperty('promise');
+        expect(configs[1]?.plugins).toHaveProperty('kikiutils.rules.statement-padding');
         expect(configs[1]?.plugins).toHaveProperty('kikiutils.rules.compact-iteration-layout');
         expect(configs[1]?.plugins).toHaveProperty('kikiutils.rules.consistent-parameter-layout');
         expect(configs[1]?.plugins).toHaveProperty('kikiutils.rules.consistent-condition-layout');
@@ -58,6 +59,7 @@ describe.concurrent('base eslint config factory', () => {
         });
 
         expect(configs[2]?.plugins).toHaveProperty('promise');
+        expect(configs[2]?.plugins).toHaveProperty('kikiutils.rules.statement-padding');
         expect(configs[2]?.plugins).toHaveProperty('kikiutils.rules.compact-iteration-layout');
         expect(configs[2]?.plugins).toHaveProperty('kikiutils.rules.consistent-parameter-layout');
         expect(configs[2]?.plugins).toHaveProperty('kikiutils.rules.consistent-condition-layout');
@@ -150,6 +152,7 @@ describe.concurrent('base eslint config factory', () => {
             'kikiutils/compact-iteration-layout': 'error',
             'kikiutils/consistent-condition-layout': 'error',
             'kikiutils/consistent-parameter-layout': 'error',
+            'kikiutils/statement-padding': 'error',
             'max-classes-per-file': [
                 'error',
                 1,

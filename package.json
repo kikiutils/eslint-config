@@ -32,6 +32,11 @@
       "import": null,
       "require": null
     },
+    "./internals/rules/statement-padding": {
+      "types": null,
+      "import": null,
+      "require": null
+    },
     "./internals/utils": {
       "types": null,
       "import": null,
