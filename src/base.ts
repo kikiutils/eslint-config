@@ -5,11 +5,15 @@ import type {
 // @ts-expect-error No declare file.
 import promise from 'eslint-plugin-promise';
 
+import { customPlugins } from './internals/plugins';
+
+// Constants/Variables
 const basePerfectionistSortOptions = {
     ignoreCase: false,
     type: 'natural',
 } as const;
 
+// Functions
 export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFlatConfigItem[] {
     return [
         // All files
@@ -30,7 +34,10 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
         // JavaScript
         {
             files: ['**/*.{cjs,js,mjs}'],
-            plugins: { promise },
+            plugins: {
+                kikiutils: customPlugins,
+                promise,
+            },
             rules: {
                 ...createBaseRules(environment),
                 'node/prefer-global/process': [
@@ -42,7 +49,10 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
         // TypeScript
         {
             files: ['**/*.{ts,tsx}'],
-            plugins: { promise },
+            plugins: {
+                kikiutils: customPlugins,
+                promise,
+            },
             rules: {
                 ...createBaseRules(environment),
                 'node/prefer-global/process': [
@@ -99,6 +109,7 @@ export function createBaseRules(environment: 'bun' | 'node' = 'node'): Rules {
             'error',
             'multi-line',
         ],
+        'kikiutils/consistent-parameter-layout': 'error',
         'max-classes-per-file': [
             'error',
             1,

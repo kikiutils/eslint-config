@@ -5,6 +5,7 @@ import betteTailwindcss from 'eslint-plugin-better-tailwindcss';
 import promise from 'eslint-plugin-promise';
 
 import { createBaseRules } from './base';
+import { customPlugins } from './internals/plugins';
 
 export function createVueConfig(environment: 'bun' | 'node' = 'node'): TypedFlatConfigItem {
     return {
@@ -12,6 +13,7 @@ export function createVueConfig(environment: 'bun' | 'node' = 'node'): TypedFlat
         plugins: {
             '@kikiutils/vue': kikiutilsEslintPluginVue,
             'better-tailwindcss': betteTailwindcss,
+            'kikiutils': customPlugins,
             promise,
         },
         rules: {
