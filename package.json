@@ -12,6 +12,26 @@
   "keywords": [],
   "sideEffects": false,
   "exports": {
+    "./internals/plugins": {
+      "types": null,
+      "import": null,
+      "require": null
+    },
+    "./internals/rules/consistent-condition-layout": {
+      "types": null,
+      "import": null,
+      "require": null
+    },
+    "./internals/rules/consistent-parameter-layout": {
+      "types": null,
+      "import": null,
+      "require": null
+    },
+    "./internals/utils": {
+      "types": null,
+      "import": null,
+      "require": null
+    },
     "./package.json": "./package.json",
     "./*": "./dist/*.js"
   },

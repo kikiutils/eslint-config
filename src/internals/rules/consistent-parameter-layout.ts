@@ -1,7 +1,7 @@
-import type {
-    Rule,
-    SourceCode,
-} from 'eslint';
+import type { Rule } from 'eslint';
+
+import type { TokenStore } from '../utils';
+import { defineScriptAndTemplateVisitors } from '../utils';
 
 type CallNode = Extract<Rule.Node, { type: 'CallExpression' | 'NewExpression' }> & { typeArguments?: Rule.Node };
 type FunctionNode = Extract<
@@ -10,24 +10,9 @@ type FunctionNode = Extract<
 >;
 
 type ListItem = CallNode['arguments'][number] | FunctionNode['params'][number];
-type TokenStore = Pick<
-    SourceCode,
-    'commentsExistBetween' | 'getLastToken' | 'getTokenAfter' | 'getTokenBefore' | 'getTokensBetween'
->;
-
-interface TemplateParserServices {
-    defineTemplateBodyVisitor?: (
-        templateVisitor: Rule.RuleListener,
-        scriptVisitor: Rule.RuleListener,
-    ) => Rule.RuleListener;
-
-    getTemplateBodyTokenStore?: () => TokenStore;
-}
 
 export const consistentParameterLayout: Rule.RuleModule = {
     create(context) {
-        const { sourceCode } = context;
-
         function checkParameterLayout(
             node: Rule.Node,
             items: readonly ListItem[],
@@ -137,7 +122,7 @@ export const consistentParameterLayout: Rule.RuleModule = {
             });
         }
 
-        function createVisitor(tokenStore: TokenStore, isTemplate = false): Rule.RuleListener {
+        function createVisitor(tokenStore: TokenStore, isTemplate: boolean): Rule.RuleListener {
             return {
                 ArrowFunctionExpression: (node) => checkParameterLayout(node, node.params, tokenStore, isTemplate),
                 CallExpression: (node) => checkParameterLayout(node, node.arguments, tokenStore, isTemplate),
@@ -147,17 +132,7 @@ export const consistentParameterLayout: Rule.RuleModule = {
             };
         }
 
-        const scriptVisitor = createVisitor(sourceCode);
-        const parserServices = sourceCode.parserServices as TemplateParserServices;
-        if (
-            !parserServices.defineTemplateBodyVisitor
-            || !parserServices.getTemplateBodyTokenStore
-        ) return scriptVisitor;
-
-        return parserServices.defineTemplateBodyVisitor(
-            createVisitor(parserServices.getTemplateBodyTokenStore(), true),
-            scriptVisitor,
-        );
+        return defineScriptAndTemplateVisitors(context.sourceCode, createVisitor);
     },
     meta: {
         docs: { description: 'Preserve consistent single-parameter boundaries and expand multiline parameter lists.' },

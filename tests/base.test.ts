@@ -40,6 +40,7 @@ describe.concurrent('base eslint config factory', () => {
 
         expect(configs[1]?.plugins).toHaveProperty('promise');
         expect(configs[1]?.plugins).toHaveProperty('kikiutils.rules.consistent-parameter-layout');
+        expect(configs[1]?.plugins).toHaveProperty('kikiutils.rules.consistent-condition-layout');
         expect(configs[2]).toMatchObject({
             files: ['**/*.{ts,tsx}'],
             rules: {
@@ -57,6 +58,7 @@ describe.concurrent('base eslint config factory', () => {
 
         expect(configs[2]?.plugins).toHaveProperty('promise');
         expect(configs[2]?.plugins).toHaveProperty('kikiutils.rules.consistent-parameter-layout');
+        expect(configs[2]?.plugins).toHaveProperty('kikiutils.rules.consistent-condition-layout');
         expect(configs[3]).toMatchObject({
             files: ['**/.vscode/*.json'],
             rules: {
@@ -143,6 +145,7 @@ describe.concurrent('base eslint config factory', () => {
                 'error',
                 'multi-line',
             ],
+            'kikiutils/consistent-condition-layout': 'error',
             'kikiutils/consistent-parameter-layout': 'error',
             'max-classes-per-file': [
                 'error',
