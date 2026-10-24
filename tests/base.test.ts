@@ -145,6 +145,7 @@ describe.concurrent('base eslint config factory', () => {
 
         expect(rules).toMatchObject({
             'antfu/no-top-level-await': 'off',
+            'antfu/reasonable-newline': 'off',
             'arrow-body-style': [
                 'error',
                 'as-needed',
