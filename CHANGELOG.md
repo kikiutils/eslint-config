@@ -1,5 +1,25 @@
 # Changelog
 
+## v9.3.1
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v9.3.0...v9.3.1)
+
+### 🩹 Fixes
+
+- **deps:** Pin TypeScript ESLint plugin to avoid false positives ([eadca5a](https://github.com/kikiutils/eslint-config/commit/eadca5a))
+- Disable conflicting antfu reasonable-newline rule ([2190a62](https://github.com/kikiutils/eslint-config/commit/2190a62))
+
+### 🏡 Chore
+
+- Update `modify-files-permissions.sh` ([e5d2bee](https://github.com/kikiutils/eslint-config/commit/e5d2bee))
+- Update `pnpm-workspace.yaml` ([307ba57](https://github.com/kikiutils/eslint-config/commit/307ba57))
+- Remove `@typescript-eslint/eslint-plugin` from `overrides` ([9a7922a](https://github.com/kikiutils/eslint-config/commit/9a7922a))
+- Upgrade deps ([91952ad](https://github.com/kikiutils/eslint-config/commit/91952ad))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v9.3.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v9.2.1...v9.3.0)
