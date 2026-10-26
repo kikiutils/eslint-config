@@ -4,8 +4,8 @@ import betteTailwindcss from 'eslint-plugin-better-tailwindcss';
 // @ts-expect-error No declare file.
 import promise from 'eslint-plugin-promise';
 
+import { customPlugins } from './_internals/plugins';
 import { createBaseRules } from './base';
-import { customPlugins } from './internals/plugins';
 
 export function createVueConfig(environment: 'bun' | 'node' = 'node'): TypedFlatConfigItem {
     return {

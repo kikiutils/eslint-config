@@ -5,7 +5,7 @@ import type {
 // @ts-expect-error No declare file.
 import promise from 'eslint-plugin-promise';
 
-import { customPlugins } from './internals/plugins';
+import { customPlugins } from './_internals/plugins';
 
 // Constants/Variables
 const basePerfectionistSortOptions = {

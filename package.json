@@ -12,32 +12,32 @@
   "keywords": [],
   "sideEffects": false,
   "exports": {
-    "./internals/plugins": {
+    "./_internals/plugins": {
       "types": null,
       "import": null,
       "require": null
     },
-    "./internals/rules/compact-iteration-layout": {
+    "./_internals/rules/compact-iteration-layout": {
       "types": null,
       "import": null,
       "require": null
     },
-    "./internals/rules/consistent-condition-layout": {
+    "./_internals/rules/consistent-condition-layout": {
       "types": null,
       "import": null,
       "require": null
     },
-    "./internals/rules/consistent-parameter-layout": {
+    "./_internals/rules/consistent-parameter-layout": {
       "types": null,
       "import": null,
       "require": null
     },
-    "./internals/rules/statement-padding": {
+    "./_internals/rules/statement-padding": {
       "types": null,
       "import": null,
       "require": null
     },
-    "./internals/utils": {
+    "./_internals/utils": {
       "types": null,
       "import": null,
       "require": null

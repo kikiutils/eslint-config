@@ -5,8 +5,8 @@ import {
     it,
 } from 'vitest';
 
+import { consistentParameterLayout } from '../src/_internals/rules/consistent-parameter-layout';
 import { createBaseConfigs } from '../src/base';
-import { consistentParameterLayout } from '../src/internals/rules/consistent-parameter-layout';
 
 // Constants/Variables
 const ruleName = 'kikiutils/consistent-parameter-layout';

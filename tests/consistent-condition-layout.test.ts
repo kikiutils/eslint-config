@@ -5,8 +5,8 @@ import {
     it,
 } from 'vitest';
 
+import { consistentConditionLayout } from '../src/_internals/rules/consistent-condition-layout';
 import { createBaseConfigs } from '../src/base';
-import { consistentConditionLayout } from '../src/internals/rules/consistent-condition-layout';
 import { createVueConfig } from '../src/vue';
 
 const ruleName = 'kikiutils/consistent-condition-layout';

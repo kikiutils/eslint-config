@@ -5,8 +5,8 @@ import {
     it,
 } from 'vitest';
 
+import { statementPadding } from '../src/_internals/rules/statement-padding';
 import { createBaseConfigs } from '../src/base';
-import { statementPadding } from '../src/internals/rules/statement-padding';
 import { createVueConfig } from '../src/vue';
 
 const ruleName = 'kikiutils/statement-padding';

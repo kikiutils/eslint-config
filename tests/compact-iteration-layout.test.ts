@@ -5,8 +5,8 @@ import {
     it,
 } from 'vitest';
 
+import { compactIterationLayout } from '../src/_internals/rules/compact-iteration-layout';
 import { createBaseConfigs } from '../src/base';
-import { compactIterationLayout } from '../src/internals/rules/compact-iteration-layout';
 import { createVueConfig } from '../src/vue';
 
 const ruleName = 'kikiutils/compact-iteration-layout';
