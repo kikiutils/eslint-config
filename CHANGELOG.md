@@ -1,5 +1,26 @@
 # Changelog
 
+## v9.3.2
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v9.3.1...v9.3.2)
+
+### 💅 Refactors
+
+- Rename internals directory to _internals ([7159720](https://github.com/kikiutils/eslint-config/commit/7159720))
+- Bundle lint configuration dependencies ([335f801](https://github.com/kikiutils/eslint-config/commit/335f801))
+
+### 📦 Build
+
+- Pin TypeScript override and organize maintenance scripts ([b878c55](https://github.com/kikiutils/eslint-config/commit/b878c55))
+
+### 🏡 Chore
+
+- Update `minimumReleaseAgeExcludes` ([362ebd7](https://github.com/kikiutils/eslint-config/commit/362ebd7))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v9.3.1
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v9.3.0...v9.3.1)
