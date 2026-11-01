@@ -12,38 +12,10 @@
   "keywords": [],
   "sideEffects": false,
   "exports": {
-    "./_internals/plugins": {
-      "types": null,
-      "import": null,
-      "require": null
-    },
-    "./_internals/rules/compact-iteration-layout": {
-      "types": null,
-      "import": null,
-      "require": null
-    },
-    "./_internals/rules/consistent-condition-layout": {
-      "types": null,
-      "import": null,
-      "require": null
-    },
-    "./_internals/rules/consistent-parameter-layout": {
-      "types": null,
-      "import": null,
-      "require": null
-    },
-    "./_internals/rules/statement-padding": {
-      "types": null,
-      "import": null,
-      "require": null
-    },
-    "./_internals/utils": {
-      "types": null,
-      "import": null,
-      "require": null
-    },
-    "./package.json": "./package.json",
-    "./*": "./dist/*.js"
+    "./base": "./dist/base.js",
+    "./style": "./dist/style.js",
+    "./vue": "./dist/vue.js",
+    "./package.json": "./package.json"
   },
   "files": [
     "./dist",
