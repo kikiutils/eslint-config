@@ -11,7 +11,7 @@ import { consistentConditionLayout } from '../src/_internals/rules/consistent-co
 import { createBaseConfigs } from '../src/base';
 import { createVueConfig } from '../src/vue';
 
-import { filterRules } from './utils';
+import { createSyntaxConfigs } from './utils';
 
 const ruleId = 'kikiutils/consistent-condition-layout';
 const ruleConfig = {
@@ -132,7 +132,7 @@ describe('consistent-condition-layout', () => {
         let configs: TypedFlatConfigItem[];
 
         beforeAll(async () => {
-            configs = filterRules(
+            configs = createSyntaxConfigs(
                 await antfu(
                     {
                         typescript: true,

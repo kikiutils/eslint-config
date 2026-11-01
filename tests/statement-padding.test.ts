@@ -11,7 +11,10 @@ import { statementPadding } from '../src/_internals/rules/statement-padding';
 import { createBaseConfigs } from '../src/base';
 import { createVueConfig } from '../src/vue';
 
-import { filterRules } from './utils';
+import {
+    createSyntaxConfigs,
+    filterRules,
+} from './utils';
 
 const ruleId = 'kikiutils/statement-padding';
 const ruleConfig = {
@@ -163,7 +166,7 @@ describe('statement-padding', () => {
         let configs: TypedFlatConfigItem[];
 
         beforeAll(async () => {
-            configs = filterRules(
+            configs = createSyntaxConfigs(
                 await antfu(
                     {
                         typescript: true,

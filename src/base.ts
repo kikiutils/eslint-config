@@ -2,10 +2,12 @@ import type {
     Rules,
     TypedFlatConfigItem,
 } from '@antfu/eslint-config';
+import { GLOB_TESTS } from '@antfu/eslint-config';
 // @ts-expect-error No declare file.
 import promise from 'eslint-plugin-promise';
 
 import { customPlugins } from './_internals/plugins';
+import { createTypeAwareConfig } from './_internals/type-aware';
 
 // Constants/Variables
 const basePerfectionistSortOptions = {
@@ -90,6 +92,22 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
                 ],
             },
         },
+        // Tests
+        {
+            files: GLOB_TESTS,
+            rules: {
+                'test/valid-expect': 'error',
+                'test/valid-expect-in-promise': 'error',
+            },
+        },
+        // Type-aware TypeScript
+        {
+            ...createTypeAwareConfig(),
+            files: ['**/*.{ts,tsx}'],
+            ignores: ['**/*.config.ts'],
+        },
+        // Ignore all extracted Markdown code blocks, but keep linting Markdown itself.
+        { ignores: ['**/*.md/**'] },
     ];
 }
 
@@ -122,6 +140,7 @@ export function createBaseRules(environment: 'bun' | 'node' = 'node'): Rules {
             'error',
             1,
         ],
+        'no-constant-binary-expression': 'error',
         'no-promise-executor-return': [
             'error',
             { allowVoid: true },

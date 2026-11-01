@@ -11,7 +11,7 @@ import { consistentParameterLayout } from '../src/_internals/rules/consistent-pa
 import { createBaseConfigs } from '../src/base';
 import { createVueConfig } from '../src/vue';
 
-import { filterRules } from './utils';
+import { createSyntaxConfigs } from './utils';
 
 const ruleId = 'kikiutils/consistent-parameter-layout';
 const ruleConfig = {
@@ -177,7 +177,7 @@ describe('consistent-parameter-layout', () => {
         let configs: TypedFlatConfigItem[];
 
         beforeAll(async () => {
-            configs = filterRules(
+            configs = createSyntaxConfigs(
                 await antfu({ typescript: true }, createBaseConfigs()),
                 (id) => id === ruleId,
             );
@@ -223,7 +223,7 @@ describe('consistent-parameter-layout', () => {
         let configs: TypedFlatConfigItem[];
 
         beforeAll(async () => {
-            configs = filterRules(
+            configs = createSyntaxConfigs(
                 await antfu({ typescript: true }, createBaseConfigs()),
                 (id) => id.startsWith('style/')
                   || id === 'antfu/consistent-list-newline'
@@ -546,7 +546,7 @@ describe('test-call layout', () => {
         let configs: TypedFlatConfigItem[];
 
         beforeAll(async () => {
-            configs = filterRules(
+            configs = createSyntaxConfigs(
                 await antfu({ typescript: true }, createBaseConfigs()),
                 (id) => id.startsWith('style/')
                   || id === 'antfu/consistent-list-newline'
@@ -624,7 +624,7 @@ describe('consistent-parameter-layout in Vue', () => {
             createVueConfig(),
         );
 
-        formatConfigs = filterRules(
+        formatConfigs = createSyntaxConfigs(
             configs,
             (id) => id.startsWith('style/')
               || id === 'vue/html-indent'
@@ -632,7 +632,7 @@ describe('consistent-parameter-layout in Vue', () => {
               || id === ruleId,
         );
 
-        ruleConfigs = filterRules(configs, (id) => id === ruleId);
+        ruleConfigs = createSyntaxConfigs(configs, (id) => id === ruleId);
     });
 
     const expressions = [

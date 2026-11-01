@@ -5,11 +5,14 @@ import betteTailwindcss from 'eslint-plugin-better-tailwindcss';
 import promise from 'eslint-plugin-promise';
 
 import { customPlugins } from './_internals/plugins';
+import { createTypeAwareConfig } from './_internals/type-aware';
 import { createBaseRules } from './base';
 
 export function createVueConfig(environment: 'bun' | 'node' = 'node'): TypedFlatConfigItem {
+    const typeAwareConfig = createTypeAwareConfig();
     return {
         files: ['**/*.vue'],
+        languageOptions: typeAwareConfig.languageOptions,
         plugins: {
             '@kikiutils/vue': kikiutilsEslintPluginVue,
             'better-tailwindcss': betteTailwindcss,
@@ -18,6 +21,7 @@ export function createVueConfig(environment: 'bun' | 'node' = 'node'): TypedFlat
         },
         rules: {
             ...createBaseRules(environment),
+            ...typeAwareConfig.rules,
             '@kikiutils/vue/attributes-order': [
                 'error',
                 {

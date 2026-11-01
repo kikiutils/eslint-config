@@ -7,7 +7,7 @@ import {
 
 import { createVueConfig } from '../src/vue';
 
-import { filterRules } from './utils';
+import { createSyntaxConfigs } from './utils';
 
 describe.concurrent('vue config factory', () => {
     it('should apply the registered parameter layout rule to both script and template', async ({ expect }) => {
@@ -19,7 +19,7 @@ describe.concurrent('vue config factory', () => {
             createVueConfig(),
         );
 
-        const formatConfigs = filterRules(
+        const formatConfigs = createSyntaxConfigs(
             configs,
             (ruleId) => ruleId.startsWith('style/')
               || ruleId === 'vue/html-indent'
@@ -41,6 +41,12 @@ describe.concurrent('vue config factory', () => {
         const config = createVueConfig();
 
         expect(config.files).toStrictEqual(['**/*.vue']);
+        expect(config.ignores).toBeUndefined();
+        expect(config.languageOptions?.parserOptions).toMatchObject({
+            projectService: true,
+            tsconfigRootDir: process.cwd(),
+        });
+
         expect(config.plugins).toHaveProperty('@kikiutils/vue');
         expect(config.plugins).toHaveProperty('better-tailwindcss');
         expect(config.plugins).toHaveProperty('promise');
@@ -61,7 +67,21 @@ describe.concurrent('vue config factory', () => {
             'better-tailwindcss/no-deprecated-classes': 'warn',
             'better-tailwindcss/no-duplicate-classes': 'error',
             'promise/no-return-wrap': 'error',
+            'require-await': 'off',
             'style/max-len': 'off',
+            'ts/await-thenable': 'error',
+            'ts/no-base-to-string': 'error',
+            'ts/no-floating-promises': 'error',
+            'ts/no-for-in-array': 'error',
+            'ts/no-misused-promises': 'error',
+            'ts/no-misused-spread': 'error',
+            'ts/no-unnecessary-type-assertion': 'error',
+            'ts/require-await': 'error',
+            'ts/return-await': 'error',
+            'ts/switch-exhaustiveness-check': [
+                'error',
+                { considerDefaultExhaustiveForUnions: true },
+            ],
             'vue/block-order': [
                 'error',
                 {

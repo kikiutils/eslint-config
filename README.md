@@ -26,6 +26,13 @@ You can also use `yarn`, `npm`, or `bun`.
 
 ## Usage
 
+TypeScript and Vue configs enable type-aware checks using TypeScript's Project Service.
+Linted files must belong to a discoverable `tsconfig.json`; project references are supported.
+The default setup does not require an additional `typescript.tsconfigPath` option.
+JavaScript files retain syntax-only linting.
+TypeScript tool configs (`*.config.ts`) are excluded from type-aware checks.
+Base configs keep linting Markdown itself, but exclude its code blocks from all lint rules.
+
 ## License
 
 [MIT License](./LICENSE)

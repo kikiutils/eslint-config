@@ -1,4 +1,11 @@
+import type { TypedFlatConfigItem } from '@antfu/eslint-config';
 import {
+    antfu,
+    GLOB_TESTS,
+} from '@antfu/eslint-config';
+import { Linter } from 'eslint';
+import {
+    beforeAll,
     describe,
     it,
 } from 'vitest';
@@ -8,11 +15,13 @@ import {
     createBaseRules,
 } from '../src/base';
 
+import { createSyntaxConfigs } from './utils';
+
 describe.concurrent('base eslint config factory', () => {
-    it('creates layered configs for shared, js, ts, and vscode json files', ({ expect }) => {
+    it('creates layered configs for shared, js, ts, vscode json, and test files', ({ expect }) => {
         const configs = createBaseConfigs();
 
-        expect(configs).toHaveLength(4);
+        expect(configs).toHaveLength(7);
         expect(configs[0]).toMatchObject({
             rules: {
                 'e18e/ban-dependencies': [
@@ -86,6 +95,43 @@ describe.concurrent('base eslint config factory', () => {
                 ],
             },
         });
+
+        expect(configs[4]).toMatchObject({
+            files: GLOB_TESTS,
+            rules: {
+                'test/valid-expect': 'error',
+                'test/valid-expect-in-promise': 'error',
+            },
+        });
+
+        expect(configs[5]).toMatchObject({
+            files: ['**/*.{ts,tsx}'],
+            ignores: ['**/*.config.ts'],
+            languageOptions: {
+                parserOptions: {
+                    projectService: true,
+                    tsconfigRootDir: process.cwd(),
+                },
+            },
+            rules: {
+                'require-await': 'off',
+                'ts/await-thenable': 'error',
+                'ts/no-base-to-string': 'error',
+                'ts/no-floating-promises': 'error',
+                'ts/no-for-in-array': 'error',
+                'ts/no-misused-promises': 'error',
+                'ts/no-misused-spread': 'error',
+                'ts/no-unnecessary-type-assertion': 'error',
+                'ts/require-await': 'error',
+                'ts/return-await': 'error',
+                'ts/switch-exhaustiveness-check': [
+                    'error',
+                    { considerDefaultExhaustiveForUnions: true },
+                ],
+            },
+        });
+
+        expect(configs[6]).toEqual({ ignores: ['**/*.md/**'] });
     });
 
     it('uses node import sorting by default and forwards explicit bun environment', ({ expect }) => {
@@ -162,6 +208,7 @@ describe.concurrent('base eslint config factory', () => {
                 'error',
                 1,
             ],
+            'no-constant-binary-expression': 'error',
             'no-promise-executor-return': [
                 'error',
                 { allowVoid: true },
@@ -182,6 +229,74 @@ describe.concurrent('base eslint config factory', () => {
                 'error',
                 'always',
             ],
+        });
+    });
+
+    describe('additional correctness rules', () => {
+        let configs: TypedFlatConfigItem[];
+
+        beforeAll(async () => {
+            configs = createSyntaxConfigs(
+                await antfu({ typescript: true }, createBaseConfigs()),
+                (id) => id === 'no-constant-binary-expression'
+                  || id === 'test/valid-expect'
+                  || id === 'test/valid-expect-in-promise',
+            );
+        });
+
+        it.for([
+            {
+                filename: 'fixture.js',
+                input: 'const value = a + b ?? fallback;',
+                ruleId: 'no-constant-binary-expression',
+            },
+            {
+                filename: 'fixture.ts',
+                input: 'const value = a + b ?? fallback;',
+                ruleId: 'no-constant-binary-expression',
+            },
+            {
+                filename: 'fixture.test.ts',
+                input: 'import { it, expect } from \'vitest\'; it(\'case\', () => { expect(); });',
+                ruleId: 'test/valid-expect',
+            },
+            {
+                filename: 'fixture.spec.ts',
+                input: 'import { it, expect } from \'vitest\'; it(\'case\', () => { '
+                  + 'Promise.resolve(1).then(value => { expect(value).toBe(1); }); });',
+                ruleId: 'test/valid-expect-in-promise',
+            },
+        ])(
+            'should report $ruleId in $filename',
+            (
+                {
+                    filename,
+                    input,
+                    ruleId,
+                },
+                { expect },
+            ) => {
+                const messages = new Linter().verify(input, configs, { filename });
+                expect(messages.map((message) => message.ruleId)).toContain(ruleId);
+            },
+        );
+
+        it.for([
+            'fixture.js',
+            'fixture.ts',
+        ])(
+            'should not apply assertion rules outside test files: %s',
+            (filename, { expect }) => {
+                const input = 'import { expect } from \'vitest\'; expect();';
+                expect(new Linter().verify(input, configs, { filename })).toEqual([]);
+            },
+        );
+
+        it('should accept awaited Promise assertions', ({ expect }) => {
+            const input = 'import { it, expect } from \'vitest\'; it(\'case\', async () => { '
+              + 'await Promise.resolve(1).then(value => { expect(value).toBe(1); }); });';
+
+            expect(new Linter().verify(input, configs, { filename: 'fixture.test.ts' })).toEqual([]);
         });
     });
 });

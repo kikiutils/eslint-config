@@ -11,7 +11,7 @@ import { compactIterationLayout } from '../src/_internals/rules/compact-iteratio
 import { createBaseConfigs } from '../src/base';
 import { createVueConfig } from '../src/vue';
 
-import { filterRules } from './utils';
+import { createSyntaxConfigs } from './utils';
 
 const ruleId = 'kikiutils/compact-iteration-layout';
 const ruleConfig = {
@@ -88,7 +88,7 @@ describe('compact-iteration-layout', () => {
         let configs: TypedFlatConfigItem[];
 
         beforeAll(async () => {
-            configs = filterRules(
+            configs = createSyntaxConfigs(
                 await antfu(
                     {
                         typescript: true,
