@@ -164,18 +164,14 @@ describe('consistent-parameter-layout', () => {
         },
     );
 
-    it(
-        'should check nested calls and parameters independently',
-        ({ expect }) => {
-            // eslint-disable-next-line style/max-len
-            const input = 'import { it } from \'vitest\'; it(\'case\', ({\n    expect\n}) => { a(1, {\n    key: 2\n}); });';
+    it('should check nested calls and parameters independently', ({ expect }) => {
+        const input = 'import { it } from \'vitest\'; it(\'case\', ({\n    expect\n}) => { a(1, {\n    key: 2\n}); });';
 
-            expect(new Linter().verify(input, ruleConfig).map((message) => message.ruleId)).toEqual([
-                ruleId,
-                ruleId,
-            ]);
-        },
-    );
+        expect(new Linter().verify(input, ruleConfig).map((message) => message.ruleId)).toEqual([
+            ruleId,
+            ruleId,
+        ]);
+    });
 
     describe('multiline single-parameter types', () => {
         let configs: TypedFlatConfigItem[];
@@ -393,13 +389,13 @@ describe('consistent-parameter-layout', () => {
     });
 });
 
-describe('test-call exceptions', () => {
+describe('test-call layout', () => {
     const config = {
         ...ruleConfig,
         files: ['**/*.{js,jsx,ts,tsx}'],
     };
 
-    it.for([
+    const testCalls = [
         'fixture.test.js',
         'fixture.test.jsx',
         'fixture.test.ts',
@@ -412,11 +408,76 @@ describe('test-call exceptions', () => {
     ].map((callee) => ({
         callee,
         filename,
-    }))))(
-        'should skip only $callee itself in $filename',
+    })));
+
+    it.for(testCalls)(
+        'should preserve compact $callee calls in $filename',
         ({ callee, filename }, { expect }) => {
             const input = `${callee}('case', () => {\n    work();\n});`;
             const result = new Linter().verifyAndFix(input, config, { filename });
+            expect(result.messages).toEqual([]);
+            expect(result.output).toBe(input);
+            expect(result.fixed).toBe(false);
+        },
+    );
+
+    it.for(testCalls)(
+        'should compact $callee calls in $filename',
+        ({ callee, filename }, { expect }) => {
+            const input = `${callee}(\n    'case',\n    () => {\n        work();\n    }\n);`;
+            const output = `${callee}('case', () => {\n        work();\n    });`;
+            const linter = new Linter();
+            const options = { filename };
+            const messages = linter.verify(input, config, options);
+            expect(messages.map((message) => message.messageId)).toEqual(['compactTestCall']);
+            const result = linter.verifyAndFix(input, config, options);
+            expect(result.messages).toEqual([]);
+            expect(result.output).toBe(output);
+            expect(linter.verifyAndFix(result.output, config, options).fixed).toBe(false);
+        },
+    );
+
+    it.for([
+        [
+            'it(\n    \'case\', () => {\n    work();\n});',
+            'it(\'case\', () => {\n    work();\n});',
+        ],
+        [
+            'it(\'case\',\n    () => {\n    work();\n});',
+            'it(\'case\', () => {\n    work();\n});',
+        ],
+        [
+            'it(\'case\', () => {\n    work();\n}\n);',
+            'it(\'case\', () => {\n    work();\n});',
+        ],
+        [
+            'it(\n    \'case\',\n    () => {\n    work();\n    },\n    1000\n);',
+            'it(\'case\', () => {\n    work();\n    }, 1000);',
+        ],
+        [
+            'it(\n    `first\nsecond`,\n    () => {\n    // keep body comment\n    work();\n    }\n);',
+            'it(`first\nsecond`, () => {\n    // keep body comment\n    work();\n    });',
+        ],
+    ] as const)(
+        'should compact only outer argument gaps: %s',
+        ([input, output], { expect }) => {
+            const linter = new Linter();
+            const options = { filename: 'fixture.test.js' };
+            const result = linter.verifyAndFix(input, config, options);
+            expect(result.messages).toEqual([]);
+            expect(result.output).toBe(output);
+            expect(linter.verifyAndFix(result.output, config, options).fixed).toBe(false);
+        },
+    );
+
+    it.for([
+        'it(\n    // keep name comment\n    \'case\',\n    () => { work(); }\n);',
+        'it(\n    \'case\',\n    // keep callback comment\n    () => { work(); }\n);',
+        'it(\n    \'case\',\n    () => { work(); } // keep closing comment\n);',
+    ])(
+        'should preserve argument boundary comments: %s',
+        (input, { expect }) => {
+            const result = new Linter().verifyAndFix(input, config, { filename: 'fixture.test.js' });
             expect(result.messages).toEqual([]);
             expect(result.output).toBe(input);
             expect(result.fixed).toBe(false);
@@ -465,7 +526,7 @@ describe('test-call exceptions', () => {
         },
     );
 
-    it('should still check callbacks and calls inside an excluded test call', ({ expect }) => {
+    it('should still check callbacks and calls inside a compact test call', ({ expect }) => {
         const input = 'it.concurrent(\'case\', (a, {\n    b\n}) => { fn(1,\n    2); });';
         const output = 'it.concurrent(\'case\', (\na, {\n    b\n}) => { fn(\n1,\n    2); });';
         const linter = new Linter();
@@ -479,6 +540,74 @@ describe('test-call exceptions', () => {
         expect(result.messages).toEqual([]);
         expect(result.output).toBe(output);
         expect(linter.verifyAndFix(result.output, config, options).fixed).toBe(false);
+    });
+
+    describe('formatter integration', () => {
+        let configs: TypedFlatConfigItem[];
+
+        beforeAll(async () => {
+            configs = filterRules(
+                await antfu({ typescript: true }, createBaseConfigs()),
+                (id) => id.startsWith('style/')
+                  || id === 'antfu/consistent-list-newline'
+                  || id === ruleId,
+            );
+        });
+
+        it.for([
+            {
+                callee: 'it',
+                filename: 'fixture.test.js',
+            },
+            {
+                callee: 'describe',
+                filename: 'fixture.test.js',
+            },
+            {
+                callee: 'it.concurrent',
+                filename: 'fixture.test.ts',
+            },
+            {
+                callee: 'describe.concurrent',
+                filename: 'fixture.test.tsx',
+            },
+        ])(
+            'should converge for $callee in $filename',
+            ({ callee, filename }, { expect }) => {
+                const input = `${callee}(\n    'case',\n    () => {\n        work();\n    },\n);\n`;
+                const output = `${callee}('case', () => {\n    work();\n});\n`;
+                const linter = new Linter();
+                const options = { filename };
+                const result = linter.verifyAndFix(input, configs, options);
+                expect(result.messages).toEqual([]);
+                expect(result.output).toBe(output);
+                expect(linter.verifyAndFix(result.output, configs, options).fixed).toBe(false);
+            },
+        );
+
+        it('should compact nested suites and tests while formatting their bodies', ({ expect }) => {
+            const input = 'describe(\n    \'suite\',\n    () => {\n'
+              + '        it(\n            \'case\',\n            () => {\n'
+              + '                work();\n            },\n        );\n    },\n);\n';
+
+            const output = 'describe(\'suite\', () => {\n    it(\'case\', () => {\n        work();\n    });\n});\n';
+            const linter = new Linter();
+            const options = { filename: 'fixture.test.ts' };
+            const result = linter.verifyAndFix(input, configs, options);
+            expect(result.messages).toEqual([]);
+            expect(result.output).toBe(output);
+            expect(linter.verifyAndFix(result.output, configs, options).fixed).toBe(false);
+        });
+
+        it('should preserve a commented multiline call without circular fixes', ({ expect }) => {
+            const input = 'it(\n    // keep name comment\n    \'case\',\n    () => {\n        work();\n    },\n);\n';
+            const linter = new Linter();
+            const options = { filename: 'fixture.test.js' };
+            const result = linter.verifyAndFix(input, configs, options);
+            expect(result.messages).toEqual([]);
+            expect(result.output).toBe(input);
+            expect(linter.verifyAndFix(result.output, configs, options).fixed).toBe(false);
+        });
     });
 });
 

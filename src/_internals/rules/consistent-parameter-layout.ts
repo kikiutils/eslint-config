@@ -1,4 +1,7 @@
-import type { Rule } from 'eslint';
+import type {
+    AST,
+    Rule,
+} from 'eslint';
 
 import type { TokenStore } from '../utils';
 import { defineScriptAndTemplateVisitors } from '../utils';
@@ -16,6 +19,77 @@ export const consistentParameterLayout: Rule.RuleModule = {
         const isTestFile = /\.test\.[jt]sx?$/.test(context.filename);
 
         function createVisitor(tokenStore: TokenStore, isTemplate: boolean): Rule.RuleListener {
+            function checkTestCallLayout(node: CallNode): void {
+                const items = node.arguments;
+                if (!items.length) return;
+                const openingParen = tokenStore.getTokenAfter(
+                    node.typeArguments ?? node.callee,
+                    (token) => token.type === 'Punctuator' && token.value === '(',
+                )!;
+
+                const closingParen = tokenStore.getLastToken(node)!;
+                const previous = tokenStore.getTokenBefore(closingParen)!;
+                const gaps: Array<[AST.Token, AST.Token, string]> = [
+                    [
+                        openingParen,
+                        tokenStore.getTokenAfter(openingParen)!,
+                        '',
+                    ],
+                    [
+                        previous,
+                        closingParen,
+                        '',
+                    ],
+                ];
+
+                for (let index = 1; index < items.length; index++) {
+                    const comma = tokenStore.getTokensBetween(items[index - 1]!, items[index]!)
+                        .find((token) => token.type === 'Punctuator' && token.value === ',')!;
+
+                    gaps.push(
+                        [
+                            tokenStore.getTokenBefore(comma)!,
+                            comma,
+                            '',
+                        ],
+                        [
+                            comma,
+                            tokenStore.getTokenAfter(comma)!,
+                            ' ',
+                        ],
+                    );
+                }
+
+                if (previous.value === ',') {
+                    gaps.push([
+                        tokenStore.getTokenBefore(previous)!,
+                        previous,
+                        '',
+                    ]);
+                }
+
+                // Keep the whole list's layout when a boundary comment prevents safe compaction.
+                if (gaps.some(([left, right]) => tokenStore.commentsExistBetween(left, right))) return;
+                const multilineGaps = gaps.filter(([left, right]) => left.loc.end.line !== right.loc.start.line);
+                if (!multilineGaps.length) return;
+
+                context.report({
+                    fix: (fixer) => multilineGaps.map(([
+                        left,
+                        right,
+                        text,
+                    ]) => fixer.replaceTextRange(
+                        [
+                            left.range[1],
+                            right.range[0],
+                        ],
+                        text,
+                    )),
+                    messageId: 'compactTestCall',
+                    node,
+                });
+            }
+
             function checkParameterLayout(
                 node: CallNode | FunctionNode,
                 items: readonly ListItem[],
@@ -134,7 +208,10 @@ export const consistentParameterLayout: Rule.RuleModule = {
                         if (
                             target.type === 'Identifier'
                             && (target.name === 'describe' || target.name === 'it')
-                        ) return;
+                        ) {
+                            checkTestCallLayout(node);
+                            return;
+                        }
                     }
 
                     checkParameterLayout(node, node.arguments);
@@ -148,9 +225,10 @@ export const consistentParameterLayout: Rule.RuleModule = {
         return defineScriptAndTemplateVisitors(context.sourceCode, createVisitor);
     },
     meta: {
-        docs: { description: 'Preserve consistent single-parameter boundaries and expand multiline parameter lists.' },
+        docs: { description: 'Keep parameter boundaries consistent, expand multiline lists, and compact test calls.' },
         fixable: 'whitespace',
         messages: {
+            compactTestCall: 'Keep test-call arguments beside their parentheses and each other.',
             newline: 'Start a multiline parameter list on a new line.',
             singleBoundary: 'Use matching newline boundaries around a single parameter.',
         },
