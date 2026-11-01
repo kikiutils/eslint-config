@@ -66,6 +66,10 @@ describe.concurrent('vue config factory', () => {
             'promise/no-return-wrap': 'error',
             'require-await': 'off',
             'style/max-len': 'off',
+            'ts/array-type': [
+                'error',
+                { default: 'array-simple' },
+            ],
             'ts/require-await': 'error',
             'vue/require-typed-ref': 'error',
         });

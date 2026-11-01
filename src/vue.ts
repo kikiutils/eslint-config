@@ -39,6 +39,10 @@ export function createVueConfig(environment: 'bun' | 'node' = 'node'): TypedFlat
             'better-tailwindcss/no-duplicate-classes': 'error',
             'better-tailwindcss/no-unnecessary-whitespace': 'error',
             'style/max-len': 'off',
+            'ts/array-type': [
+                'error',
+                { default: 'array-simple' },
+            ],
             'vue/attribute-hyphenation': 'error',
             'vue/attributes-order': 'off',
             'vue/block-order': [

@@ -68,6 +68,11 @@ describe.concurrent('base eslint config factory', () => {
             GLOB_TSX,
         ]);
 
+        expect(typescript?.rules?.['ts/array-type']).toEqual([
+            'error',
+            { default: 'array-simple' },
+        ]);
+
         expect(typeAware?.files).toEqual([
             GLOB_TS,
             GLOB_TSX,

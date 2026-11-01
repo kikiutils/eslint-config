@@ -73,6 +73,10 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
                 GLOB_TSX,
             ],
             rules: {
+                'ts/array-type': [
+                    'error',
+                    { default: 'array-simple' },
+                ],
                 'ts/consistent-generic-constructors': [
                     'error',
                     'constructor',
