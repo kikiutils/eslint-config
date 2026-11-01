@@ -22,6 +22,14 @@ const ruleConfig = {
 describe('statement-padding', () => {
     it.for([
         'const a = 1;\nconst b = 2;\nfn(a, b);',
+        'let x = a;\n    let xx = b;\nlet d = 444;',
+        '// leading\n// comment\nconst a = 1;\nnext();',
+        'const a = 1;\nconst b = {\n    value: 2,\n};',
+        'import {\n    a,\n} from \'one\';\nimport { b } from \'two\';\nfn(a, b);',
+        'fn(\n    a,\n);\nimport { b } from \'two\';',
+        'export {\n    a,\n} from \'one\';\nnext();',
+        'fn(\n    a,\n);\nexport { b } from \'two\';',
+        'fn(\n    a,\n);\nexport * from \'two\';',
         'fn(\n    a,\n    b,\n);',
         'if (a) {\n    if (b) {\n        fn();\n    }\n}',
         'if (a) {\n    fn();\n} else {\n    other();\n}',
@@ -47,6 +55,50 @@ describe('statement-padding', () => {
         [
             'fn(\n    a,\n);\n/* reason\n\ncontinued */\nnext();',
             'fn(\n    a,\n);\n\n/* reason\n\ncontinued */\nnext();',
+        ],
+        [
+            'do {\n    work();\n} while (pending);\nnext();',
+            'do {\n    work();\n} while (pending);\n\nnext();',
+        ],
+        [
+            'const result = items.map(\n    transform,\n).filter(Boolean);\nuse(result);',
+            'const result = items.map(\n    transform,\n).filter(Boolean);\n\nuse(result);',
+        ],
+        [
+            'const text = `first\nsecond`;\nnext();',
+            'const text = `first\nsecond`;\n\nnext();',
+        ],
+        [
+            'fn(\n    a,\n); /* trailing\nreason */ next();',
+            'fn(\n    a,\n); /* trailing\nreason */ \n\nnext();',
+        ],
+        [
+            'fn(\n    a,\n); /* trailing\n\nreason */ next();',
+            'fn(\n    a,\n); /* trailing\n\nreason */ \n\nnext();',
+        ],
+        [
+            'fn(\n    a,\n); /* trailing\nreason */ // still trailing\n// next reason\nnext();',
+            'fn(\n    a,\n); /* trailing\nreason */ // still trailing\n\n// next reason\nnext();',
+        ],
+        [
+            'fn(\n    a,\n);\n// next reason\n\nnext();',
+            'fn(\n    a,\n);\n\n// next reason\n\nnext();',
+        ],
+        [
+            'fn(\r\n    a,\r\n);\r\nnext();',
+            'fn(\r\n    a,\r\n);\r\n\r\nnext();',
+        ],
+        [
+            'export function fn() {}\nnext();',
+            'export function fn() {}\n\nnext();',
+        ],
+        [
+            'function fn() {\n    work();\n}\nexport { fn };',
+            'function fn() {\n    work();\n}\n\nexport { fn };',
+        ],
+        [
+            'function fn() {}\n\nexport {\n    fn,\n};\nnext();',
+            'function fn() {}\n\nexport {\n    fn,\n};\n\nnext();',
         ],
         [
             'const result = fn(\n    a,\n    b,\n);\ncheck(result);',
@@ -126,6 +178,18 @@ describe('statement-padding', () => {
             );
         });
 
+        it('should pad before a local type export without relying on other rules', ({ expect }) => {
+            const input = 'type A = number;\nfunction fn() {\n    work();\n}\nexport type { A };';
+            const output = 'type A = number;\nfunction fn() {\n    work();\n}\n\nexport type { A };';
+            const ruleConfigs = filterRules(configs, (id) => id === ruleId);
+            const options = { filename: 'fixture.ts' };
+            const linter = new Linter();
+            const result = linter.verifyAndFix(input, ruleConfigs, options);
+            expect(result.messages).toEqual([]);
+            expect(result.output).toBe(output);
+            expect(linter.verifyAndFix(result.output, ruleConfigs, options).fixed).toBe(false);
+        });
+
         // eslint-disable-next-line style/max-len
         const input = 'function fn() {\n    if (enabled) {\n        if (ready) {\n            start();\n        }\n    }\n    const result = call(\n        first,\n        second,\n    );\n    check(result);\n}\n';
         const output = input
@@ -146,6 +210,26 @@ describe('statement-padding', () => {
                 expect(result.messages).toEqual([]);
                 expect(result.output).toBe(wrap(output));
                 expect(linter.verifyAndFix(result.output, configs, { filename }).fixed).toBe(false);
+            },
+        );
+
+        it.for([
+            'fixture.js',
+            'fixture.ts',
+            'fixture.vue',
+        ])(
+            'should fix indentation without adding blank lines in %s',
+            (filename, { expect }) => {
+                const input = 'let x = a;\n    let xx = b;\nlet d = 444;\n';
+                const output = 'let x = a;\nlet xx = b;\nlet d = 444;\n';
+                const isVue = filename.endsWith('.vue');
+                const wrap = (code: string): string => isVue ? `<script setup lang="ts">\n${code}</script>\n` : code;
+                const linter = new Linter();
+                const options = { filename };
+                const result = linter.verifyAndFix(wrap(input), configs, options);
+                expect(result.messages).toEqual([]);
+                expect(result.output).toBe(wrap(output));
+                expect(linter.verifyAndFix(result.output, configs, options).fixed).toBe(false);
             },
         );
     });
