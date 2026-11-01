@@ -101,8 +101,8 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
                             type: 'asc',
                         },
                         // Preserve ordered fields and any argument or option arrays nested inside them.
-                        pathPattern: String.raw`^(?!.*(?:^|\.|\[")(?:${vscodeOrderSensitiveArrayProperties})`
-                          + String.raw`(?:$|\.|\[|"\])).*`,
+                        // eslint-disable-next-line style/max-len
+                        pathPattern: String.raw`^(?!.*(?:^|\.|\[")(?:${vscodeOrderSensitiveArrayProperties})(?:$|\.|\[|"\])).*`,
                     },
                 ],
                 'jsonc/sort-keys': [
