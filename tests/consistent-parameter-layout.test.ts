@@ -390,31 +390,44 @@ describe('consistent-parameter-layout', () => {
 });
 
 describe('test-call layout', () => {
-    const config = {
+    const config: Linter.Config = {
         ...ruleConfig,
-        files: ['**/*.{js,jsx,ts,tsx}'],
+        rules: {
+            [ruleId]: [
+                'error',
+                { compactTestCalls: true },
+            ],
+        },
     };
 
     const testCalls = [
-        'fixture.test.js',
-        'fixture.test.jsx',
-        'fixture.test.ts',
-        'fixture.test.tsx',
-    ].flatMap((filename) => [
         'describe',
         'describe.concurrent',
         'it',
         'it.concurrent',
-    ].map((callee) => ({
-        callee,
-        filename,
-    })));
+    ];
+
+    it('should use the option rather than the filename to select test-call layout', ({ expect }) => {
+        const input = 'it(\'case\', () => {\n    work();\n});';
+        const disabledConfig: Linter.Config = {
+            ...ruleConfig,
+            rules: {
+                [ruleId]: [
+                    'error',
+                    { compactTestCalls: false },
+                ],
+            },
+        };
+
+        const messages = new Linter().verify(input, disabledConfig, { filename: 'fixture.test.js' });
+        expect(messages.map((message) => message.messageId)).toEqual(['newline']);
+    });
 
     it.for(testCalls)(
-        'should preserve compact $callee calls in $filename',
-        ({ callee, filename }, { expect }) => {
+        'should preserve compact %s calls with compaction enabled',
+        (callee, { expect }) => {
             const input = `${callee}('case', () => {\n    work();\n});`;
-            const result = new Linter().verifyAndFix(input, config, { filename });
+            const result = new Linter().verifyAndFix(input, config);
             expect(result.messages).toEqual([]);
             expect(result.output).toBe(input);
             expect(result.fixed).toBe(false);
@@ -422,18 +435,17 @@ describe('test-call layout', () => {
     );
 
     it.for(testCalls)(
-        'should compact $callee calls in $filename',
-        ({ callee, filename }, { expect }) => {
+        'should compact %s calls with compaction enabled',
+        (callee, { expect }) => {
             const input = `${callee}(\n    'case',\n    () => {\n        work();\n    }\n);`;
             const output = `${callee}('case', () => {\n        work();\n    });`;
             const linter = new Linter();
-            const options = { filename };
-            const messages = linter.verify(input, config, options);
+            const messages = linter.verify(input, config);
             expect(messages.map((message) => message.messageId)).toEqual(['compactTestCall']);
-            const result = linter.verifyAndFix(input, config, options);
+            const result = linter.verifyAndFix(input, config);
             expect(result.messages).toEqual([]);
             expect(result.output).toBe(output);
-            expect(linter.verifyAndFix(result.output, config, options).fixed).toBe(false);
+            expect(linter.verifyAndFix(result.output, config).fixed).toBe(false);
         },
     );
 
@@ -462,11 +474,10 @@ describe('test-call layout', () => {
         'should compact only outer argument gaps: %s',
         ([input, output], { expect }) => {
             const linter = new Linter();
-            const options = { filename: 'fixture.test.js' };
-            const result = linter.verifyAndFix(input, config, options);
+            const result = linter.verifyAndFix(input, config);
             expect(result.messages).toEqual([]);
             expect(result.output).toBe(output);
-            expect(linter.verifyAndFix(result.output, config, options).fixed).toBe(false);
+            expect(linter.verifyAndFix(result.output, config).fixed).toBe(false);
         },
     );
 
@@ -477,7 +488,7 @@ describe('test-call layout', () => {
     ])(
         'should preserve argument boundary comments: %s',
         (input, { expect }) => {
-            const result = new Linter().verifyAndFix(input, config, { filename: 'fixture.test.js' });
+            const result = new Linter().verifyAndFix(input, config);
             expect(result.messages).toEqual([]);
             expect(result.output).toBe(input);
             expect(result.fixed).toBe(false);
@@ -485,43 +496,16 @@ describe('test-call layout', () => {
     );
 
     it.for([
-        [
-            'fixture.js',
-            'it',
-        ],
-        [
-            'fixture.spec.ts',
-            'describe.concurrent',
-        ],
-        [
-            'fixture.test.ts.js',
-            'it.concurrent',
-        ],
-        [
-            'fixture.test.js',
-            'it.only',
-        ],
-        [
-            'fixture.test.js',
-            'describe.skip',
-        ],
-        [
-            'fixture.test.js',
-            'suite.it',
-        ],
-        [
-            'fixture.test.js',
-            'it.concurrent.each',
-        ],
-        [
-            'fixture.test.js',
-            'it["concurrent"]',
-        ],
-    ] as const)(
-        'should retain other calls and filenames: %s',
-        ([filename, callee], { expect }) => {
+        'it.only',
+        'describe.skip',
+        'suite.it',
+        'it.concurrent.each',
+        'it[\'concurrent\']',
+    ])(
+        'should retain ordinary layout checks for other callees: %s',
+        (callee, { expect }) => {
             const input = `${callee}('case', () => {\n    work();\n});`;
-            const messages = new Linter().verify(input, config, { filename });
+            const messages = new Linter().verify(input, config);
             expect(messages.map((message) => message.ruleId)).toEqual([ruleId]);
         },
     );
@@ -530,16 +514,15 @@ describe('test-call layout', () => {
         const input = 'it.concurrent(\'case\', (a, {\n    b\n}) => { fn(1,\n    2); });';
         const output = 'it.concurrent(\'case\', (\na, {\n    b\n}) => { fn(\n1,\n    2); });';
         const linter = new Linter();
-        const options = { filename: 'fixture.test.ts' };
-        expect(linter.verify(input, config, options).map((message) => message.ruleId)).toEqual([
+        expect(linter.verify(input, config).map((message) => message.ruleId)).toEqual([
             ruleId,
             ruleId,
         ]);
 
-        const result = linter.verifyAndFix(input, config, options);
+        const result = linter.verifyAndFix(input, config);
         expect(result.messages).toEqual([]);
         expect(result.output).toBe(output);
-        expect(linter.verifyAndFix(result.output, config, options).fixed).toBe(false);
+        expect(linter.verifyAndFix(result.output, config).fixed).toBe(false);
     });
 
     describe('formatter integration', () => {
@@ -561,15 +544,19 @@ describe('test-call layout', () => {
             },
             {
                 callee: 'describe',
-                filename: 'fixture.test.js',
+                filename: 'fixture.spec.jsx',
             },
             {
                 callee: 'it.concurrent',
-                filename: 'fixture.test.ts',
+                filename: 'fixture.test.mts',
             },
             {
                 callee: 'describe.concurrent',
-                filename: 'fixture.test.tsx',
+                filename: '__tests__/fixture.cts',
+            },
+            {
+                callee: 'it',
+                filename: 'fixture.bench.tsx',
             },
         ])(
             'should converge for $callee in $filename',

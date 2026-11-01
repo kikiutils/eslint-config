@@ -2,7 +2,13 @@ import type {
     Rules,
     TypedFlatConfigItem,
 } from '@antfu/eslint-config';
-import { GLOB_TESTS } from '@antfu/eslint-config';
+import {
+    GLOB_JS,
+    GLOB_JSX,
+    GLOB_TESTS,
+    GLOB_TS,
+    GLOB_TSX,
+} from '@antfu/eslint-config';
 // @ts-expect-error No declare file.
 import promise from 'eslint-plugin-promise';
 
@@ -40,9 +46,14 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
                 'e18e/prefer-static-regex': 'off',
             },
         },
-        // JavaScript
+        // JavaScript and TypeScript
         {
-            files: ['**/*.{cjs,js,mjs}'],
+            files: [
+                GLOB_JS,
+                GLOB_JSX,
+                GLOB_TS,
+                GLOB_TSX,
+            ],
             plugins: {
                 kikiutils: customPlugins,
                 promise,
@@ -57,17 +68,11 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
         },
         // TypeScript
         {
-            files: ['**/*.{ts,tsx}'],
-            plugins: {
-                kikiutils: customPlugins,
-                promise,
-            },
+            files: [
+                GLOB_TS,
+                GLOB_TSX,
+            ],
             rules: {
-                ...createBaseRules(environment),
-                'node/prefer-global/process': [
-                    'error',
-                    'always',
-                ],
                 'ts/consistent-generic-constructors': [
                     'error',
                     'constructor',
@@ -78,13 +83,20 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
         // Type-aware TypeScript
         {
             ...createTypeAwareConfig(),
-            files: ['**/*.{ts,tsx}'],
-            ignores: ['**/*.config.ts'],
+            files: [
+                GLOB_TS,
+                GLOB_TSX,
+            ],
+            ignores: ['**/*.config.?([cm])ts'],
         },
         // Tests
         {
             files: GLOB_TESTS,
             rules: {
+                'kikiutils/consistent-parameter-layout': [
+                    'error',
+                    { compactTestCalls: true },
+                ],
                 'test/valid-expect': 'error',
                 'test/valid-expect-in-promise': 'error',
             },

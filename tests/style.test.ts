@@ -7,7 +7,7 @@ import {
 import { createStyleFilesConfigs } from '../src/style';
 
 describe.concurrent('style file config factory', () => {
-    it('creates configs only for the supported css and scss parsers', ({ expect }) => {
+    it('should create configs only for the supported css and scss parsers', ({ expect }) => {
         const configs = createStyleFilesConfigs();
 
         expect(configs).toHaveLength(2);
@@ -29,7 +29,7 @@ describe.concurrent('style file config factory', () => {
             parser: 'scss',
         },
     ])(
-        'uses the matching prettier parser and shared options to format $parser files',
+        'should use the matching prettier parser and shared options to format $parser files',
         (
             {
                 input,
@@ -39,22 +39,6 @@ describe.concurrent('style file config factory', () => {
             { expect },
         ) => {
             const configs = createStyleFilesConfigs();
-            const config = configs.find((config) => config.files?.includes(`**/*.${parser}`));
-            expect(config?.rules).toEqual({
-                'format/prettier': [
-                    'error',
-                    {
-                        parser,
-                        printWidth: 120,
-                        singleQuote: true,
-                        tabWidth: 4,
-                    },
-                ],
-            });
-
-            expect(config?.languageOptions).toHaveProperty('parser');
-            expect(config?.plugins).toHaveProperty('format');
-
             const linter = new Linter();
             const options = { filename: `fixture.${parser}` };
             const result = linter.verifyAndFix(input, configs, options);

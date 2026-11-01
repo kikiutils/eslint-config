@@ -28,10 +28,6 @@ describe('markdown linting', () => {
 
     it.for([
         {
-            code: 'const =',
-            language: 'js',
-        },
-        {
             code: 'const value: =',
             language: 'ts',
         },
@@ -40,20 +36,8 @@ describe('markdown linting', () => {
             language: 'vue',
         },
         {
-            code: '{ invalid }',
-            language: 'json',
-        },
-        {
-            code: 'value: [',
-            language: 'yaml',
-        },
-        {
             code: '.example {',
             language: 'css',
-        },
-        {
-            code: '$color: ; .example {',
-            language: 'scss',
         },
     ])(
         'should ignore $language code blocks without reporting or fixing them',

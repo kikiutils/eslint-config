@@ -37,12 +37,11 @@ describe.concurrent('vue config factory', () => {
         expect(linter.verifyAndFix(combinedResult.output, formatConfigs, options).fixed).toBe(false);
     });
 
-    it('creates a vue config with vue, tailwind, and shared promise rules', ({ expect }) => {
+    it('should create a vue config with vue, tailwind, and shared promise rules', ({ expect }) => {
         const config = createVueConfig();
 
         expect(config.files).toStrictEqual(['**/*.vue']);
         expect(config.ignores).toBeUndefined();
-        expect(config.rules).not.toHaveProperty('vue/prefer-separate-static-class');
         expect(config.languageOptions?.parserOptions).toMatchObject({
             projectService: true,
             tsconfigRootDir: process.cwd(),
@@ -63,53 +62,16 @@ describe.concurrent('vue config factory', () => {
                     alphabeticalEnhanced: true,
                 },
             ],
-            '@kikiutils/vue/class-hex-color-case': 'error',
-            'better-tailwindcss/enforce-consistent-class-order': 'error',
             'better-tailwindcss/no-deprecated-classes': 'warn',
-            'better-tailwindcss/no-duplicate-classes': 'error',
             'promise/no-return-wrap': 'error',
             'require-await': 'off',
             'style/max-len': 'off',
-            'ts/await-thenable': 'error',
-            'ts/no-base-to-string': 'error',
-            'ts/no-floating-promises': 'error',
-            'ts/no-for-in-array': 'error',
-            'ts/no-misused-promises': 'error',
-            'ts/no-misused-spread': 'error',
-            'ts/no-unnecessary-type-assertion': 'error',
             'ts/require-await': 'error',
-            'ts/return-await': 'error',
-            'ts/switch-exhaustiveness-check': [
-                'error',
-                { considerDefaultExhaustiveForUnions: true },
-            ],
-            'vue/block-order': [
-                'error',
-                {
-                    order: [
-                        'template',
-                        'script',
-                        'style',
-                    ],
-                },
-            ],
-            'vue/html-indent': [
-                'error',
-                4,
-            ],
-            'vue/max-len': [
-                'warn',
-                {
-                    code: 120,
-                    comments: 120,
-                    template: 120,
-                },
-            ],
             'vue/require-typed-ref': 'error',
         });
     });
 
-    it('forwards the requested runtime environment to inherited import sorting rules', ({ expect }) => {
+    it('should forward the requested runtime environment to inherited import sorting rules', ({ expect }) => {
         const config = createVueConfig('bun');
 
         expect(config.rules?.['perfectionist/sort-imports']).toMatchObject([

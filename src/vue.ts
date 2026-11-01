@@ -1,6 +1,6 @@
 import type { TypedFlatConfigItem } from '@antfu/eslint-config';
 import kikiutilsEslintPluginVue from '@kikiutils/eslint-plugin-vue';
-import betteTailwindcss from 'eslint-plugin-better-tailwindcss';
+import betterTailwindcss from 'eslint-plugin-better-tailwindcss';
 // @ts-expect-error No declare file.
 import promise from 'eslint-plugin-promise';
 
@@ -15,7 +15,7 @@ export function createVueConfig(environment: 'bun' | 'node' = 'node'): TypedFlat
         languageOptions: typeAwareConfig.languageOptions,
         plugins: {
             '@kikiutils/vue': kikiutilsEslintPluginVue,
-            'better-tailwindcss': betteTailwindcss,
+            'better-tailwindcss': betterTailwindcss,
             'kikiutils': customPlugins,
             promise,
         },

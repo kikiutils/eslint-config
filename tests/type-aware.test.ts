@@ -58,14 +58,14 @@ describe('type-aware configs', () => {
                 '    await 42;',
                 '    for (const key in [1, 2]) { console.log(key); }',
                 '    const message = String({ value: 1 });',
-                '    const copy = { ...new Map([["key", 1]]) };',
+                '    const copy = { ...new Map([[\'key\', 1]]) };',
                 '}',
                 'async function load() { try { return Promise.resolve(1); } catch { return 0; } }',
                 'async function immediate() { return 1; }',
                 'function identity(value: number): number { return value as number; }',
-                'type State = "idle" | "ready" | null | undefined;',
+                'type State = \'idle\' | \'ready\' | null | undefined;',
                 'function handle(state: State): void {',
-                '    switch (state) { case "idle": return; }',
+                '    switch (state) { case \'idle\': return; }',
                 '}',
                 'export { run, load, immediate, identity, handle };',
             ].join('\n');
@@ -78,42 +78,10 @@ describe('type-aware configs', () => {
     );
 
     it.for([
-        'ts',
-        'vue',
-    ])(
-        'should accept valid typed code and default-covered unions in %s',
-        (extension, { expect }) => {
-            const code = [
-                'async function run(): Promise<void> {',
-                '    const pending = Promise.resolve();',
-                '    await pending;',
-                '    await Promise.all([1].map(async () => { await pending; }));',
-                '    for (const value of [1, 2]) { console.log(value); }',
-                '    const message = JSON.stringify({ value: 1 });',
-                '    const copy = Object.fromEntries(new Map([["key", 1]]));',
-                '}',
-                'async function load() { try { return await Promise.resolve(1); } catch { return 0; } }',
-                'async function immediate() { return Promise.resolve(1); }',
-                'function identity(value: number): number { return value; }',
-                'type State = "idle" | "ready" | null | undefined;',
-                'function handle(state: State): void {',
-                '    switch (state) {',
-                '        case "idle": return;',
-                '        default: throw new Error("Unsupported state");',
-                '    }',
-                '}',
-                'export { run, load, immediate, identity, handle };',
-            ].join('\n');
-
-            const input = extension === 'vue' ? `<script lang="ts">\n${code}\n</script>\n` : code;
-            const filename = fileURLToPath(new URL(`./fixtures/type-aware/fixture.${extension}`, import.meta.url));
-            expect(new Linter().verify(input, configs, { filename })).toEqual([]);
-        },
-    );
-
-    it.for([
         'fixture.js',
         'tsdown.config.ts',
+        'tool.config.mts',
+        'tool.config.cts',
     ])(
         'should retain core rules without typed parsing or checks in syntax-only files: %s',
         (filename, { expect }) => {

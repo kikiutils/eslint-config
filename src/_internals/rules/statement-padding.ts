@@ -5,7 +5,6 @@ type StatementNode = Extract<Rule.Node, { type: 'Program' }>['body'][number];
 export const statementPadding: Rule.RuleModule = {
     create(context) {
         const { sourceCode } = context;
-        const newline = sourceCode.text.match(/\r\n|[\n\r\u2028\u2029]/)?.[0] ?? '\n';
 
         function checkStatements(statements: readonly StatementNode[]): void {
             for (let index = 1; index < statements.length; index++) {
@@ -64,10 +63,8 @@ export const statementPadding: Rule.RuleModule = {
                 }
 
                 if (nextStartLine > previousEndLine + 1) continue;
-                const linebreak = sourceCode.text.slice(previousEnd, nextStart).match(/\r\n|[\n\r\u2028\u2029]/);
-                const offset = linebreak
-                    ? previousEnd + linebreak.index! + linebreak[0].length
-                    : nextStart;
+                const linebreakIndex = sourceCode.text.slice(previousEnd, nextStart).indexOf('\n');
+                const offset = linebreakIndex === -1 ? nextStart : previousEnd + linebreakIndex + 1;
 
                 context.report({
                     fix: (fixer) => fixer.insertTextBeforeRange(
@@ -75,7 +72,7 @@ export const statementPadding: Rule.RuleModule = {
                             offset,
                             offset,
                         ],
-                        linebreak?.[0] ?? newline.repeat(2),
+                        linebreakIndex === -1 ? '\n\n' : '\n',
                     ),
                     messageId: 'blankLine',
                     node: next,

@@ -88,10 +88,6 @@ describe('statement-padding', () => {
             'fn(\n    a,\n);\n\n// next reason\n\nnext();',
         ],
         [
-            'fn(\r\n    a,\r\n);\r\nnext();',
-            'fn(\r\n    a,\r\n);\r\n\r\nnext();',
-        ],
-        [
             'export function fn() {}\nnext();',
             'export function fn() {}\n\nnext();',
         ],

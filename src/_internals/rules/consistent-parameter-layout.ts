@@ -16,7 +16,7 @@ type ListItem = CallNode['arguments'][number] | FunctionNode['params'][number];
 
 export const consistentParameterLayout: Rule.RuleModule = {
     create(context) {
-        const isTestFile = /\.test\.[jt]sx?$/.test(context.filename);
+        const compactTestCalls = context.options[0]?.compactTestCalls === true;
 
         function createVisitor(tokenStore: TokenStore, isTemplate: boolean): Rule.RuleListener {
             function checkTestCallLayout(node: CallNode): void {
@@ -197,7 +197,7 @@ export const consistentParameterLayout: Rule.RuleModule = {
                 ArrowFunctionExpression: (node) => checkParameterLayout(node, node.params),
                 CallExpression: (node) => {
                     const { callee } = node;
-                    if (isTestFile) {
+                    if (compactTestCalls) {
                         const target = callee.type === 'MemberExpression'
                           && !callee.computed
                           && callee.property.type === 'Identifier'
@@ -232,7 +232,13 @@ export const consistentParameterLayout: Rule.RuleModule = {
             newline: 'Start a multiline parameter list on a new line.',
             singleBoundary: 'Use matching newline boundaries around a single parameter.',
         },
-        schema: [],
+        schema: [
+            {
+                additionalProperties: false,
+                properties: { compactTestCalls: { type: 'boolean' } },
+                type: 'object',
+            },
+        ],
         type: 'layout',
     },
 };
