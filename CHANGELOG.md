@@ -1,5 +1,60 @@
 # Changelog
 
+## v10.0.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v9.3.2...v10.0.0)
+
+### 🚀 Enhancements
+
+- Enforce compact test call layouts ([23cc5f6](https://github.com/kikiutils/eslint-config/commit/23cc5f6))
+- ⚠️  Enable type-aware linting and strengthen correctness checks ([b7d2445](https://github.com/kikiutils/eslint-config/commit/b7d2445))
+- Enforce simple array type syntax in TypeScript and Vue ([4c285a3](https://github.com/kikiutils/eslint-config/commit/4c285a3))
+
+### 🩹 Fixes
+
+- Make statement padding structural and comment-safe ([35e9f6d](https://github.com/kikiutils/eslint-config/commit/35e9f6d))
+- Preserve ordered VS Code arrays and tighten lint defaults ([cf9ce8a](https://github.com/kikiutils/eslint-config/commit/cf9ce8a))
+
+### 💅 Refactors
+
+- Simplify parameter layout rule visitors ([7008499](https://github.com/kikiutils/eslint-config/commit/7008499))
+- Reuse shared heritage clause sorting options ([b47b88c](https://github.com/kikiutils/eslint-config/commit/b47b88c))
+- ⚠️  Unify lint configuration scopes and simplify tests ([ca76744](https://github.com/kikiutils/eslint-config/commit/ca76744))
+
+### 📖 Documentation
+
+- Define personal-project scope and maintenance priorities ([d3313ee](https://github.com/kikiutils/eslint-config/commit/d3313ee))
+
+### 📦 Build
+
+- Simplify tsdown configuration and add type validation ([5ba0dcb](https://github.com/kikiutils/eslint-config/commit/5ba0dcb))
+
+### 🏡 Chore
+
+- Update pnpm config ([17fefba](https://github.com/kikiutils/eslint-config/commit/17fefba))
+- Refine template export exclusions and script entrypoint ([4ffddaa](https://github.com/kikiutils/eslint-config/commit/4ffddaa))
+- Declare explicit package exports ([a323368](https://github.com/kikiutils/eslint-config/commit/a323368))
+- Upgrade deps ([4b72930](https://github.com/kikiutils/eslint-config/commit/4b72930))
+
+### ✅ Tests
+
+- Standardize rule test structure and fixtures ([0996a5f](https://github.com/kikiutils/eslint-config/commit/0996a5f))
+- Align rule filter callback parameter names ([9edab71](https://github.com/kikiutils/eslint-config/commit/9edab71))
+- Remove redundant config assertions and consolidate coverage ([32b8f46](https://github.com/kikiutils/eslint-config/commit/32b8f46))
+
+### 🎨 Styles
+
+- Keep the VS Code array path pattern on one line ([142bcf0](https://github.com/kikiutils/eslint-config/commit/142bcf0))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  Enable type-aware linting and strengthen correctness checks ([b7d2445](https://github.com/kikiutils/eslint-config/commit/b7d2445))
+- ⚠️  Unify lint configuration scopes and simplify tests ([ca76744](https://github.com/kikiutils/eslint-config/commit/ca76744))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v9.3.2
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v9.3.1...v9.3.2)
