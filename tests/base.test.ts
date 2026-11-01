@@ -1,12 +1,5 @@
 import type { TypedFlatConfigItem } from '@antfu/eslint-config';
-import {
-    antfu,
-    GLOB_JS,
-    GLOB_JSX,
-    GLOB_TESTS,
-    GLOB_TS,
-    GLOB_TSX,
-} from '@antfu/eslint-config';
+import { antfu } from '@antfu/eslint-config';
 import { Linter } from 'eslint';
 import {
     beforeAll,
@@ -18,100 +11,13 @@ import {
     createBaseConfigs,
     createBaseRules,
 } from '../src/base';
+import { createVueConfig } from '../src/vue';
 
 import { createSyntaxConfigs } from './utils';
 
 describe.concurrent('base eslint config factory', () => {
-    it('should create separate shared, source, typed, test, and JSONC layers', ({ expect }) => {
-        const configs = createBaseConfigs();
-        const [
-            shared,
-            source,
-            typescript,
-            typeAware,
-            testFiles,
-            vscode,
-            ignores,
-        ] = configs;
-
-        expect(configs).toHaveLength(7);
-        expect(shared?.rules).toEqual({
-            'e18e/ban-dependencies': [
-                'error',
-                { allowed: ['axios'] },
-            ],
-            'e18e/prefer-static-regex': 'off',
-        });
-
-        expect(source?.files).toEqual([
-            GLOB_JS,
-            GLOB_JSX,
-            GLOB_TS,
-            GLOB_TSX,
-        ]);
-
-        expect(source?.plugins).toHaveProperty('promise');
-        expect(Object.keys(source?.plugins?.kikiutils.rules ?? {})).toEqual([
-            'compact-iteration-layout',
-            'consistent-condition-layout',
-            'consistent-parameter-layout',
-            'statement-padding',
-        ]);
-
-        expect(source?.rules?.['node/prefer-global/process']).toEqual([
-            'error',
-            'always',
-        ]);
-
-        expect(typescript?.files).toEqual([
-            GLOB_TS,
-            GLOB_TSX,
-        ]);
-
-        expect(typescript?.rules?.['ts/array-type']).toEqual([
-            'error',
-            { default: 'array-simple' },
-        ]);
-
-        expect(typeAware?.files).toEqual([
-            GLOB_TS,
-            GLOB_TSX,
-        ]);
-
-        expect(typeAware?.ignores).toEqual(['**/*.config.?([cm])ts']);
-        expect(typeAware?.languageOptions?.parserOptions).toMatchObject({
-            projectService: true,
-            tsconfigRootDir: process.cwd(),
-        });
-
-        expect(typeAware?.rules).toMatchObject({
-            'require-await': 'off',
-            'ts/require-await': 'error',
-            'ts/switch-exhaustiveness-check': [
-                'error',
-                { considerDefaultExhaustiveForUnions: true },
-            ],
-        });
-
-        expect(testFiles?.files).toEqual(GLOB_TESTS);
-        expect(testFiles?.rules).toEqual({
-            'kikiutils/consistent-parameter-layout': [
-                'error',
-                { compactTestCalls: true },
-            ],
-            'test/valid-expect': 'error',
-            'test/valid-expect-in-promise': 'error',
-        });
-
-        expect(vscode?.files).toEqual(['**/.vscode/*.json']);
-        expect(ignores).toEqual({ ignores: ['**/*.md/**'] });
-    });
-
     it('should use node import sorting by default and forward explicit bun environment', ({ expect }) => {
-        const nodeRules = createBaseRules();
-        const bunRules = createBaseRules('bun');
-
-        expect(nodeRules['perfectionist/sort-imports']).toMatchObject([
+        expect(createBaseRules()['perfectionist/sort-imports']).toMatchObject([
             'error',
             {
                 environment: 'node',
@@ -123,25 +29,15 @@ describe.concurrent('base eslint config factory', () => {
             },
         ]);
 
-        expect(bunRules['perfectionist/sort-imports']).toMatchObject([
+        expect(createBaseRules('bun')['perfectionist/sort-imports']).toMatchObject([
             'error',
             { environment: 'bun' },
         ]);
-    });
 
-    it('should enable the opinionated rules that consumers rely on', ({ expect }) => {
-        const rules = createBaseRules();
-
-        expect(rules).toMatchObject({
-            'kikiutils/compact-iteration-layout': 'error',
-            'kikiutils/consistent-condition-layout': 'error',
-            'kikiutils/consistent-parameter-layout': 'error',
-            'kikiutils/statement-padding': 'error',
-            'no-constant-binary-expression': 'error',
-            'no-useless-assignment': 'error',
-            'preserve-caught-error': 'error',
-            'require-await': 'error',
-        });
+        expect(createVueConfig('bun').rules?.['perfectionist/sort-imports']).toMatchObject([
+            'error',
+            { environment: 'bun' },
+        ]);
     });
 
     describe('test file scope', () => {

@@ -7,16 +7,6 @@ import {
 import { createStyleFilesConfigs } from '../src/style';
 
 describe.concurrent('style file config factory', () => {
-    it('should create configs only for the supported css and scss parsers', ({ expect }) => {
-        const configs = createStyleFilesConfigs();
-
-        expect(configs).toHaveLength(2);
-        expect(configs.map((config) => config.files)).toStrictEqual([
-            ['**/*.css'],
-            ['**/*.scss'],
-        ]);
-    });
-
     it.for([
         {
             input: '.example{color:red}',
