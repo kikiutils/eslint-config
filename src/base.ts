@@ -15,6 +15,18 @@ const basePerfectionistSortOptions = {
     type: 'natural',
 } as const;
 
+const vscodeOrderSensitiveArrayProperties = [
+    'args',
+    'autoAttachSmartPattern',
+    'dependsOn',
+    'options',
+    'outFiles',
+    'problemMatcher',
+    'resolveSourceMapLocations',
+    'runtimeArgs',
+    'skipFiles',
+].join('|');
+
 // Functions
 export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFlatConfigItem[] {
     return [
@@ -23,14 +35,9 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
             rules: {
                 'e18e/ban-dependencies': [
                     'error',
-                    {
-                        allowed: [
-                            'axios',
-                            'rimraf',
-                        ],
-                    },
+                    { allowed: ['axios'] },
                 ],
-                'e18e/prefer-static-regex': ['off'],
+                'e18e/prefer-static-regex': 'off',
             },
         },
         // JavaScript
@@ -68,7 +75,21 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
                 'ts/no-redeclare': 'off',
             },
         },
-        // VsCode jsonc
+        // Type-aware TypeScript
+        {
+            ...createTypeAwareConfig(),
+            files: ['**/*.{ts,tsx}'],
+            ignores: ['**/*.config.ts'],
+        },
+        // Tests
+        {
+            files: GLOB_TESTS,
+            rules: {
+                'test/valid-expect': 'error',
+                'test/valid-expect-in-promise': 'error',
+            },
+        },
+        // VS Code JSONC
         {
             files: ['**/.vscode/*.json'],
             rules: {
@@ -79,7 +100,9 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
                             natural: true,
                             type: 'asc',
                         },
-                        pathPattern: '^.*$',
+                        // Preserve ordered fields and any argument or option arrays nested inside them.
+                        pathPattern: String.raw`^(?!.*(?:^|\.|\[")(?:${vscodeOrderSensitiveArrayProperties})`
+                          + String.raw`(?:$|\.|\[|"\])).*`,
                     },
                 ],
                 'jsonc/sort-keys': [
@@ -91,20 +114,6 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
                     },
                 ],
             },
-        },
-        // Tests
-        {
-            files: GLOB_TESTS,
-            rules: {
-                'test/valid-expect': 'error',
-                'test/valid-expect-in-promise': 'error',
-            },
-        },
-        // Type-aware TypeScript
-        {
-            ...createTypeAwareConfig(),
-            files: ['**/*.{ts,tsx}'],
-            ignores: ['**/*.config.ts'],
         },
         // Ignore all extracted Markdown code blocks, but keep linting Markdown itself.
         { ignores: ['**/*.md/**'] },
@@ -145,6 +154,7 @@ export function createBaseRules(environment: 'bun' | 'node' = 'node'): Rules {
             'error',
             { allowVoid: true },
         ],
+        'no-useless-assignment': 'error',
         'perfectionist/sort-array-includes': [
             'error',
             basePerfectionistSortOptions,
@@ -275,6 +285,7 @@ export function createBaseRules(environment: 'bun' | 'node' = 'node'): Rules {
             'error',
             basePerfectionistSortOptions,
         ],
+        'preserve-caught-error': 'error',
         'promise/no-multiple-resolved': 'error',
         'promise/no-return-in-finally': 'error',
         'promise/no-return-wrap': 'error',

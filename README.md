@@ -32,6 +32,7 @@ The default setup does not require an additional `typescript.tsconfigPath` optio
 JavaScript files retain syntax-only linting.
 TypeScript tool configs (`*.config.ts`) are excluded from type-aware checks.
 Base configs keep linting Markdown itself, but exclude its code blocks from all lint rules.
+Style configs format CSS and SCSS; indented Sass (`.sass`) is not supported.
 
 ## License
 

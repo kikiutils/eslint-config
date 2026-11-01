@@ -42,6 +42,7 @@ describe.concurrent('vue config factory', () => {
 
         expect(config.files).toStrictEqual(['**/*.vue']);
         expect(config.ignores).toBeUndefined();
+        expect(config.rules).not.toHaveProperty('vue/prefer-separate-static-class');
         expect(config.languageOptions?.parserOptions).toMatchObject({
             projectService: true,
             tsconfigRootDir: process.cwd(),

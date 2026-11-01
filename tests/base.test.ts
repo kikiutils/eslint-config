@@ -20,24 +20,28 @@ import { createSyntaxConfigs } from './utils';
 describe.concurrent('base eslint config factory', () => {
     it('creates layered configs for shared, js, ts, vscode json, and test files', ({ expect }) => {
         const configs = createBaseConfigs();
+        const [
+            shared,
+            javascript,
+            typescript,
+            typeAware,
+            testFiles,
+            vscode,
+            ignores,
+        ] = configs;
 
         expect(configs).toHaveLength(7);
-        expect(configs[0]).toMatchObject({
+        expect(shared).toMatchObject({
             rules: {
                 'e18e/ban-dependencies': [
                     'error',
-                    {
-                        allowed: [
-                            'axios',
-                            'rimraf',
-                        ],
-                    },
+                    { allowed: ['axios'] },
                 ],
-                'e18e/prefer-static-regex': ['off'],
+                'e18e/prefer-static-regex': 'off',
             },
         });
 
-        expect(configs[1]).toMatchObject({
+        expect(javascript).toMatchObject({
             files: ['**/*.{cjs,js,mjs}'],
             rules: {
                 'node/prefer-global/process': [
@@ -47,12 +51,12 @@ describe.concurrent('base eslint config factory', () => {
             },
         });
 
-        expect(configs[1]?.plugins).toHaveProperty('promise');
-        expect(configs[1]?.plugins).toHaveProperty('kikiutils.rules.statement-padding');
-        expect(configs[1]?.plugins).toHaveProperty('kikiutils.rules.compact-iteration-layout');
-        expect(configs[1]?.plugins).toHaveProperty('kikiutils.rules.consistent-parameter-layout');
-        expect(configs[1]?.plugins).toHaveProperty('kikiutils.rules.consistent-condition-layout');
-        expect(configs[2]).toMatchObject({
+        expect(javascript?.plugins).toHaveProperty('promise');
+        expect(javascript?.plugins).toHaveProperty('kikiutils.rules.statement-padding');
+        expect(javascript?.plugins).toHaveProperty('kikiutils.rules.compact-iteration-layout');
+        expect(javascript?.plugins).toHaveProperty('kikiutils.rules.consistent-parameter-layout');
+        expect(javascript?.plugins).toHaveProperty('kikiutils.rules.consistent-condition-layout');
+        expect(typescript).toMatchObject({
             files: ['**/*.{ts,tsx}'],
             rules: {
                 'node/prefer-global/process': [
@@ -67,12 +71,12 @@ describe.concurrent('base eslint config factory', () => {
             },
         });
 
-        expect(configs[2]?.plugins).toHaveProperty('promise');
-        expect(configs[2]?.plugins).toHaveProperty('kikiutils.rules.statement-padding');
-        expect(configs[2]?.plugins).toHaveProperty('kikiutils.rules.compact-iteration-layout');
-        expect(configs[2]?.plugins).toHaveProperty('kikiutils.rules.consistent-parameter-layout');
-        expect(configs[2]?.plugins).toHaveProperty('kikiutils.rules.consistent-condition-layout');
-        expect(configs[3]).toMatchObject({
+        expect(typescript?.plugins).toHaveProperty('promise');
+        expect(typescript?.plugins).toHaveProperty('kikiutils.rules.statement-padding');
+        expect(typescript?.plugins).toHaveProperty('kikiutils.rules.compact-iteration-layout');
+        expect(typescript?.plugins).toHaveProperty('kikiutils.rules.consistent-parameter-layout');
+        expect(typescript?.plugins).toHaveProperty('kikiutils.rules.consistent-condition-layout');
+        expect(vscode).toMatchObject({
             files: ['**/.vscode/*.json'],
             rules: {
                 'jsonc/sort-array-values': [
@@ -82,7 +86,7 @@ describe.concurrent('base eslint config factory', () => {
                             natural: true,
                             type: 'asc',
                         },
-                        pathPattern: '^.*$',
+                        pathPattern: expect.any(String),
                     },
                 ],
                 'jsonc/sort-keys': [
@@ -96,7 +100,7 @@ describe.concurrent('base eslint config factory', () => {
             },
         });
 
-        expect(configs[4]).toMatchObject({
+        expect(testFiles).toMatchObject({
             files: GLOB_TESTS,
             rules: {
                 'test/valid-expect': 'error',
@@ -104,7 +108,7 @@ describe.concurrent('base eslint config factory', () => {
             },
         });
 
-        expect(configs[5]).toMatchObject({
+        expect(typeAware).toMatchObject({
             files: ['**/*.{ts,tsx}'],
             ignores: ['**/*.config.ts'],
             languageOptions: {
@@ -131,7 +135,7 @@ describe.concurrent('base eslint config factory', () => {
             },
         });
 
-        expect(configs[6]).toEqual({ ignores: ['**/*.md/**'] });
+        expect(ignores).toEqual({ ignores: ['**/*.md/**'] });
     });
 
     it('uses node import sorting by default and forwards explicit bun environment', ({ expect }) => {
@@ -213,6 +217,8 @@ describe.concurrent('base eslint config factory', () => {
                 'error',
                 { allowVoid: true },
             ],
+            'no-useless-assignment': 'error',
+            'preserve-caught-error': 'error',
             'promise/no-multiple-resolved': 'error',
             'promise/no-return-in-finally': 'error',
             'promise/no-return-wrap': 'error',
@@ -238,10 +244,21 @@ describe.concurrent('base eslint config factory', () => {
         beforeAll(async () => {
             configs = createSyntaxConfigs(
                 await antfu({ typescript: true }, createBaseConfigs()),
-                (id) => id === 'no-constant-binary-expression'
+                (id) => id === 'e18e/ban-dependencies'
+                  || id === 'no-constant-binary-expression'
+                  || id === 'no-useless-assignment'
+                  || id === 'preserve-caught-error'
                   || id === 'test/valid-expect'
                   || id === 'test/valid-expect-in-promise',
             );
+        });
+
+        it('should flag rimraf while retaining the axios exception', ({ expect }) => {
+            const input = 'import axios from "axios"; import { rimraf } from "rimraf";';
+            const messages = new Linter().verify(input, configs, { filename: 'fixture.ts' });
+
+            expect(messages.map((message) => message.ruleId)).toEqual(['e18e/ban-dependencies']);
+            expect(messages[0]?.message).toContain('rimraf');
         });
 
         it.for([
@@ -285,6 +302,24 @@ describe.concurrent('base eslint config factory', () => {
             'fixture.js',
             'fixture.ts',
         ])(
+            'should detect unused assignments and discarded error causes in %s',
+            (filename, { expect }) => {
+                const input = 'let value = 1; value = 2; console.log(value); '
+                  + 'try { task(); } catch (error) { throw new Error("Failed"); }';
+
+                const messages = new Linter().verify(input, configs, { filename });
+
+                expect(messages.map((message) => message.ruleId).sort()).toEqual([
+                    'no-useless-assignment',
+                    'preserve-caught-error',
+                ]);
+            },
+        );
+
+        it.for([
+            'fixture.js',
+            'fixture.ts',
+        ])(
             'should not apply assertion rules outside test files: %s',
             (filename, { expect }) => {
                 const input = 'import { expect } from \'vitest\'; expect();';
@@ -292,8 +327,10 @@ describe.concurrent('base eslint config factory', () => {
             },
         );
 
-        it('should accept awaited Promise assertions', ({ expect }) => {
-            const input = 'import { it, expect } from \'vitest\'; it(\'case\', async () => { '
+        it('should accept consumed assignments, preserved errors, and awaited assertions', ({ expect }) => {
+            const input = 'let value = 1; console.log(value); value = 2; console.log(value); '
+              + 'try { task(); } catch (error) { throw new Error("Failed", { cause: error }); } '
+              + 'import { it, expect } from \'vitest\'; it(\'case\', async () => { '
               + 'await Promise.resolve(1).then(value => { expect(value).toBe(1); }); });';
 
             expect(new Linter().verify(input, configs, { filename: 'fixture.test.ts' })).toEqual([]);

@@ -84,7 +84,6 @@ export function createVueConfig(environment: 'bun' | 'node' = 'node'): TypedFlat
             'vue/no-template-target-blank': 'error',
             'vue/no-v-html': 'error',
             'vue/prefer-define-options': 'error',
-            'vue/prefer-separate-static-class': 'error',
             'vue/require-explicit-emits': 'error',
             'vue/require-typed-ref': 'error',
         },
