@@ -1,6 +1,8 @@
+import type { TypedFlatConfigItem } from '@antfu/eslint-config';
 import { antfu } from '@antfu/eslint-config';
 import { Linter } from 'eslint';
 import {
+    beforeAll,
     describe,
     it,
 } from 'vitest';
@@ -9,10 +11,12 @@ import { statementPadding } from '../src/_internals/rules/statement-padding';
 import { createBaseConfigs } from '../src/base';
 import { createVueConfig } from '../src/vue';
 
-const ruleName = 'kikiutils/statement-padding';
+import { filterRules } from './utils';
+
+const ruleId = 'kikiutils/statement-padding';
 const ruleConfig = {
     plugins: { kikiutils: { rules: { 'statement-padding': statementPadding } } },
-    rules: { [ruleName]: 'error' as const },
+    rules: { [ruleId]: 'error' as const },
 };
 
 describe('statement-padding', () => {
@@ -92,33 +96,35 @@ describe('statement-padding', () => {
             'class A { static { if (a) { fn(); }\n    next(); } }',
             'class A { static { if (a) { fn(); }\n\n    next(); } }',
         ],
-    ])(
+    ] as const)(
         'should insert a blank line only between sibling statements: %s',
         ([input, output], { expect }) => {
             const linter = new Linter();
-            const result = linter.verifyAndFix(input!, ruleConfig);
+            const result = linter.verifyAndFix(input, ruleConfig);
             expect(result.messages).toEqual([]);
             expect(result.output).toBe(output);
             expect(linter.verifyAndFix(result.output, ruleConfig).fixed).toBe(false);
         },
     );
 
-    it('should converge with existing formatters in JS, TS, and Vue scripts', async ({ expect }) => {
-        const configs = (await antfu(
-            {
-                typescript: true,
-                vue: true,
-            },
-            createBaseConfigs(),
-            createVueConfig(),
-        ))
-            .map((config) => ({
-                ...config,
-                rules: Object.fromEntries(Object.entries(config.rules ?? {}).filter(([name]) =>
-                    name.startsWith('style/')
-                    || name.startsWith('kikiutils/')
-                    || name === 'antfu/consistent-list-newline')),
-            }));
+    describe('formatter integration', () => {
+        let configs: TypedFlatConfigItem[];
+
+        beforeAll(async () => {
+            configs = filterRules(
+                await antfu(
+                    {
+                        typescript: true,
+                        vue: true,
+                    },
+                    createBaseConfigs(),
+                    createVueConfig(),
+                ),
+                (ruleId) => ruleId.startsWith('style/')
+                  || ruleId.startsWith('kikiutils/')
+                  || ruleId === 'antfu/consistent-list-newline',
+            );
+        });
 
         // eslint-disable-next-line style/max-len
         const input = 'function fn() {\n    if (enabled) {\n        if (ready) {\n            start();\n        }\n    }\n    const result = call(\n        first,\n        second,\n    );\n    check(result);\n}\n';
@@ -126,18 +132,21 @@ describe('statement-padding', () => {
             .replace('    }\n    const', '    }\n\n    const')
             .replace('    );\n    check', '    );\n\n    check');
 
-        const linter = new Linter();
-        for (const filename of [
+        it.for([
             'fixture.js',
             'fixture.ts',
             'fixture.vue',
-        ]) {
-            const isVue = filename.endsWith('.vue');
-            const wrap = (code: string): string => isVue ? `<script setup lang="ts">\n${code}</script>\n` : code;
-            const result = linter.verifyAndFix(wrap(input), configs, { filename });
-            expect(result.messages).toEqual([]);
-            expect(result.output).toBe(wrap(output));
-            expect(linter.verifyAndFix(result.output, configs, { filename }).fixed).toBe(false);
-        }
+        ])(
+            'should converge with existing formatters in %s',
+            (filename, { expect }) => {
+                const linter = new Linter();
+                const isVue = filename.endsWith('.vue');
+                const wrap = (code: string): string => isVue ? `<script setup lang="ts">\n${code}</script>\n` : code;
+                const result = linter.verifyAndFix(wrap(input), configs, { filename });
+                expect(result.messages).toEqual([]);
+                expect(result.output).toBe(wrap(output));
+                expect(linter.verifyAndFix(result.output, configs, { filename }).fixed).toBe(false);
+            },
+        );
     });
 });

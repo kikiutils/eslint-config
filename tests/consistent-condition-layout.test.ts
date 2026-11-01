@@ -1,6 +1,8 @@
+import type { TypedFlatConfigItem } from '@antfu/eslint-config';
 import { antfu } from '@antfu/eslint-config';
 import { Linter } from 'eslint';
 import {
+    beforeAll,
     describe,
     it,
 } from 'vitest';
@@ -9,10 +11,12 @@ import { consistentConditionLayout } from '../src/_internals/rules/consistent-co
 import { createBaseConfigs } from '../src/base';
 import { createVueConfig } from '../src/vue';
 
-const ruleName = 'kikiutils/consistent-condition-layout';
+import { filterRules } from './utils';
+
+const ruleId = 'kikiutils/consistent-condition-layout';
 const ruleConfig = {
     plugins: { kikiutils: { rules: { 'consistent-condition-layout': consistentConditionLayout } } },
-    rules: { [ruleName]: 'error' as const },
+    rules: { [ruleId]: 'error' as const },
 };
 
 describe('consistent-condition-layout', () => {
@@ -113,35 +117,46 @@ describe('consistent-condition-layout', () => {
             'if (a // reason\n    && b || c) {}',
             'if (\na // reason\n    && b \n|| c\n) {}',
         ],
-    ])(
+    ] as const)(
         'should insert only the missing newlines: %s',
         ([input, output], { expect }) => {
             const linter = new Linter();
-            const result = linter.verifyAndFix(input!, ruleConfig);
+            const result = linter.verifyAndFix(input, ruleConfig);
             expect(result.messages).toEqual([]);
             expect(result.output).toBe(output);
             expect(linter.verifyAndFix(result.output, ruleConfig).fixed).toBe(false);
         },
     );
 
-    it('should converge with existing formatters in JS, TS, JSX, and Vue', async ({ expect }) => {
-        const configs = (await antfu(
-            {
-                typescript: true,
-                vue: true,
-            },
-            createBaseConfigs(),
-            createVueConfig(),
-        )).map((config) => ({
-            ...config,
-            rules: Object.fromEntries(Object.entries(config.rules ?? {}).filter(([name]) =>
-                name.startsWith('style/')
-                || name.startsWith('kikiutils/')
-                || name === 'vue/html-indent'
-                || name === 'antfu/consistent-list-newline')),
-        }));
+    describe('formatter integration', () => {
+        let configs: TypedFlatConfigItem[];
 
-        const inputs = [
+        beforeAll(async () => {
+            configs = filterRules(
+                await antfu(
+                    {
+                        typescript: true,
+                        vue: true,
+                    },
+                    createBaseConfigs(),
+                    createVueConfig(),
+                ),
+                (ruleId) => ruleId.startsWith('style/')
+                  || ruleId.startsWith('kikiutils/')
+                  || ruleId === 'vue/html-indent'
+                  || ruleId === 'antfu/consistent-list-newline',
+            );
+        });
+
+        it('should retain mixed-operator diagnostics', ({ expect }) => {
+            const result = new Linter().verifyAndFix('if (a && b\n    || c) {}', configs, { filename: 'fixture.js' });
+            expect(result.messages.map((message) => message.ruleId)).toEqual([
+                'style/no-mixed-operators',
+                'style/no-mixed-operators',
+            ]);
+        });
+
+        it.for([
             {
                 filename: 'fixture.js',
                 input: 'if (a && (\n    b === 2)) {}',
@@ -191,26 +206,18 @@ describe('consistent-condition-layout', () => {
                 filename: 'fixture.vue',
                 input: '<template>\n    <div v-if="(a && b\n    && c)" />\n</template>\n',
             },
-        ];
-
-        const linter = new Linter();
-        const ungrouped = linter.verifyAndFix('if (a && b\n    || c) {}', configs, { filename: 'fixture.js' });
-        expect(ungrouped.messages.map((message) => message.ruleId)).toEqual([
-            'style/no-mixed-operators',
-            'style/no-mixed-operators',
-        ]);
-
-        for (const {
-            filename,
-            input,
-            output,
-        } of inputs) {
-            const options = { filename };
-            const result = linter.verifyAndFix(input, configs, options);
-            expect(result.messages).toEqual([]);
-            if (output !== undefined) expect(result.output).toBe(output);
-            expect(result.output).toMatch(/\(\n/);
-            expect(linter.verifyAndFix(result.output, configs, options).fixed).toBe(false);
-        }
+        ])(
+            'should converge with existing formatters in $filename: $input',
+            (fixture, { expect }) => {
+                const { filename, input } = fixture;
+                const linter = new Linter();
+                const options = { filename };
+                const result = linter.verifyAndFix(input, configs, options);
+                expect(result.messages).toEqual([]);
+                if ('output' in fixture) expect(result.output).toBe(fixture.output);
+                expect(result.output).toMatch(/\(\n/);
+                expect(linter.verifyAndFix(result.output, configs, options).fixed).toBe(false);
+            },
+        );
     });
 });

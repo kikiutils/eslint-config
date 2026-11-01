@@ -6,7 +6,7 @@ import {
 import { createStyleFilesConfigs } from '../src/style';
 
 describe.concurrent('style file config factory', () => {
-    it('creates prettier-backed configs for css, sass, and scss files', ({ expect }) => {
+    it('creates configs in css, sass, and scss order', ({ expect }) => {
         const configs = createStyleFilesConfigs();
 
         expect(configs).toHaveLength(3);
@@ -15,44 +15,30 @@ describe.concurrent('style file config factory', () => {
             ['**/*.sass'],
             ['**/*.scss'],
         ]);
-
-        expect(configs).toEqual(
-            expect.arrayContaining([
-                expect.objectContaining({
-                    rules: {
-                        'format/prettier': [
-                            'error',
-                            {
-                                parser: 'css',
-                                printWidth: 120,
-                                singleQuote: true,
-                                tabWidth: 4,
-                            },
-                        ],
-                    },
-                }),
-                expect.objectContaining({
-                    rules: {
-                        'format/prettier': [
-                            'error',
-                            expect.objectContaining({ parser: 'sass' }),
-                        ],
-                    },
-                }),
-                expect.objectContaining({
-                    rules: {
-                        'format/prettier': [
-                            'error',
-                            expect.objectContaining({ parser: 'scss' }),
-                        ],
-                    },
-                }),
-            ]),
-        );
-
-        configs.forEach((config) => {
-            expect(config.languageOptions).toHaveProperty('parser');
-            expect(config.plugins).toHaveProperty('format');
-        });
     });
+
+    it.for([
+        'css',
+        'sass',
+        'scss',
+    ])(
+        'uses the matching prettier parser and shared options for %s files',
+        (parser, { expect }) => {
+            const config = createStyleFilesConfigs().find((config) => config.files?.includes(`**/*.${parser}`));
+            expect(config?.rules).toEqual({
+                'format/prettier': [
+                    'error',
+                    {
+                        parser,
+                        printWidth: 120,
+                        singleQuote: true,
+                        tabWidth: 4,
+                    },
+                ],
+            });
+
+            expect(config?.languageOptions).toHaveProperty('parser');
+            expect(config?.plugins).toHaveProperty('format');
+        },
+    );
 });

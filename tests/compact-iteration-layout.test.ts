@@ -1,6 +1,8 @@
+import type { TypedFlatConfigItem } from '@antfu/eslint-config';
 import { antfu } from '@antfu/eslint-config';
 import { Linter } from 'eslint';
 import {
+    beforeAll,
     describe,
     it,
 } from 'vitest';
@@ -9,10 +11,12 @@ import { compactIterationLayout } from '../src/_internals/rules/compact-iteratio
 import { createBaseConfigs } from '../src/base';
 import { createVueConfig } from '../src/vue';
 
-const ruleName = 'kikiutils/compact-iteration-layout';
+import { filterRules } from './utils';
+
+const ruleId = 'kikiutils/compact-iteration-layout';
 const ruleConfig = {
     plugins: { kikiutils: { rules: { 'compact-iteration-layout': compactIterationLayout } } },
-    rules: { [ruleName]: 'error' as const },
+    rules: { [ruleId]: 'error' as const },
 };
 
 describe('compact-iteration-layout', () => {
@@ -69,37 +73,40 @@ describe('compact-iteration-layout', () => {
             'for (\n    const v of [] // keep ending\n) {}',
             'for (const v of [] // keep ending\n) {}',
         ],
-    ])(
+    ] as const)(
         'should remove only boundary whitespace: %s',
         ([input, output], { expect }) => {
             const linter = new Linter();
-            const result = linter.verifyAndFix(input!, ruleConfig);
+            const result = linter.verifyAndFix(input, ruleConfig);
             expect(result.messages).toEqual([]);
             expect(result.output).toBe(output);
             expect(linter.verifyAndFix(result.output, ruleConfig).fixed).toBe(false);
         },
     );
 
-    it('should converge with existing formatters in JS, TS, and Vue scripts', async ({ expect }) => {
-        const configs = (await antfu(
-            {
-                typescript: true,
-                vue: true,
-            },
-            createBaseConfigs(),
-            createVueConfig(),
-        ))
-            .map((config) => ({
-                ...config,
-                rules: Object.fromEntries(Object.entries(config.rules ?? {}).filter(([name]) =>
-                    name.startsWith('style/')
-                    || name.startsWith('kikiutils/')
-                    || name === 'antfu/consistent-list-newline')),
-            }));
+    describe('formatter integration', () => {
+        let configs: TypedFlatConfigItem[];
+
+        beforeAll(async () => {
+            configs = filterRules(
+                await antfu(
+                    {
+                        typescript: true,
+                        vue: true,
+                    },
+                    createBaseConfigs(),
+                    createVueConfig(),
+                ),
+                (ruleId) => ruleId.startsWith('style/')
+                  || ruleId.startsWith('kikiutils/')
+                  || ruleId === 'antfu/consistent-list-newline',
+            );
+        });
 
         const input = 'for (\n    const v of [\n        1,\n        2,\n        3,\n        4,\n    ]\n) {}';
         const output = 'for (const v of [\n    1,\n    2,\n    3,\n    4,\n]) {}\n';
-        const fixtures = [
+
+        it.for([
             {
                 filename: 'fixture.js',
                 input,
@@ -115,18 +122,23 @@ describe('compact-iteration-layout', () => {
                 input: `<script setup lang="ts">\n${input}\n</script>\n`,
                 output: `<script setup lang="ts">\n${output}</script>\n`,
             },
-        ];
-
-        const linter = new Linter();
-        for (const {
-            filename,
-            input,
-            output,
-        } of fixtures) {
-            const result = linter.verifyAndFix(input, configs, { filename });
-            expect(result.messages).toEqual([]);
-            expect(result.output).toBe(output);
-            expect(linter.verifyAndFix(result.output, configs, { filename }).fixed).toBe(false);
-        }
+        ])(
+            'should converge with existing formatters in $filename: $input',
+            (
+                {
+                    filename,
+                    input,
+                    output,
+                },
+                { expect },
+            ) => {
+                const linter = new Linter();
+                const options = { filename };
+                const result = linter.verifyAndFix(input, configs, options);
+                expect(result.messages).toEqual([]);
+                expect(result.output).toBe(output);
+                expect(linter.verifyAndFix(result.output, configs, options).fixed).toBe(false);
+            },
+        );
     });
 });

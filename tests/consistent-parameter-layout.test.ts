@@ -1,19 +1,23 @@
+import type { TypedFlatConfigItem } from '@antfu/eslint-config';
 import { antfu } from '@antfu/eslint-config';
 import { Linter } from 'eslint';
 import {
+    beforeAll,
     describe,
     it,
 } from 'vitest';
 
 import { consistentParameterLayout } from '../src/_internals/rules/consistent-parameter-layout';
 import { createBaseConfigs } from '../src/base';
+import { createVueConfig } from '../src/vue';
 
-// Constants/Variables
-const ruleName = 'kikiutils/consistent-parameter-layout';
+import { filterRules } from './utils';
+
+const ruleId = 'kikiutils/consistent-parameter-layout';
 const ruleConfig = {
     languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
     plugins: { kikiutils: { rules: { 'consistent-parameter-layout': consistentParameterLayout } } },
-    rules: { [ruleName]: 'error' as const },
+    rules: { [ruleId]: 'error' as const },
 };
 
 describe('consistent-parameter-layout', () => {
@@ -148,12 +152,12 @@ describe('consistent-parameter-layout', () => {
             'describe.concurrent(\'suite\', () => {\n    work();\n});',
             'describe.concurrent(\n\'suite\', () => {\n    work();\n});',
         ],
-    ])(
+    ] as const)(
         'should fix only the inconsistent parameter boundaries: %s',
         ([input, output], { expect }) => {
             const linter = new Linter();
-            expect(linter.verify(input!, ruleConfig).map((message) => message.ruleId)).toEqual([ruleName]);
-            const result = linter.verifyAndFix(input!, ruleConfig);
+            expect(linter.verify(input, ruleConfig).map((message) => message.ruleId)).toEqual([ruleId]);
+            const result = linter.verifyAndFix(input, ruleConfig);
             expect(result.messages).toEqual([]);
             expect(result.output).toBe(output);
             expect(linter.verifyAndFix(result.output, ruleConfig).fixed).toBe(false);
@@ -167,24 +171,29 @@ describe('consistent-parameter-layout', () => {
             const input = 'import { it } from \'vitest\'; it(\'case\', ({\n    expect\n}) => { a(1, {\n    key: 2\n}); });';
 
             expect(new Linter().verify(input, ruleConfig).map((message) => message.ruleId)).toEqual([
-                ruleName,
-                ruleName,
+                ruleId,
+                ruleId,
             ]);
         },
     );
 
-    it('should preserve multiline single-parameter types and complete their boundaries', async ({ expect }) => {
-        const configs = (await antfu({ typescript: true }, createBaseConfigs())).map((config) => ({
-            ...config,
-            rules: Object.fromEntries(Object.entries(config.rules ?? {}).filter(([name]) => name === ruleName)),
-        }));
+    describe('multiline single-parameter types', () => {
+        let configs: TypedFlatConfigItem[];
+
+        beforeAll(async () => {
+            configs = filterRules(
+                await antfu({ typescript: true }, createBaseConfigs()),
+                (id) => id === ruleId,
+            );
+        });
 
         const expanded = '(\n    value: Readonlyable<Array<bigint | null>>\n'
           + '      | { [path: string]: bigint | null }\n'
           + '      | { message?: string; values: Readonlyable<Array<bigint | null>> },\n) => {};';
 
         const compact = expanded.replace('(\n    value', '(value').replace(',\n)', ')');
-        const inputs = [
+
+        it.for([
             {
                 input: expanded,
                 output: expanded,
@@ -201,28 +210,32 @@ describe('consistent-parameter-layout', () => {
                 input: expanded.replace(',\n)', ',)'),
                 output: expanded,
             },
-        ];
-
-        const linter = new Linter();
-        const options = { filename: 'fixture.ts' };
-        for (const { input, output } of inputs) {
-            const result = linter.verifyAndFix(input, configs, options);
-            expect(result.messages).toEqual([]);
-            expect(result.output).toBe(output);
-            expect(linter.verifyAndFix(result.output, configs, options).fixed).toBe(false);
-        }
+        ])(
+            'should preserve types and complete boundaries: $input',
+            ({ input, output }, { expect }) => {
+                const linter = new Linter();
+                const options = { filename: 'fixture.ts' };
+                const result = linter.verifyAndFix(input, configs, options);
+                expect(result.messages).toEqual([]);
+                expect(result.output).toBe(output);
+                expect(linter.verifyAndFix(result.output, configs, options).fixed).toBe(false);
+            },
+        );
     });
 
-    it('should converge to the expected JS, TS, and JSX layouts', async ({ expect }) => {
-        const configs = (await antfu({ typescript: true }, createBaseConfigs())).map((config) => ({
-            ...config,
-            rules: Object.fromEntries(Object.entries(config.rules ?? {}).filter(([name]) =>
-                name.startsWith('style/')
-                || name === 'antfu/consistent-list-newline'
-                || name === ruleName)),
-        }));
+    describe('formatter integration', () => {
+        let configs: TypedFlatConfigItem[];
 
-        const inputs = [
+        beforeAll(async () => {
+            configs = filterRules(
+                await antfu({ typescript: true }, createBaseConfigs()),
+                (id) => id.startsWith('style/')
+                  || id === 'antfu/consistent-list-newline'
+                  || id === ruleId,
+            );
+        });
+
+        it.for([
             {
                 filename: 'fixture.js',
                 input: 'fn(a,\n    b, c);',
@@ -321,11 +334,14 @@ describe('consistent-parameter-layout', () => {
                 input: 'render(<Component />);',
                 output: 'render(<Component />);\n',
             },
-            {
-                filename: 'fixture.tsx',
+            ...[
+                'fixture.js',
+                'fixture.tsx',
+            ].map((filename) => ({
+                filename,
                 input: 'a(\n    {\n        a: 1,\n        b: 2\n    },\n);',
                 output: 'a(\n    {\n        a: 1,\n        b: 2,\n    },\n);\n',
-            },
+            })),
             {
                 filename: 'fixture.js',
                 input: 'a({\n    a: 1,\n    b: 2\n});',
@@ -348,11 +364,6 @@ describe('consistent-parameter-layout', () => {
             },
             {
                 filename: 'fixture.js',
-                input: 'a(\n    {\n        a: 1,\n        b: 2\n    },\n);',
-                output: 'a(\n    {\n        a: 1,\n        b: 2,\n    },\n);\n',
-            },
-            {
-                filename: 'fixture.js',
                 input: 'new A(\n    {\n        a: 1,\n        b: 2\n    },\n);',
                 output: 'new A(\n    {\n        a: 1,\n        b: 2,\n    },\n);\n',
             },
@@ -361,20 +372,24 @@ describe('consistent-parameter-layout', () => {
                 input: 'function fn(\n    value,\n) {}',
                 output: 'function fn(\n    value,\n) {}\n',
             },
-        ];
-
-        const linter = new Linter();
-        for (const {
-            filename,
-            input,
-            output,
-        } of inputs) {
-            const options = { filename };
-            const result = linter.verifyAndFix(input, configs, options);
-            expect(result.messages).toEqual([]);
-            expect(result.output).toBe(output);
-            expect(linter.verifyAndFix(result.output, configs, options).fixed).toBe(false);
-        }
+        ])(
+            'should converge to the expected layout in $filename: $input',
+            (
+                {
+                    filename,
+                    input,
+                    output,
+                },
+                { expect },
+            ) => {
+                const linter = new Linter();
+                const options = { filename };
+                const result = linter.verifyAndFix(input, configs, options);
+                expect(result.messages).toEqual([]);
+                expect(result.output).toBe(output);
+                expect(linter.verifyAndFix(result.output, configs, options).fixed).toBe(false);
+            },
+        );
     });
 });
 
@@ -389,21 +404,22 @@ describe('test-call exceptions', () => {
         'fixture.test.jsx',
         'fixture.test.ts',
         'fixture.test.tsx',
-    ])(
-        'should skip only the test calls themselves in %s',
-        (filename, { expect }) => {
-            for (const callee of [
-                'describe',
-                'describe.concurrent',
-                'it',
-                'it.concurrent',
-            ]) {
-                const input = `${callee}('case', () => {\n    work();\n});`;
-                const result = new Linter().verifyAndFix(input, config, { filename });
-                expect(result.messages).toEqual([]);
-                expect(result.output).toBe(input);
-                expect(result.fixed).toBe(false);
-            }
+    ].flatMap((filename) => [
+        'describe',
+        'describe.concurrent',
+        'it',
+        'it.concurrent',
+    ].map((callee) => ({
+        callee,
+        filename,
+    }))))(
+        'should skip only $callee itself in $filename',
+        ({ callee, filename }, { expect }) => {
+            const input = `${callee}('case', () => {\n    work();\n});`;
+            const result = new Linter().verifyAndFix(input, config, { filename });
+            expect(result.messages).toEqual([]);
+            expect(result.output).toBe(input);
+            expect(result.fixed).toBe(false);
         },
     );
 
@@ -440,12 +456,12 @@ describe('test-call exceptions', () => {
             'fixture.test.js',
             'it["concurrent"]',
         ],
-    ])(
+    ] as const)(
         'should retain other calls and filenames: %s',
         ([filename, callee], { expect }) => {
             const input = `${callee}('case', () => {\n    work();\n});`;
-            const messages = new Linter().verify(input, config, { filename: filename! });
-            expect(messages.map((message) => message.ruleId)).toEqual([ruleName]);
+            const messages = new Linter().verify(input, config, { filename });
+            expect(messages.map((message) => message.ruleId)).toEqual([ruleId]);
         },
     );
 
@@ -455,8 +471,8 @@ describe('test-call exceptions', () => {
         const linter = new Linter();
         const options = { filename: 'fixture.test.ts' };
         expect(linter.verify(input, config, options).map((message) => message.ruleId)).toEqual([
-            ruleName,
-            ruleName,
+            ruleId,
+            ruleId,
         ]);
 
         const result = linter.verifyAndFix(input, config, options);
@@ -464,4 +480,91 @@ describe('test-call exceptions', () => {
         expect(result.output).toBe(output);
         expect(linter.verifyAndFix(result.output, config, options).fixed).toBe(false);
     });
+});
+
+describe('consistent-parameter-layout in Vue', () => {
+    let formatConfigs: TypedFlatConfigItem[];
+    let ruleConfigs: TypedFlatConfigItem[];
+
+    beforeAll(async () => {
+        const configs = await antfu(
+            {
+                typescript: true,
+                vue: true,
+            },
+            createVueConfig(),
+        );
+
+        formatConfigs = filterRules(
+            configs,
+            (id) => id.startsWith('style/')
+              || id === 'vue/html-indent'
+              || id === 'antfu/consistent-list-newline'
+              || id === ruleId,
+        );
+
+        ruleConfigs = filterRules(configs, (id) => id === ruleId);
+    });
+
+    const expressions = [
+        'fn(1, {\n    key: 2\n}, 3, 4)',
+        'new A(1, {\n    key: 2\n})',
+        '({\n    a, b\n}, c) => fn(a, c)',
+        'fn(\n    1, {\n        key: 2\n}, 3, 4)',
+        'fn(1, /* reason */ {\n    key: 2\n}, 3)',
+        'fn(1, {\n    key: 2\n}, // reason\n3)',
+        'fn((1), ({\n    key: 2\n}), 3)',
+    ];
+
+    it.for([
+        ...expressions.map((expression) => `<template>\n    <div :value="${expression}" />\n</template>\n`),
+        '<template>\n    <button @click="fn(1, {\n    key: 2\n})" />\n</template>\n',
+        '<template>\n    {{ fn(1, {\n    key: 2\n}) }}\n</template>\n',
+    ])(
+        'should format template expressions without circular fixes: %s',
+        (input, { expect }) => {
+            const linter = new Linter();
+            const options = { filename: 'fixture.vue' };
+            expect(linter.verify(input, ruleConfigs, options)).toContainEqual(expect.objectContaining({ ruleId }));
+            const result = linter.verifyAndFix(input, formatConfigs, options);
+            expect(result.messages).toEqual([]);
+            expect(result.output).toMatch(/\(\n/);
+            expect(result.output).toMatch(/\n\s*\)/);
+            expect(result.output).not.toContain(', 3');
+            expect(result.output).not.toContain(', 4');
+            if (input.includes('reason')) expect(result.output).toContain('reason');
+            expect(linter.verifyAndFix(result.output, formatConfigs, options).fixed).toBe(false);
+        },
+    );
+
+    it.for([
+        '<template>\n    <div :value="fn(\n    { key: 2 },\n)" />\n</template>\n',
+        '<template>\n    <div :value="fn(\n    // reason\n    value,\n)" />\n</template>\n',
+    ])(
+        'should preserve valid single-parameter boundaries and comments: %s',
+        (input, { expect }) => {
+            const result = new Linter().verifyAndFix(input, ruleConfigs, { filename: 'fixture.vue' });
+            expect(result.messages).toEqual([]);
+            expect(result.output).toBe(input);
+            expect(result.fixed).toBe(false);
+        },
+    );
+
+    it.for([
+        'script',
+        'script setup',
+        'script lang="ts"',
+        'script setup lang="ts"',
+    ])(
+        'should format parameters in <%s>',
+        (tag, { expect }) => {
+            const input = `<${tag}>\nfn(1, {\n    key: 2\n});\n</script>\n`;
+            const linter = new Linter();
+            const options = { filename: 'fixture.vue' };
+            const result = linter.verifyAndFix(input, formatConfigs, options);
+            expect(result.messages).toEqual([]);
+            expect(result.output).toContain('fn(\n');
+            expect(linter.verifyAndFix(result.output, formatConfigs, options).fixed).toBe(false);
+        },
+    );
 });

@@ -7,8 +7,10 @@ import {
 
 import { createVueConfig } from '../src/vue';
 
+import { filterRules } from './utils';
+
 describe.concurrent('vue config factory', () => {
-    it('should format Vue script and template expressions without circular fixes', async ({ expect }) => {
+    it('should apply the registered parameter layout rule to both script and template', async ({ expect }) => {
         const configs = await antfu(
             {
                 typescript: true,
@@ -17,80 +19,22 @@ describe.concurrent('vue config factory', () => {
             createVueConfig(),
         );
 
-        const formatConfigs = configs.map((config) => ({
-            ...config,
-            rules: Object.fromEntries(Object.entries(config.rules ?? {}).filter(([name]) =>
-                name.startsWith('style/')
-                || name === 'vue/html-indent'
-                || name === 'antfu/consistent-list-newline'
-                || name === 'kikiutils/consistent-parameter-layout')),
-        }));
-
-        const ruleId = 'kikiutils/consistent-parameter-layout';
-        const ruleConfigs = configs.map((config) => ({
-            ...config,
-            rules: Object.fromEntries(Object.entries(config.rules ?? {}).filter(([name]) => name === ruleId)),
-        }));
+        const formatConfigs = filterRules(
+            configs,
+            (ruleId) => ruleId.startsWith('style/')
+              || ruleId === 'vue/html-indent'
+              || ruleId === 'antfu/consistent-list-newline'
+              || ruleId === 'kikiutils/consistent-parameter-layout',
+        );
 
         const linter = new Linter();
         const options = { filename: 'fixture.vue' };
-        const expectedMessage = { ruleId };
-        const expressions = [
-            'fn(1, {\n    key: 2\n}, 3, 4)',
-            'new A(1, {\n    key: 2\n})',
-            '({\n    a, b\n}, c) => fn(a, c)',
-            'fn(\n    1, {\n        key: 2\n}, 3, 4)',
-            'fn(1, /* reason */ {\n    key: 2\n}, 3)',
-            'fn(1, {\n    key: 2\n}, // reason\n3)',
-            'fn((1), ({\n    key: 2\n}), 3)',
-        ];
-
-        const inputs = [
-            ...expressions.map((expression) => `<template>\n    <div :value="${expression}" />\n</template>\n`),
-            '<template>\n    <button @click="fn(1, {\n    key: 2\n})" />\n</template>\n',
-            '<template>\n    {{ fn(1, {\n    key: 2\n}) }}\n</template>\n',
-        ];
-
-        for (const input of inputs) {
-            expect(linter.verify(input, ruleConfigs, options)).toContainEqual(expect.objectContaining(expectedMessage));
-            const result = linter.verifyAndFix(input, formatConfigs, options);
-            expect(result.messages).toEqual([]);
-            expect(result.output).toMatch(/\(\n/);
-            expect(result.output).toMatch(/\n\s*\)/);
-            expect(result.output).not.toContain(', 3');
-            expect(result.output).not.toContain(', 4');
-            if (input.includes('reason')) expect(result.output).toContain('reason');
-            expect(linter.verifyAndFix(result.output, formatConfigs, options).fixed).toBe(false);
-        }
-
-        const singleInput = '<template>\n    <div :value="fn(\n    { key: 2 },\n)" />\n</template>\n';
-        const singleResult = linter.verifyAndFix(singleInput, ruleConfigs, options);
-        expect(singleResult.messages).toEqual([]);
-        expect(singleResult.output).toBe(singleInput);
-        expect(singleResult.fixed).toBe(false);
-        const commentExpression = 'fn(\n    // reason\n    value,\n)';
-        const commentInput = `<template>\n    <div :value="${commentExpression}" />\n</template>\n`;
-        expect(linter.verifyAndFix(commentInput, ruleConfigs, options).output).toBe(commentInput);
-
         // eslint-disable-next-line style/max-len
         const combinedInput = '<script setup lang="ts">\nfn(1, {\n    key: 2\n});\n</script>\n<template>\n    <div :value="fn(1, {\n    key: 2 as number\n})" />\n</template>\n';
         const combinedResult = linter.verifyAndFix(combinedInput, formatConfigs, options);
         expect(combinedResult.messages).toEqual([]);
         expect(combinedResult.output.match(/fn\(\n/g)).toHaveLength(2);
         expect(linter.verifyAndFix(combinedResult.output, formatConfigs, options).fixed).toBe(false);
-
-        for (const tag of [
-            'script',
-            'script setup',
-            'script lang="ts"',
-            'script setup lang="ts"',
-        ]) {
-            const input = `<${tag}>\nfn(1, {\n    key: 2\n});\n</script>\n`;
-            const result = linter.verifyAndFix(input, formatConfigs, options);
-            expect(result.messages).toEqual([]);
-            expect(result.output).toContain('fn(\n');
-            expect(linter.verifyAndFix(result.output, formatConfigs, options).fixed).toBe(false);
-        }
     });
 
     it('creates a vue config with vue, tailwind, and shared promise rules', ({ expect }) => {
