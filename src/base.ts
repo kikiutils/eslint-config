@@ -139,10 +139,7 @@ export function createBaseRules(environment: 'bun' | 'node' = 'node'): Rules {
         ],
         'perfectionist/sort-heritage-clauses': [
             'error',
-            {
-                ignoreCase: false,
-                type: 'natural',
-            },
+            basePerfectionistSortOptions,
         ],
         'perfectionist/sort-imports': [
             'error',
