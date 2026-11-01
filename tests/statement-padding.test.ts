@@ -120,9 +120,9 @@ describe('statement-padding', () => {
                     createBaseConfigs(),
                     createVueConfig(),
                 ),
-                (ruleId) => ruleId.startsWith('style/')
-                  || ruleId.startsWith('kikiutils/')
-                  || ruleId === 'antfu/consistent-list-newline',
+                (id) => id.startsWith('style/')
+                  || id.startsWith('kikiutils/')
+                  || id === 'antfu/consistent-list-newline',
             );
         });
 

@@ -141,10 +141,10 @@ describe('consistent-condition-layout', () => {
                     createBaseConfigs(),
                     createVueConfig(),
                 ),
-                (ruleId) => ruleId.startsWith('style/')
-                  || ruleId.startsWith('kikiutils/')
-                  || ruleId === 'vue/html-indent'
-                  || ruleId === 'antfu/consistent-list-newline',
+                (id) => id.startsWith('style/')
+                  || id.startsWith('kikiutils/')
+                  || id === 'vue/html-indent'
+                  || id === 'antfu/consistent-list-newline',
             );
         });
 
