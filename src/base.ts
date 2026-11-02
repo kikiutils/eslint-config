@@ -129,6 +129,13 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
                 ],
                 'test/prefer-each': 'error',
                 'test/prefer-hooks-on-top': 'error',
+                'test/prefer-lowercase-title': [
+                    'error',
+                    {
+                        ignoreTopLevelDescribe: true,
+                        lowercaseFirstCharacterOnly: true,
+                    },
+                ],
                 'test/prefer-to-be': 'error',
                 'test/valid-describe-callback': 'error',
                 'test/valid-expect': 'error',

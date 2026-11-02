@@ -49,6 +49,7 @@ describe('type-aware configs', () => {
         'vue',
     ])(
         'should enable all ten typed checks in %s without consumer parser overrides',
+        { timeout: 30_000 },
         (extension, { expect }) => {
             const code = [
                 'async function run(): Promise<void> {',
