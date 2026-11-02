@@ -369,7 +369,7 @@ export function createBaseRules(environment: 'bun' | 'node' = 'node'): Rules {
         'promise/no-multiple-resolved': 'error',
         'promise/no-return-in-finally': 'error',
         'promise/no-return-wrap': 'error',
-        'require-await': 'error',
+        'require-await': 'off',
         'style/array-bracket-newline': [
             'error',
             { multiline: true },

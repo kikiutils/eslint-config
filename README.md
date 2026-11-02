@@ -31,6 +31,8 @@ Linted files must belong to a discoverable `tsconfig.json`; project references a
 The default setup does not require an additional `typescript.tsconfigPath` option.
 JavaScript files retain syntax-only linting.
 TypeScript tool configs (`*.config.ts`, `*.config.mts`, `*.config.cts`) are excluded from type-aware checks.
+Type-aware checks require Promise-returning functions to be `async` and returned promises to use `return await`.
+Both `require-await` rules are disabled so `async` wrappers can preserve Promise-based error handling without an `await`.
 Base configs keep linting Markdown itself, but exclude its code blocks from all lint rules.
 Style configs format CSS and SCSS; indented Sass (`.sass`) is not supported.
 

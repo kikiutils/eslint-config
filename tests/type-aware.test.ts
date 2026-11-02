@@ -22,7 +22,7 @@ const ruleIds = [
     'ts/no-misused-promises',
     'ts/no-misused-spread',
     'ts/no-unnecessary-type-assertion',
-    'ts/require-await',
+    'ts/promise-function-async',
     'ts/return-await',
     'ts/switch-exhaustiveness-check',
 ];
@@ -40,7 +40,7 @@ describe('type-aware configs', () => {
                 createBaseConfigs(),
                 createVueConfig(),
             ),
-            (id) => id === 'require-await' || ruleIds.includes(id),
+            (id) => id === 'require-await' || id === 'ts/require-await' || ruleIds.includes(id),
         );
     });
 
@@ -62,7 +62,7 @@ describe('type-aware configs', () => {
                 '    const copy = { ...new Map([[\'key\', 1]]) };',
                 '}',
                 'async function load() { try { return Promise.resolve(1); } catch { return 0; } }',
-                'async function immediate() { return 1; }',
+                'function immediate() { return Promise.resolve(1); }',
                 'function identity(value: number): number { return value as number; }',
                 'type State = \'idle\' | \'ready\' | null | undefined;',
                 'function handle(state: State): void {',
@@ -79,17 +79,46 @@ describe('type-aware configs', () => {
     );
 
     it.for([
+        'ts',
+        'vue',
+    ])(
+        'should apply the shared async policy in %s',
+        (extension, { expect }) => {
+            const code = [
+                'function load() { return Promise.resolve(1); }',
+                'async function immediate() { return 2; }',
+                'function sync() { return 3; }',
+            ].join('\n');
+
+            const expected = [
+                'async function load() { return await Promise.resolve(1); }',
+                'async function immediate() { return 2; }',
+                'function sync() { return 3; }',
+            ].join('\n');
+
+            const input = extension === 'vue' ? `<script lang="ts">\n${code}\n</script>\n` : code;
+            const expectedOutput = extension === 'vue' ? `<script lang="ts">\n${expected}\n</script>\n` : expected;
+            const filename = fileURLToPath(new URL(`./fixtures/type-aware/fixture.${extension}`, import.meta.url));
+            const linter = new Linter();
+            const result = linter.verifyAndFix(input, configs, { filename });
+            expect(result.messages).toEqual([]);
+            expect(result.output).toBe(expectedOutput);
+            expect(linter.verifyAndFix(result.output, configs, { filename }).fixed).toBe(false);
+        },
+    );
+
+    it.for([
         'fixture.js',
         'tsdown.config.ts',
         'tool.config.mts',
         'tool.config.cts',
     ])(
-        'should retain core rules without typed parsing or checks in syntax-only files: %s',
+        'should allow async wrappers without typed parsing or checks in syntax-only files: %s',
         (filename, { expect }) => {
             const code = 'Promise.resolve(); async function run() { return 1; }';
             const messages = new Linter().verify(code, configs, { filename });
 
-            expect(messages.map((message) => message.ruleId)).toEqual(['require-await']);
+            expect(messages).toEqual([]);
         },
     );
 });
