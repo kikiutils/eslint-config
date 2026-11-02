@@ -1,5 +1,26 @@
 # Changelog
 
+## v10.1.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v10.0.0...v10.1.0)
+
+### 🚀 Enhancements
+
+- Enforce test conventions and relax string line limits ([17ab2a4](https://github.com/kikiutils/eslint-config/commit/17ab2a4))
+- Standardize documentation profiles and test conventions ([e7c23c3](https://github.com/kikiutils/eslint-config/commit/e7c23c3))
+
+### 🩹 Fixes
+
+- Preserve suite title casing and allow typed lint startup time ([6199dff](https://github.com/kikiutils/eslint-config/commit/6199dff))
+
+### 🏡 Chore
+
+- Upgrade deps ([096010e](https://github.com/kikiutils/eslint-config/commit/096010e))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v10.0.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v9.3.2...v10.0.0)
