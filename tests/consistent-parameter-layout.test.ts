@@ -239,9 +239,7 @@ describe('consistent-parameter-layout', () => {
             },
             {
                 filename: 'fixture.js',
-                // eslint-disable-next-line style/max-len
                 input: 'function fn() { return defineScriptAndTemplateVisitors(context.sourceCode, createVisitor, 1, 2, 3, 4, 5, 5, 5,\n    5, 5\n    , 5, 5); }',
-                // eslint-disable-next-line style/max-len
                 output: 'function fn() {\n    return defineScriptAndTemplateVisitors(\n        context.sourceCode,\n        createVisitor,\n        1,\n        2,\n        3,\n        4,\n        5,\n        5,\n        5,\n        5,\n        5,\n        5,\n        5,\n    );\n}\n',
             },
             {
@@ -292,7 +290,6 @@ describe('consistent-parameter-layout', () => {
             {
                 filename: 'fixture.tsx',
                 input: 'render(<div>{fn(1, {\n    key: 2\n})}</div>);',
-                // eslint-disable-next-line style/max-len
                 output: 'render(\n    <div>\n        {fn(\n            1,\n            { key: 2 },\n        )}\n    </div>,\n);\n',
             },
             {

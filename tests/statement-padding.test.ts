@@ -189,7 +189,6 @@ describe('statement-padding', () => {
             expect(linter.verifyAndFix(result.output, ruleConfigs, options).fixed).toBe(false);
         });
 
-        // eslint-disable-next-line style/max-len
         const input = 'function fn() {\n    if (enabled) {\n        if (ready) {\n            start();\n        }\n    }\n    const result = call(\n        first,\n        second,\n    );\n    check(result);\n}\n';
         const output = input
             .replace('    }\n    const', '    }\n\n    const')

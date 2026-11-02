@@ -170,13 +170,11 @@ describe('consistent-condition-layout', () => {
             {
                 filename: 'fixture.ts',
                 input: 'if ((a === 1 && b === 2\n    && z === 3) || (a === 1 && b === 2)) {}',
-                // eslint-disable-next-line style/max-len
                 output: 'if (\n    (\n        a === 1\n        && b === 2\n        && z === 3\n    )\n    || (a === 1 && b === 2)\n) {}\n',
             },
             {
                 filename: 'fixture.js',
                 input: 'if ((a === 1 && b === 2\n    && z === 3) || (a === 1\n        && b === 2)) {}',
-                // eslint-disable-next-line style/max-len
                 output: 'if (\n    (\n        a === 1\n        && b === 2\n        && z === 3\n    )\n    || (\n        a === 1\n        && b === 2\n    )\n) {}\n',
             },
             {

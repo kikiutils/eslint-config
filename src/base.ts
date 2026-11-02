@@ -101,8 +101,31 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
                     'error',
                     { compactTestCalls: true },
                 ],
+                'no-restricted-imports': [
+                    'error',
+                    {
+                        paths: [
+                            {
+                                importNames: ['expect'],
+                                message: 'Use `expect` from the test context.',
+                                name: 'vitest',
+                            },
+                        ],
+                    },
+                ],
+                'test/consistent-each-for': [
+                    'error',
+                    {
+                        it: 'for',
+                        test: 'for',
+                    },
+                ],
                 'test/valid-expect': 'error',
                 'test/valid-expect-in-promise': 'error',
+                'test/valid-title': [
+                    'error',
+                    { mustMatch: { it: '^should ' } },
+                ],
             },
         },
         // VS Code JSONC
@@ -117,7 +140,6 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
                             type: 'asc',
                         },
                         // Preserve ordered fields and any argument or option arrays nested inside them.
-                        // eslint-disable-next-line style/max-len
                         pathPattern: String.raw`^(?!.*(?:^|\.|\[")(?:${vscodeOrderSensitiveArrayProperties})(?:$|\.|\[|"\])).*`,
                     },
                 ],
@@ -342,6 +364,8 @@ export function createBaseRules(environment: 'bun' | 'node' = 'node'): Rules {
             {
                 code: 120,
                 comments: 120,
+                ignoreStrings: true,
+                ignoreTemplateLiterals: true,
             },
         ],
         'style/member-delimiter-style': [

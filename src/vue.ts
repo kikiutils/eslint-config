@@ -77,6 +77,8 @@ export function createVueConfig(environment: 'bun' | 'node' = 'node'): TypedFlat
                 {
                     code: 120,
                     comments: 120,
+                    ignoreStrings: true,
+                    ignoreTemplateLiterals: true,
                     template: 120,
                 },
             ],
