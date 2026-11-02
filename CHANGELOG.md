@@ -1,5 +1,17 @@
 # Changelog
 
+## v10.2.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v10.1.1...v10.2.0)
+
+### 🚀 Enhancements
+
+- Enforce consistent async promise handling ([6895359](https://github.com/kikiutils/eslint-config/commit/6895359))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v10.1.1
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v10.1.0...v10.1.1)
