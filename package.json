@@ -68,7 +68,7 @@
     "@vitest/coverage-v8": "^5.0.5",
     "changelogen": "^0.6.2",
     "eslint": "^10.14.0",
-    "knip": "^6.44.0",
+    "knip": "^6.44.1",
     "publint": "^0.3.25",
     "tsdown": "^0.23.4",
     "typescript": "^6.0.3",
