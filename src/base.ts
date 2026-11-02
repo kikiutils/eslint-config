@@ -12,6 +12,10 @@ import {
 // @ts-expect-error No declare file.
 import promise from 'eslint-plugin-promise';
 
+import {
+    jsdocSettings,
+    typescriptJsdocConfig,
+} from './_internals/jsdoc';
 import { customPlugins } from './_internals/plugins';
 import { createTypeAwareConfig } from './_internals/type-aware';
 
@@ -65,6 +69,7 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
                     'always',
                 ],
             },
+            settings: jsdocSettings,
         },
         // TypeScript
         {
@@ -73,6 +78,7 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
                 GLOB_TSX,
             ],
             rules: {
+                ...typescriptJsdocConfig.rules,
                 'ts/array-type': [
                     'error',
                     { default: 'array-simple' },
@@ -83,6 +89,7 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
                 ],
                 'ts/no-redeclare': 'off',
             },
+            settings: typescriptJsdocConfig.settings,
         },
         // Type-aware TypeScript
         {
@@ -120,11 +127,18 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
                         test: 'for',
                     },
                 ],
+                'test/prefer-each': 'error',
+                'test/prefer-hooks-on-top': 'error',
+                'test/prefer-to-be': 'error',
+                'test/valid-describe-callback': 'error',
                 'test/valid-expect': 'error',
                 'test/valid-expect-in-promise': 'error',
                 'test/valid-title': [
                     'error',
-                    { mustMatch: { it: '^should ' } },
+                    {
+                        mustMatch: { it: '^should ' },
+                        mustNotMatch: { it: String.raw`\.$` },
+                    },
                 ],
             },
         },
@@ -178,6 +192,27 @@ export function createBaseRules(environment: 'bun' | 'node' = 'node'): Rules {
         'curly': [
             'error',
             'multi-line',
+        ],
+        'jsdoc/check-tag-names': 'error',
+        'jsdoc/multiline-blocks': [
+            'error',
+            {
+                noSingleLineBlocks: true,
+                singleLineTags: [
+                    'type',
+                    'import',
+                ],
+            },
+        ],
+        'jsdoc/no-blank-blocks': [
+            'error',
+            { enableFixer: true },
+        ],
+        'jsdoc/require-asterisk-prefix': 'error',
+        'jsdoc/require-hyphen-before-param-description': [
+            'error',
+            'always',
+            { tags: { typeParam: 'always' } },
         ],
         'kikiutils/compact-iteration-layout': 'error',
         'kikiutils/consistent-condition-layout': 'error',

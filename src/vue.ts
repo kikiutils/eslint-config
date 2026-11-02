@@ -4,6 +4,7 @@ import betterTailwindcss from 'eslint-plugin-better-tailwindcss';
 // @ts-expect-error No declare file.
 import promise from 'eslint-plugin-promise';
 
+import { typescriptJsdocConfig } from './_internals/jsdoc';
 import { customPlugins } from './_internals/plugins';
 import { createTypeAwareConfig } from './_internals/type-aware';
 import { createBaseRules } from './base';
@@ -21,6 +22,7 @@ export function createVueConfig(environment: 'bun' | 'node' = 'node'): TypedFlat
         },
         rules: {
             ...createBaseRules(environment),
+            ...typescriptJsdocConfig.rules,
             ...typeAwareConfig.rules,
             '@kikiutils/vue/attributes-order': [
                 'error',
@@ -93,5 +95,6 @@ export function createVueConfig(environment: 'bun' | 'node' = 'node'): TypedFlat
             'vue/require-explicit-emits': 'error',
             'vue/require-typed-ref': 'error',
         },
+        settings: typescriptJsdocConfig.settings,
     };
 }
