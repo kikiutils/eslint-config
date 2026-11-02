@@ -1,5 +1,21 @@
 # Changelog
 
+## v10.1.1
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v10.1.0...v10.1.1)
+
+### 🩹 Fixes
+
+- Allow SafePromise from @kikiutils/shared to float ([1763323](https://github.com/kikiutils/eslint-config/commit/1763323))
+
+### 🏡 Chore
+
+- Lint code ([1c5c42d](https://github.com/kikiutils/eslint-config/commit/1c5c42d))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v10.1.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v10.0.0...v10.1.0)
