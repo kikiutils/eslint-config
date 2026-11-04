@@ -1,5 +1,21 @@
 # Changelog
 
+## v10.2.1
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v10.2.0...v10.2.1)
+
+### 🩹 Fixes
+
+- Enforce LF line endings in shared config ([53b87b3](https://github.com/kikiutils/eslint-config/commit/53b87b3))
+
+### 🏡 Chore
+
+- Upgrade deps ([9b4ff78](https://github.com/kikiutils/eslint-config/commit/9b4ff78))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v10.2.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v10.1.1...v10.2.0)
