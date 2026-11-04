@@ -48,6 +48,10 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
                     { allowed: ['axios'] },
                 ],
                 'e18e/prefer-static-regex': 'off',
+                'style/linebreak-style': [
+                    'error',
+                    'unix',
+                ],
             },
         },
         // JavaScript and TypeScript
