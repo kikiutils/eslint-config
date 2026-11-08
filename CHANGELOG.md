@@ -1,5 +1,26 @@
 # Changelog
 
+## v11.0.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v10.2.1...v11.0.0)
+
+### 🚀 Enhancements
+
+- ⚠️  Enable selected type-fest and ts-extras rules ([430468f](https://github.com/kikiutils/eslint-config/commit/430468f))
+
+### 🏡 Chore
+
+- Upgrade deps ([5f65164](https://github.com/kikiutils/eslint-config/commit/5f65164))
+- Lint code ([41b2a64](https://github.com/kikiutils/eslint-config/commit/41b2a64))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  Enable selected type-fest and ts-extras rules ([430468f](https://github.com/kikiutils/eslint-config/commit/430468f))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v10.2.1
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v10.2.0...v10.2.1)
