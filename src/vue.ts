@@ -7,14 +7,17 @@ import promise from 'eslint-plugin-promise';
 import { typescriptJsdocConfig } from './_internals/jsdoc';
 import { customPlugins } from './_internals/plugins';
 import { createTypeAwareConfig } from './_internals/type-aware';
+import { createTypefestConfig } from './_internals/typefest';
 import { createBaseRules } from './base';
 
 export function createVueConfig(environment: 'bun' | 'node' = 'node'): TypedFlatConfigItem {
     const typeAwareConfig = createTypeAwareConfig();
+    const typefestConfig = createTypefestConfig();
     return {
         files: ['**/*.vue'],
         languageOptions: typeAwareConfig.languageOptions,
         plugins: {
+            ...typefestConfig.plugins,
             '@kikiutils/vue': kikiutilsEslintPluginVue,
             'better-tailwindcss': betterTailwindcss,
             'kikiutils': customPlugins,
@@ -24,6 +27,7 @@ export function createVueConfig(environment: 'bun' | 'node' = 'node'): TypedFlat
             ...createBaseRules(environment),
             ...typescriptJsdocConfig.rules,
             ...typeAwareConfig.rules,
+            ...typefestConfig.rules,
             '@kikiutils/vue/attributes-order': [
                 'error',
                 {

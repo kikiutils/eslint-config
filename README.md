@@ -20,6 +20,7 @@ Using [pnpm](https://pnpm.io):
 
 ```bash
 pnpm add -D @kikiutils/eslint-config
+pnpm add ts-extras type-fest
 ```
 
 You can also use `yarn`, `npm`, or `bun`.
@@ -31,6 +32,8 @@ Linted files must belong to a discoverable `tsconfig.json`; project references a
 The default setup does not require an additional `typescript.tsconfigPath` option.
 JavaScript files retain syntax-only linting.
 TypeScript tool configs (`*.config.ts`, `*.config.mts`, `*.config.cts`) are excluded from type-aware checks.
+TypeScript and Vue configs also enable nine selected `eslint-plugin-typefest` rules for `type-fest` types and `ts-extras` helpers, excluding TypeScript tool configs.
+Both packages are required peer dependencies; keep `ts-extras` in runtime dependencies when application code imports its helpers.
 Type-aware checks require Promise-returning functions to be `async` and returned promises to use `return await`.
 Both `require-await` rules are disabled so `async` wrappers can preserve Promise-based error handling without an `await`.
 Base configs keep linting Markdown itself, but exclude its code blocks from all lint rules.

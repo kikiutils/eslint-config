@@ -40,7 +40,9 @@
   "peerDependencies": {
     "@antfu/eslint-config": "^10.0.0",
     "eslint": "^10.13.0",
-    "tailwindcss": "^4.3.3"
+    "tailwindcss": "^4.3.3",
+    "ts-extras": "^2.0.0",
+    "type-fest": "^5.10.0"
   },
   "peerDependenciesMeta": {
     "eslint": {
@@ -57,6 +59,7 @@
     "eslint-plugin-better-tailwindcss": "^4.10.0",
     "eslint-plugin-format": "^2.0.1",
     "eslint-plugin-promise": "^7.3.0",
+    "eslint-plugin-typefest": "^1.5.1",
     "tailwind-csstree": "^0.4.2",
     "vue-eslint-parser": "^10.4.2"
   },
@@ -70,7 +73,9 @@
     "eslint": "^10.14.0",
     "knip": "^6.44.1",
     "publint": "^0.3.25",
+    "ts-extras": "^2.0.0",
     "tsdown": "^0.23.7",
+    "type-fest": "^5.10.0",
     "typescript": "^6.0.3",
     "unplugin-unused": "^0.6.0",
     "vitest": "^5.1.0"

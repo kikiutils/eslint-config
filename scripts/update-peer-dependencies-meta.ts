@@ -5,7 +5,11 @@ import {
     writeFile,
 } from 'node:fs/promises';
 
-const requiredPeerDependencies: string[] = ['@antfu/eslint-config'];
+const requiredPeerDependencies: string[] = [
+    '@antfu/eslint-config',
+    'ts-extras',
+    'type-fest',
+];
 
 const packageJson = JSON.parse(await readFile('./package.json', 'utf-8'));
 const peerDependenciesMeta: Record<string, { optional: boolean }> = {};

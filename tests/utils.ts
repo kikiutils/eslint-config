@@ -1,4 +1,5 @@
 import type { TypedFlatConfigItem } from '@antfu/eslint-config';
+import { objectEntries } from 'ts-extras';
 
 export function createSyntaxConfigs(
     configs: readonly TypedFlatConfigItem[],
@@ -16,6 +17,6 @@ export function filterRules(
 ): TypedFlatConfigItem[] {
     return configs.map((config) => ({
         ...config,
-        rules: Object.fromEntries(Object.entries(config.rules ?? {}).filter(([ruleId]) => predicate(ruleId))),
+        rules: Object.fromEntries(objectEntries(config.rules ?? {}).filter(([ruleId]) => predicate(ruleId))),
     }));
 }

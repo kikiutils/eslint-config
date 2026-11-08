@@ -18,6 +18,7 @@ import {
 } from './_internals/jsdoc';
 import { customPlugins } from './_internals/plugins';
 import { createTypeAwareConfig } from './_internals/type-aware';
+import { createTypefestConfig } from './_internals/typefest';
 
 // Constants/Variables
 const basePerfectionistSortOptions = {
@@ -98,6 +99,15 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
         // Type-aware TypeScript
         {
             ...createTypeAwareConfig(),
+            files: [
+                GLOB_TS,
+                GLOB_TSX,
+            ],
+            ignores: ['**/*.config.?([cm])ts'],
+        },
+        // Type-fest and ts-extras
+        {
+            ...createTypefestConfig(),
             files: [
                 GLOB_TS,
                 GLOB_TSX,
