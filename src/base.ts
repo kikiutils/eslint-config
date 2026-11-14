@@ -190,6 +190,8 @@ export function createBaseConfigs(environment: 'bun' | 'node' = 'node'): TypedFl
         },
         // Ignore all extracted Markdown code blocks, but keep linting Markdown itself.
         { ignores: ['**/*.md/**'] },
+        // Serena's project files (`project.yml`, memories) are tool-generated and may be tracked.
+        { ignores: ['**/.serena/**'] },
     ];
 }
 
