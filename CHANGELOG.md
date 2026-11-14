@@ -1,5 +1,30 @@
 # Changelog
 
+## v11.1.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v11.0.1...v11.1.0)
+
+### 🚀 Enhancements
+
+- **base:** Ignore Serena project files ([bc6f429](https://github.com/kikiutils/eslint-config/commit/bc6f429))
+
+### 💅 Refactors
+
+- **scripts:** Rename peer dependency metadata updater to sync ([cc094ef](https://github.com/kikiutils/eslint-config/commit/cc094ef))
+
+### 📦 Build
+
+- Generate scoped wildcard package exports from entries ([051558a](https://github.com/kikiutils/eslint-config/commit/051558a))
+
+### 🏡 Chore
+
+- Update ignore files ([aceb847](https://github.com/kikiutils/eslint-config/commit/aceb847))
+- Upgrade deps ([509084a](https://github.com/kikiutils/eslint-config/commit/509084a))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v11.0.1
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v11.0.0...v11.0.1)
