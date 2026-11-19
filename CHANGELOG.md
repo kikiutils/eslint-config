@@ -1,5 +1,21 @@
 # Changelog
 
+## v11.2.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v11.1.0...v11.2.0)
+
+### 🚀 Enhancements
+
+- Restrict swallowed errors, AxiosError instanceof, private imports and setup redirects ([e229b93](https://github.com/kikiutils/eslint-config/commit/e229b93))
+
+### 🏡 Chore
+
+- Upgrade deps ([d587f7f](https://github.com/kikiutils/eslint-config/commit/d587f7f))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v11.1.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v11.0.1...v11.1.0)
