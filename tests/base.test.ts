@@ -40,6 +40,56 @@ describe.concurrent('base eslint config factory', () => {
         ]);
     });
 
+    describe('restricted patterns', () => {
+        let configs: TypedFlatConfigItem[];
+
+        beforeAll(async () => {
+            configs = createSyntaxConfigs(
+                await antfu({ typescript: true }, createBaseConfigs()),
+                (id) => [
+                    'no-empty',
+                    'no-restricted-imports',
+                    'no-restricted-syntax',
+                ].includes(id),
+            );
+        });
+
+        it.for([
+            [
+                'if (error instanceof AxiosError) handle();',
+                'no-restricted-syntax',
+            ],
+            [
+                'promise.catch(() => {});',
+                'no-restricted-syntax',
+            ],
+            [
+                'try { run(); } catch {}',
+                'no-empty',
+            ],
+            [
+                'import { x } from \'pkg/libs/_internals/x\'; x();',
+                'no-restricted-imports',
+            ],
+        ] as const)(
+            'should report %s',
+            ([input, ruleId], { expect }) => {
+                const messages = new Linter().verify(input, configs, { filename: 'fixture.ts' });
+                expect(messages.map((message) => message.ruleId)).toEqual([ruleId]);
+            },
+        );
+
+        it.for([
+            'try { run(); } catch { /* The fallback below covers it. */ }',
+            'import { x } from \'./_internals/x\'; x();',
+        ])(
+            'should allow %s',
+            (input, { expect }) => {
+                expect(new Linter().verify(input, configs, { filename: 'fixture.ts' })).toEqual([]);
+            },
+        );
+    });
+
     describe('test file scope', () => {
         let configs: TypedFlatConfigItem[];
 

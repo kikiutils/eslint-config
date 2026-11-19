@@ -17,6 +17,7 @@ import {
     typescriptJsdocConfig,
 } from './_internals/jsdoc';
 import { customPlugins } from './_internals/plugins';
+import { restrictedSyntax } from './_internals/restricted-syntax';
 import { createTypeAwareConfig } from './_internals/type-aware';
 import { createTypefestConfig } from './_internals/typefest';
 
@@ -246,9 +247,29 @@ export function createBaseRules(environment: 'bun' | 'node' = 'node'): Rules {
             1,
         ],
         'no-constant-binary-expression': 'error',
+        // An ignored error needs at least a comment in the block saying why.
+        'no-empty': [
+            'error',
+            { allowEmptyCatch: false },
+        ],
         'no-promise-executor-return': [
             'error',
             { allowVoid: true },
+        ],
+        'no-restricted-imports': [
+            'error',
+            {
+                patterns: [
+                    {
+                        message: '`_internals` modules are private to their own directory; import the public module instead.',
+                        regex: String.raw`^[^.].*/_internals(/|$)`,
+                    },
+                ],
+            },
+        ],
+        'no-restricted-syntax': [
+            'error',
+            ...restrictedSyntax,
         ],
         'no-useless-assignment': 'error',
         'perfectionist/sort-array-includes': [
