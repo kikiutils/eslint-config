@@ -1,5 +1,17 @@
 # Changelog
 
+## v11.2.1
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v11.2.0...v11.2.1)
+
+### 🏡 Chore
+
+- Upgrade deps ([d40d009](https://github.com/kikiutils/eslint-config/commit/d40d009))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v11.2.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v11.1.0...v11.2.0)
