@@ -12,7 +12,7 @@ import {
 
 import { noComposableInHeadGetter } from '../src/_internals/rules/no-composable-in-head-getter';
 import { createBaseConfigs } from '../src/base';
-import { createNuxtConfig } from '../src/nuxt';
+import { createNuxtConfigs } from '../src/nuxt';
 import { createVueConfig } from '../src/vue';
 
 import {
@@ -64,7 +64,7 @@ describe('no-composable-in-head-getter', () => {
                     },
                     createBaseConfigs(),
                     createVueConfig(),
-                    createNuxtConfig(),
+                    ...createNuxtConfigs(),
                 ),
                 (id) => id === ruleId || id === 'no-restricted-syntax',
             );
@@ -97,6 +97,34 @@ describe('no-composable-in-head-getter', () => {
             expect(new Linter().verify(input, configs, { filename: 'fixture.vue' })).toEqual([]);
         });
 
+        it.for([
+            [
+                'useHead({ htmlAttrs: { lang: \'en\' } });',
+                ['no-restricted-syntax'],
+            ],
+            [
+                'await navigateTo(\'/login\');',
+                ['no-restricted-syntax'],
+            ],
+            [
+                'useHead({ htmlAttrs: { class: \'dark\' } });',
+                [],
+            ],
+        ] as const)(
+            'should keep every restriction and forbid html lang in pages: %s',
+            ([code, expected], { expect }) => {
+                const input = `<script setup lang="ts">\n${code}\n</script>\n`;
+                const messages = new Linter().verify(input, configs, { filename: 'app/pages/index.vue' });
+                expect(messages.map((message) => message.ruleId)).toEqual(expected);
+            },
+        );
+
+        it('should allow html lang outside pages', ({ expect }) => {
+            const input = 'useHead({ htmlAttrs: { lang: () => locale.value } });';
+            const filename = 'layers/i18n/app/plugins/locale-head.ts';
+            expect(new Linter().verify(input, configs, { filename })).toEqual([]);
+        });
+
         it('should allow handwritten Open Graph meta without the SEO modules', ({ expect }) => {
             const input = 'useSeoMeta({ ogTitle: \'Title\', title: \'Title\' });';
             expect(new Linter().verify(input, configs, { filename: 'fixture.ts' })).toEqual([]);
@@ -109,7 +137,7 @@ describe('no-composable-in-head-getter', () => {
         beforeAll(async () => {
             const cwd = vi.spyOn(process, 'cwd').mockReturnValue(fileURLToPath(new URL('./fixtures/nuxt-seo', import.meta.url)));
             try {
-                configs = filterRules([createNuxtConfig()], (id) => id === 'no-restricted-syntax');
+                configs = filterRules(createNuxtConfigs(), (id) => id === 'no-restricted-syntax');
             } finally {
                 cwd.mockRestore();
             }

@@ -10,33 +10,52 @@ import {
 import { customPlugins } from './_internals/plugins';
 import { restrictedSyntax } from './_internals/restricted-syntax';
 
-export function createNuxtConfig(): TypedFlatConfigItem {
-    return {
-        files: [
-            GLOB_SRC,
-            GLOB_VUE,
-        ],
-        plugins: { kikiutils: customPlugins },
-        rules: {
-            'kikiutils/no-composable-in-head-getter': 'error',
-            'no-restricted-syntax': [
-                'error',
-                ...restrictedSyntax,
-                {
-                    message: 'Do not redirect with a top-level `await navigateTo()` in setup: under KeepAlive it interrupts a pending Suspense and leaves the page stuck. Use `definePageMeta({ redirect })` or a route middleware.',
-                    selector: 'Program > ExpressionStatement > AwaitExpression > CallExpression[callee.name="navigateTo"]',
-                },
-                ...hasSeoUtils()
-                    ? [
-                        {
-                            message: 'nuxt-seo-utils infers og:title and og:description from `title` and `description`, X falls back to them for its title and description, and the seo layer sets `twitter:card`. Setting these keys stops the inference; set `title` and `description` instead.',
-                            selector: 'CallExpression[callee.name=/^use(Server)?SeoMeta$/] > ObjectExpression > Property[key.name=/^(ogDescription|ogTitle|twitterCard|twitterDescription|twitterTitle)$/]',
-                        },
-                    ]
-                    : [],
-            ],
+export function createNuxtConfigs(): TypedFlatConfigItem[] {
+    const nuxtRestrictedSyntax = [
+        ...restrictedSyntax,
+        {
+            message: 'Do not redirect with a top-level `await navigateTo()` in setup: under KeepAlive it interrupts a pending Suspense and leaves the page stuck. Use `definePageMeta({ redirect })` or a route middleware.',
+            selector: 'Program > ExpressionStatement > AwaitExpression > CallExpression[callee.name="navigateTo"]',
         },
-    };
+        ...hasSeoUtils()
+            ? [
+                {
+                    message: 'nuxt-seo-utils infers og:title and og:description from `title` and `description`, X falls back to them for its title and description, and the seo layer sets `twitter:card`. Setting these keys stops the inference; set `title` and `description` instead.',
+                    selector: 'CallExpression[callee.name=/^use(Server)?SeoMeta$/] > ObjectExpression > Property[key.name=/^(ogDescription|ogTitle|twitterCard|twitterDescription|twitterTitle)$/]',
+                },
+            ]
+            : [],
+    ];
+
+    return [
+        {
+            files: [
+                GLOB_SRC,
+                GLOB_VUE,
+            ],
+            plugins: { kikiutils: customPlugins },
+            rules: {
+                'kikiutils/no-composable-in-head-getter': 'error',
+                'no-restricted-syntax': [
+                    'error',
+                    ...nuxtRestrictedSyntax,
+                ],
+            },
+        },
+        {
+            files: ['**/pages/**/*.{ts,vue}'],
+            rules: {
+                'no-restricted-syntax': [
+                    'error',
+                    ...nuxtRestrictedSyntax,
+                    {
+                        message: '`<html lang>` follows the current locale through the i18n layer, or `app.head` in `nuxt.config.ts` without i18n; setting it in a page overrides it.',
+                        selector: 'CallExpression[callee.name=/^use(Server)?Head(Safe)?$/] Property[key.name="htmlAttrs"] > ObjectExpression > Property[key.name="lang"]',
+                    },
+                ],
+            },
+        },
+    ];
 }
 
 function hasSeoUtils(): boolean {
