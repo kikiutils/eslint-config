@@ -1,5 +1,46 @@
 # Changelog
 
+## v11.3.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v11.2.1...v11.3.0)
+
+### 🚀 Enhancements
+
+- Add comment-indent and no-silent-catch rules ([01bd366](https://github.com/kikiutils/eslint-config/commit/01bd366))
+- Enable additional typed, unicorn and vue rules ([5025bd3](https://github.com/kikiutils/eslint-config/commit/5025bd3))
+- Add nuxt preset ([d3a7850](https://github.com/kikiutils/eslint-config/commit/d3a7850))
+- **nuxt:** Restrict handwritten og and twitter meta when nuxt-seo-utils is installed ([66bdfee](https://github.com/kikiutils/eslint-config/commit/66bdfee))
+- **nuxt:** Forbid html lang in pages ([ef22cd7](https://github.com/kikiutils/eslint-config/commit/ef22cd7))
+- **nuxt:** Require nuxt/server for server helpers it provides ([4da5c66](https://github.com/kikiutils/eslint-config/commit/4da5c66))
+- **nuxt:** Require an HTTP method suffix on Nitro route files ([d9bc345](https://github.com/kikiutils/eslint-config/commit/d9bc345))
+
+### 🩹 Fixes
+
+- Skip async autofix for promise-like returns with extra members ([6622bf9](https://github.com/kikiutils/eslint-config/commit/6622bf9))
+
+### 💅 Refactors
+
+- Register scoped restriction rules instead of overriding core rules ([4539648](https://github.com/kikiutils/eslint-config/commit/4539648))
+- Split internals into configs and rules directories ([1847dcf](https://github.com/kikiutils/eslint-config/commit/1847dcf))
+
+### 📖 Documentation
+
+- Update AGENTS.md ([58a68fc](https://github.com/kikiutils/eslint-config/commit/58a68fc))
+
+### 🏡 Chore
+
+- Enable eslint cache and concurrency in lint scripts ([4398cae](https://github.com/kikiutils/eslint-config/commit/4398cae))
+- Upgrade deps ([9a04cc8](https://github.com/kikiutils/eslint-config/commit/9a04cc8))
+- Upgrade deps ([ba35efe](https://github.com/kikiutils/eslint-config/commit/ba35efe))
+
+### 🤖 CI
+
+- Rewrite test and coverage workflow ([c74a01e](https://github.com/kikiutils/eslint-config/commit/c74a01e))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v11.2.1
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v11.2.0...v11.2.1)
