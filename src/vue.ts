@@ -6,7 +6,6 @@ import promise from 'eslint-plugin-promise';
 
 import { typescriptJsdocConfig } from './_internals/jsdoc';
 import { customPlugins } from './_internals/plugins';
-import { restrictedSyntax } from './_internals/restricted-syntax';
 import { createTypeAwareConfig } from './_internals/type-aware';
 import { createTypefestConfig } from './_internals/typefest';
 import { createBaseRules } from './base';
@@ -45,14 +44,6 @@ export function createVueConfig(environment: 'bun' | 'node' = 'node'): TypedFlat
             'better-tailwindcss/no-deprecated-classes': 'warn',
             'better-tailwindcss/no-duplicate-classes': 'error',
             'better-tailwindcss/no-unnecessary-whitespace': 'error',
-            'no-restricted-syntax': [
-                'error',
-                ...restrictedSyntax,
-                {
-                    message: 'Do not redirect with a top-level `await navigateTo()` in setup: under KeepAlive it interrupts a pending Suspense and leaves the page stuck. Use `definePageMeta({ redirect })` or a route middleware.',
-                    selector: 'Program > ExpressionStatement > AwaitExpression > CallExpression[callee.name="navigateTo"]',
-                },
-            ],
             'style/max-len': 'off',
             'ts/array-type': [
                 'error',

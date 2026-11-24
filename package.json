@@ -13,6 +13,7 @@
   "sideEffects": false,
   "exports": {
     "./base": "./dist/base.js",
+    "./nuxt": "./dist/nuxt.js",
     "./style": "./dist/style.js",
     "./vue": "./dist/vue.js",
     "./package.json": "./package.json"
