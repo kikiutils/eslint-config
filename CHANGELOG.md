@@ -1,5 +1,26 @@
 # Changelog
 
+## v11.4.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v11.3.0...v11.4.0)
+
+### 🚀 Enhancements
+
+- Accept a comment before the callback in no-silent-catch ([bb19df5](https://github.com/kikiutils/eslint-config/commit/bb19df5))
+- Report Zod refinements returning non-Promise thenables ([ca3f2eb](https://github.com/kikiutils/eslint-config/commit/ca3f2eb))
+
+### 🩹 Fixes
+
+- Disable ts/no-meaningless-void-operator ([902453b](https://github.com/kikiutils/eslint-config/commit/902453b))
+
+### 🏡 Chore
+
+- Require a clean working tree for release ([3a64221](https://github.com/kikiutils/eslint-config/commit/3a64221))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v11.3.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v11.2.1...v11.3.0)
