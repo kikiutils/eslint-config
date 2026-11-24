@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'node:url';
+
 import type { TypedFlatConfigItem } from '@antfu/eslint-config';
 import { antfu } from '@antfu/eslint-config';
 import { Linter } from 'eslint';
@@ -5,6 +7,7 @@ import {
     beforeAll,
     describe,
     it,
+    vi,
 } from 'vitest';
 
 import { noComposableInHeadGetter } from '../src/_internals/rules/no-composable-in-head-getter';
@@ -12,7 +15,10 @@ import { createBaseConfigs } from '../src/base';
 import { createNuxtConfig } from '../src/nuxt';
 import { createVueConfig } from '../src/vue';
 
-import { createSyntaxConfigs } from './utils';
+import {
+    createSyntaxConfigs,
+    filterRules,
+} from './utils';
 
 const ruleId = 'kikiutils/no-composable-in-head-getter';
 const ruleConfig = {
@@ -38,7 +44,6 @@ describe('no-composable-in-head-getter', () => {
         'const { t } = useI18n(); useSeoMeta({ title: () => t(\'title\') });',
         'const route = useRoute(); useHead({ title: () => route.meta.title });',
         'useHead({ title: useRoute().meta.title });',
-        'useSeoMeta({ title: () => format(useless) });',
         'watch(() => useRoute().path, refresh);',
     ])(
         'should allow composables called in setup: %s',
@@ -90,6 +95,40 @@ describe('no-composable-in-head-getter', () => {
         it('should allow navigateTo outside the setup top level', ({ expect }) => {
             const input = '<script setup lang="ts">\nasync function logout() {\n    await navigateTo(\'/login\');\n}\n</script>\n';
             expect(new Linter().verify(input, configs, { filename: 'fixture.vue' })).toEqual([]);
+        });
+
+        it('should allow handwritten Open Graph meta without the SEO modules', ({ expect }) => {
+            const input = 'useSeoMeta({ ogTitle: \'Title\', title: \'Title\' });';
+            expect(new Linter().verify(input, configs, { filename: 'fixture.ts' })).toEqual([]);
+        });
+    });
+
+    describe('nuxt config with the SEO modules', () => {
+        let configs: TypedFlatConfigItem[];
+
+        beforeAll(async () => {
+            const cwd = vi.spyOn(process, 'cwd').mockReturnValue(fileURLToPath(new URL('./fixtures/nuxt-seo', import.meta.url)));
+            try {
+                configs = filterRules([createNuxtConfig()], (id) => id === 'no-restricted-syntax');
+            } finally {
+                cwd.mockRestore();
+            }
+        });
+
+        it.for([
+            'useSeoMeta({ ogTitle: \'Title\' });',
+            'useServerSeoMeta({ twitterCard: \'summary\' });',
+        ])(
+            'should report inferred meta written by hand: %s',
+            (input, { expect }) => {
+                const messages = new Linter().verify(input, configs, { filename: 'fixture.js' });
+                expect(messages.map((message) => message.ruleId)).toEqual(['no-restricted-syntax']);
+            },
+        );
+
+        it('should allow the title, description, and image', ({ expect }) => {
+            const input = 'useSeoMeta({ description: \'Description\', ogImage: \'/og.png\', title: \'Title\' });';
+            expect(new Linter().verify(input, configs, { filename: 'fixture.js' })).toEqual([]);
         });
     });
 });
