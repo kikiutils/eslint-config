@@ -34,7 +34,6 @@ export function createTypeAwareConfig(): TypedFlatConfigItem {
             ],
             'ts/no-for-in-array': 'error',
             'ts/no-implied-eval': 'error',
-            'ts/no-meaningless-void-operator': 'error',
             'ts/no-misused-promises': 'error',
             'ts/no-misused-spread': 'error',
             'ts/no-unnecessary-boolean-literal-compare': 'error',
