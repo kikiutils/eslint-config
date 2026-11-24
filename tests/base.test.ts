@@ -47,6 +47,7 @@ describe.concurrent('base eslint config factory', () => {
             configs = createSyntaxConfigs(
                 await antfu({ typescript: true }, createBaseConfigs()),
                 (id) => [
+                    'kikiutils/no-restricted-test-imports',
                     'kikiutils/no-silent-catch',
                     'no-empty',
                     'no-restricted-imports',
@@ -85,6 +86,15 @@ describe.concurrent('base eslint config factory', () => {
                 expect(messages.map((message) => message.ruleId)).toEqual([ruleId]);
             },
         );
+
+        it('should keep the private import restriction in test files', ({ expect }) => {
+            const input = 'import { expect } from \'vitest\';\nimport { x } from \'pkg/_internals/x\';\nexpect(x);';
+            const messages = new Linter().verify(input, configs, { filename: 'fixture.test.ts' });
+            expect(messages.map((message) => message.ruleId).sort()).toEqual([
+                'kikiutils/no-restricted-test-imports',
+                'no-restricted-imports',
+            ]);
+        });
 
         it.for([
             'try { run(); } catch { /* The fallback below covers it. */ }',

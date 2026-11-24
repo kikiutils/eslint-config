@@ -66,14 +66,17 @@ describe('no-composable-in-head-getter', () => {
                     createVueConfig(),
                     ...createNuxtConfigs(),
                 ),
-                (id) => id === ruleId || id === 'no-restricted-imports' || id === 'no-restricted-syntax',
+                (id) => id === ruleId
+                  || id.startsWith('kikiutils/no-restricted-')
+                  || id === 'no-restricted-imports'
+                  || id === 'no-restricted-syntax',
             );
         });
 
         it.for([
             [
                 'await navigateTo(\'/login\');',
-                'no-restricted-syntax',
+                'kikiutils/no-restricted-nuxt-syntax',
             ],
             [
                 'useSeoMeta({ title: () => useI18n().t(\'title\') });',
@@ -100,11 +103,11 @@ describe('no-composable-in-head-getter', () => {
         it.for([
             [
                 'useHead({ htmlAttrs: { lang: \'en\' } });',
-                ['no-restricted-syntax'],
+                ['kikiutils/no-restricted-nuxt-page-syntax'],
             ],
             [
                 'await navigateTo(\'/login\');',
-                ['no-restricted-syntax'],
+                ['kikiutils/no-restricted-nuxt-syntax'],
             ],
             [
                 'useHead({ htmlAttrs: { class: \'dark\' } });',
@@ -134,13 +137,13 @@ describe('no-composable-in-head-getter', () => {
             [
                 'import { defineEventHandler, getQuery } from \'h3\';',
                 [
-                    'no-restricted-imports',
-                    'no-restricted-imports',
+                    'kikiutils/no-restricted-nuxt-server-imports',
+                    'kikiutils/no-restricted-nuxt-server-imports',
                 ],
             ],
             [
                 'import { useRuntimeConfig } from \'nitropack/runtime\';',
-                ['no-restricted-imports'],
+                ['kikiutils/no-restricted-nuxt-server-imports'],
             ],
             [
                 'import { x } from \'pkg/_internals/x\';',
@@ -163,10 +166,13 @@ describe('no-composable-in-head-getter', () => {
             },
         );
 
-        it('should keep the test-scope import restrictions in server test files', ({ expect }) => {
-            const input = 'import { expect } from \'vitest\';\nexpect(1);\n';
+        it('should keep both the server and test import restrictions in server test files', ({ expect }) => {
+            const input = 'import { getQuery } from \'h3\';\nimport { expect } from \'vitest\';\nexpect(getQuery);\n';
             const messages = new Linter().verify(input, configs, { filename: 'server/utils/items.test.ts' });
-            expect(messages.map((message) => message.ruleId)).toEqual(['no-restricted-imports']);
+            expect(messages.map((message) => message.ruleId)).toEqual([
+                'kikiutils/no-restricted-nuxt-server-imports',
+                'kikiutils/no-restricted-test-imports',
+            ]);
         });
     });
 
@@ -176,7 +182,7 @@ describe('no-composable-in-head-getter', () => {
         beforeAll(async () => {
             const cwd = vi.spyOn(process, 'cwd').mockReturnValue(fileURLToPath(new URL('./fixtures/nuxt-seo', import.meta.url)));
             try {
-                configs = filterRules(createNuxtConfigs(), (id) => id === 'no-restricted-syntax');
+                configs = filterRules(createNuxtConfigs(), (id) => id === 'kikiutils/no-restricted-nuxt-syntax');
             } finally {
                 cwd.mockRestore();
             }
@@ -189,7 +195,7 @@ describe('no-composable-in-head-getter', () => {
             'should report inferred meta written by hand: %s',
             (input, { expect }) => {
                 const messages = new Linter().verify(input, configs, { filename: 'fixture.js' });
-                expect(messages.map((message) => message.ruleId)).toEqual(['no-restricted-syntax']);
+                expect(messages.map((message) => message.ruleId)).toEqual(['kikiutils/no-restricted-nuxt-syntax']);
             },
         );
 
