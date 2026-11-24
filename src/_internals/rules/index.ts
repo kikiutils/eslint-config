@@ -4,6 +4,7 @@ import { commentIndent } from './comment-indent';
 import { compactIterationLayout } from './compact-iteration-layout';
 import { consistentConditionLayout } from './consistent-condition-layout';
 import { consistentParameterLayout } from './consistent-parameter-layout';
+import { nitroRouteMethodSuffix } from './nitro-route-method-suffix';
 import { noComposableInHeadGetter } from './no-composable-in-head-getter';
 import { noSilentCatch } from './no-silent-catch';
 import { promiseFunctionAsync } from './promise-function-async';
@@ -22,6 +23,7 @@ export const customPlugins = {
         'compact-iteration-layout': compactIterationLayout,
         'consistent-condition-layout': consistentConditionLayout,
         'consistent-parameter-layout': consistentParameterLayout,
+        'nitro-route-method-suffix': nitroRouteMethodSuffix,
         'no-composable-in-head-getter': noComposableInHeadGetter,
         'no-restricted-nuxt-page-syntax': noRestrictedSyntax,
         'no-restricted-nuxt-server-imports': noRestrictedImports,

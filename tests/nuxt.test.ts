@@ -68,6 +68,7 @@ describe('no-composable-in-head-getter', () => {
                 ),
                 (id) => id === ruleId
                   || id.startsWith('kikiutils/no-restricted-')
+                  || id === 'kikiutils/nitro-route-method-suffix'
                   || id === 'no-restricted-imports'
                   || id === 'no-restricted-syntax',
             );
@@ -162,6 +163,39 @@ describe('no-composable-in-head-getter', () => {
             ([code, expected], { expect }) => {
                 const input = `${code}\nexport default 1;\n`;
                 const messages = new Linter().verify(input, configs, { filename: 'server/api/items.get.ts' });
+                expect(messages.map((message) => message.ruleId)).toEqual(expected);
+            },
+        );
+
+        it.for([
+            [
+                'server/api/__sitemap__/live/rooms.ts',
+                ['kikiutils/nitro-route-method-suffix'],
+            ],
+            [
+                'layers/auth/server/routes/oauth/callback.ts',
+                ['kikiutils/nitro-route-method-suffix'],
+            ],
+            [
+                'server/api/__sitemap__/live/rooms.get.ts',
+                [],
+            ],
+            [
+                'layers/auth/server/routes/oauth/callback.post.ts',
+                [],
+            ],
+            [
+                'server/utils/format.ts',
+                [],
+            ],
+            [
+                'server/api/items.test.ts',
+                [],
+            ],
+        ] as const)(
+            'should require an HTTP method suffix on Nitro route files: %s',
+            ([filename, expected], { expect }) => {
+                const messages = new Linter().verify('export default 1;\n', configs, { filename });
                 expect(messages.map((message) => message.ruleId)).toEqual(expected);
             },
         );

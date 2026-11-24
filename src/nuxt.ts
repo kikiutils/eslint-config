@@ -4,6 +4,7 @@ import { join } from 'node:path';
 import type { TypedFlatConfigItem } from '@antfu/eslint-config';
 import {
     GLOB_SRC,
+    GLOB_TESTS,
     GLOB_VUE,
 } from '@antfu/eslint-config';
 
@@ -85,6 +86,11 @@ export function createNuxtConfigs(): TypedFlatConfigItem[] {
                     },
                 ],
             },
+        },
+        {
+            files: ['**/server/{api,routes}/**/*.?([cm])[jt]s'],
+            ignores: GLOB_TESTS,
+            rules: { 'kikiutils/nitro-route-method-suffix': 'error' },
         },
         {
             files: ['**/server/**/*.?([cm])[jt]s'],
