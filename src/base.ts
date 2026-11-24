@@ -238,9 +238,11 @@ export function createBaseRules(environment: 'bun' | 'node' = 'node'): Rules {
             'always',
             { tags: { typeParam: 'always' } },
         ],
+        'kikiutils/comment-indent': 'error',
         'kikiutils/compact-iteration-layout': 'error',
         'kikiutils/consistent-condition-layout': 'error',
         'kikiutils/consistent-parameter-layout': 'error',
+        'kikiutils/no-silent-catch': 'error',
         'kikiutils/statement-padding': 'error',
         'max-classes-per-file': [
             'error',

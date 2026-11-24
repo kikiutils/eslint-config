@@ -47,6 +47,7 @@ describe.concurrent('base eslint config factory', () => {
             configs = createSyntaxConfigs(
                 await antfu({ typescript: true }, createBaseConfigs()),
                 (id) => [
+                    'kikiutils/no-silent-catch',
                     'no-empty',
                     'no-restricted-imports',
                     'no-restricted-syntax',
@@ -59,10 +60,16 @@ describe.concurrent('base eslint config factory', () => {
                 'if (error instanceof AxiosError) handle();',
                 'no-restricted-syntax',
             ],
-            [
+            ...[
                 'promise.catch(() => {});',
-                'no-restricted-syntax',
-            ],
+                'promise.catch(() => undefined);',
+                'promise.catch(() => null);',
+                'promise?.catch(() => void 0);',
+                'promise.catch(function () { return; });',
+            ].map((input) => [
+                input,
+                'kikiutils/no-silent-catch',
+            ] as const),
             [
                 'try { run(); } catch {}',
                 'no-empty',
@@ -81,6 +88,9 @@ describe.concurrent('base eslint config factory', () => {
 
         it.for([
             'try { run(); } catch { /* The fallback below covers it. */ }',
+            'promise.catch(() => { /* A failed prefetch only skips the cache. */ });',
+            'promise.catch(() => false);',
+            'promise.catch((error) => { report(error); });',
             'import { x } from \'./_internals/x\'; x();',
         ])(
             'should allow %s',

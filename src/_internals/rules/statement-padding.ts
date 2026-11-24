@@ -85,6 +85,7 @@ export const statementPadding: Rule.RuleModule = {
             Program: (node) => checkStatements(node.body),
             StaticBlock: (node) => checkStatements(node.body),
             SwitchCase: (node) => checkStatements(node.consequent),
+            TSModuleBlock: (node: Rule.Node & { body: StatementNode[] }) => checkStatements(node.body),
         };
     },
     meta: {

@@ -189,6 +189,17 @@ describe('statement-padding', () => {
             expect(linter.verifyAndFix(result.output, ruleConfigs, options).fixed).toBe(false);
         });
 
+        it('should pad multiline declarations inside module augmentation', ({ expect }) => {
+            const input = 'declare module \'vue\' {\n    interface A {\n        a: string;\n    }\n    interface B {\n        b: string;\n    }\n}';
+            const output = input.replace('    }\n    interface B', '    }\n\n    interface B');
+            const ruleConfigs = filterRules(configs, (id) => id === ruleId);
+            const options = { filename: 'fixture.ts' };
+            const linter = new Linter();
+            const result = linter.verifyAndFix(input, ruleConfigs, options);
+            expect(result.messages).toEqual([]);
+            expect(result.output).toBe(output);
+        });
+
         const input = 'function fn() {\n    if (enabled) {\n        if (ready) {\n            start();\n        }\n    }\n    const result = call(\n        first,\n        second,\n    );\n    check(result);\n}\n';
         const output = input
             .replace('    }\n    const', '    }\n\n    const')
