@@ -514,5 +514,11 @@ export function createBaseRules(environment: 'bun' | 'node' = 'node'): Rules {
             'error',
             'always',
         ],
+        'unicorn/no-useless-promise-resolve-reject': 'error',
+        'unicorn/no-useless-spread': 'error',
+        'unicorn/prefer-array-find': 'error',
+        'unicorn/prefer-array-some': 'error',
+        'unicorn/prefer-at': 'error',
+        'unicorn/prefer-string-replace-all': 'error',
     };
 }
