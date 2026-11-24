@@ -99,6 +99,7 @@ describe.concurrent('base eslint config factory', () => {
         it.for([
             'try { run(); } catch { /* The fallback below covers it. */ }',
             'promise.catch(() => { /* A failed prefetch only skips the cache. */ });',
+            'promise.catch(\n    // A failed prefetch only skips the cache.\n    () => undefined,\n);',
             'promise.catch(() => false);',
             'promise.catch((error) => { report(error); });',
             'import { x } from \'./_internals/x\'; x();',

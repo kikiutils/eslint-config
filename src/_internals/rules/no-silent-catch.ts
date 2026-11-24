@@ -33,8 +33,15 @@ export const noSilentCatch: Rule.RuleModule = {
                     || !isSilent(callback)
                 ) return;
 
-                // A comment inside the callback is the reason the rejection can be ignored.
-                if (context.sourceCode.getCommentsInside(callback).length) return;
+                // A comment right before or inside the callback is the reason the rejection can be ignored.
+                const { sourceCode } = context;
+                if (
+                    [
+                        ...sourceCode.getCommentsBefore(callback),
+                        ...sourceCode.getCommentsInside(callback),
+                    ].length
+                ) return;
+
                 context.report({
                     messageId: 'silent',
                     node: callback,
@@ -44,7 +51,7 @@ export const noSilentCatch: Rule.RuleModule = {
     },
     meta: {
         docs: { description: 'Disallow `.catch()` callbacks that silently swallow the rejection.' },
-        messages: { silent: 'Do not swallow the rejection silently: log it, or add a comment in the callback explaining why it can be ignored.' },
+        messages: { silent: 'Do not swallow the rejection silently: log it, or add a comment before or inside the callback explaining why it can be ignored.' },
         schema: [],
         type: 'problem',
     },
