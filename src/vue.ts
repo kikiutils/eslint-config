@@ -4,11 +4,11 @@ import betterTailwindcss from 'eslint-plugin-better-tailwindcss';
 // @ts-expect-error No declare file.
 import promise from 'eslint-plugin-promise';
 
-import { typescriptJsdocConfig } from './_internals/jsdoc';
-import { customPlugins } from './_internals/plugins';
-import { createTypeAwareConfig } from './_internals/type-aware';
-import { createTypefestConfig } from './_internals/typefest';
-import { createBaseRules } from './base';
+import { createBaseRules } from './_internals/configs/base-rules';
+import { typescriptJsdocConfig } from './_internals/configs/jsdoc';
+import { createTypeAwareConfig } from './_internals/configs/type-aware';
+import { createTypefestConfig } from './_internals/configs/typefest';
+import { customPlugins } from './_internals/rules';
 
 export function createVueConfig(environment: 'bun' | 'node' = 'node'): TypedFlatConfigItem {
     const typeAwareConfig = createTypeAwareConfig();

@@ -7,7 +7,7 @@ import {
     GLOB_VUE,
 } from '@antfu/eslint-config';
 
-import { customPlugins } from './_internals/plugins';
+import { customPlugins } from './_internals/rules';
 
 // Server helpers that `nuxt/server` provides since Nuxt 4.6.
 const nuxtServerHelpers = [

@@ -1,13 +1,13 @@
 import { builtinRules } from 'eslint/use-at-your-own-risk';
 
-import { commentIndent } from './rules/comment-indent';
-import { compactIterationLayout } from './rules/compact-iteration-layout';
-import { consistentConditionLayout } from './rules/consistent-condition-layout';
-import { consistentParameterLayout } from './rules/consistent-parameter-layout';
-import { noComposableInHeadGetter } from './rules/no-composable-in-head-getter';
-import { noSilentCatch } from './rules/no-silent-catch';
-import { promiseFunctionAsync } from './rules/promise-function-async';
-import { statementPadding } from './rules/statement-padding';
+import { commentIndent } from './comment-indent';
+import { compactIterationLayout } from './compact-iteration-layout';
+import { consistentConditionLayout } from './consistent-condition-layout';
+import { consistentParameterLayout } from './consistent-parameter-layout';
+import { noComposableInHeadGetter } from './no-composable-in-head-getter';
+import { noSilentCatch } from './no-silent-catch';
+import { promiseFunctionAsync } from './promise-function-async';
+import { statementPadding } from './statement-padding';
 
 // Each scope adds its restrictions under its own name: a later config replaces a rule's whole option list,
 // so sharing the core rule would drop the restrictions of every broader scope.
