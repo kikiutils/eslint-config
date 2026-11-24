@@ -17,6 +17,7 @@ import {
     typescriptJsdocConfig,
 } from './_internals/jsdoc';
 import { customPlugins } from './_internals/plugins';
+import { internalsImportPattern } from './_internals/restricted-imports';
 import { restrictedSyntax } from './_internals/restricted-syntax';
 import { createTypeAwareConfig } from './_internals/type-aware';
 import { createTypefestConfig } from './_internals/typefest';
@@ -260,14 +261,7 @@ export function createBaseRules(environment: 'bun' | 'node' = 'node'): Rules {
         ],
         'no-restricted-imports': [
             'error',
-            {
-                patterns: [
-                    {
-                        message: '`_internals` modules are private to their own directory; import the public module instead.',
-                        regex: String.raw`^[^.].*/_internals(/|$)`,
-                    },
-                ],
-            },
+            { patterns: [internalsImportPattern] },
         ],
         'no-restricted-syntax': [
             'error',

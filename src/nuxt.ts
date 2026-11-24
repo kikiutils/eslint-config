@@ -4,11 +4,47 @@ import { join } from 'node:path';
 import type { TypedFlatConfigItem } from '@antfu/eslint-config';
 import {
     GLOB_SRC,
+    GLOB_TESTS,
     GLOB_VUE,
 } from '@antfu/eslint-config';
 
 import { customPlugins } from './_internals/plugins';
+import { internalsImportPattern } from './_internals/restricted-imports';
 import { restrictedSyntax } from './_internals/restricted-syntax';
+
+// Server helpers that `nuxt/server` provides since Nuxt 4.6.
+const nuxtServerHelpers = [
+    'clearSession',
+    'createError',
+    'defineEventHandler',
+    'defineHandler',
+    'deleteCookie',
+    'eventHandler',
+    'getCookie',
+    'getQuery',
+    'getRequestHeader',
+    'getRequestHeaders',
+    'getRequestHost',
+    'getRequestIP',
+    'getRequestProtocol',
+    'getRequestURL',
+    'getRouteRules',
+    'getRouterParam',
+    'getRouterParams',
+    'getSession',
+    'getValidatedQuery',
+    'handleCors',
+    'parseCookies',
+    'readBody',
+    'readValidatedBody',
+    'sendRedirect',
+    'setCookie',
+    'setResponseStatus',
+    'updateSession',
+    'useAppConfig',
+    'useRuntimeConfig',
+    'useSession',
+];
 
 export function createNuxtConfigs(): TypedFlatConfigItem[] {
     const nuxtRestrictedSyntax = [
@@ -51,6 +87,28 @@ export function createNuxtConfigs(): TypedFlatConfigItem[] {
                     {
                         message: '`<html lang>` follows the current locale through the i18n layer, or `app.head` in `nuxt.config.ts` without i18n; setting it in a page overrides it.',
                         selector: 'CallExpression[callee.name=/^use(Server)?Head(Safe)?$/] Property[key.name="htmlAttrs"] > ObjectExpression > Property[key.name="lang"]',
+                    },
+                ],
+            },
+        },
+        {
+            files: ['**/server/**/*.?([cm])[jt]s'],
+            // Test files keep the test-scope import restrictions from the base config.
+            ignores: GLOB_TESTS,
+            rules: {
+                'no-restricted-imports': [
+                    'error',
+                    {
+                        paths: [
+                            '#imports',
+                            'h3',
+                            'nitropack/runtime',
+                        ].map((name) => ({
+                            importNames: nuxtServerHelpers,
+                            message: 'Import this helper from `nuxt/server`, which runs on Nuxt 4.6 and Nuxt 5; the h3 and Nitro versions expect a different event. Keep h3 or `nitropack/runtime` only for helpers `nuxt/server` does not provide.',
+                            name,
+                        })),
+                        patterns: [internalsImportPattern],
                     },
                 ],
             },

@@ -66,7 +66,7 @@ describe('no-composable-in-head-getter', () => {
                     createVueConfig(),
                     ...createNuxtConfigs(),
                 ),
-                (id) => id === ruleId || id === 'no-restricted-syntax',
+                (id) => id === ruleId || id === 'no-restricted-imports' || id === 'no-restricted-syntax',
             );
         });
 
@@ -128,6 +128,45 @@ describe('no-composable-in-head-getter', () => {
         it('should allow handwritten Open Graph meta without the SEO modules', ({ expect }) => {
             const input = 'useSeoMeta({ ogTitle: \'Title\', title: \'Title\' });';
             expect(new Linter().verify(input, configs, { filename: 'fixture.ts' })).toEqual([]);
+        });
+
+        it.for([
+            [
+                'import { defineEventHandler, getQuery } from \'h3\';',
+                [
+                    'no-restricted-imports',
+                    'no-restricted-imports',
+                ],
+            ],
+            [
+                'import { useRuntimeConfig } from \'nitropack/runtime\';',
+                ['no-restricted-imports'],
+            ],
+            [
+                'import { x } from \'pkg/_internals/x\';',
+                ['no-restricted-imports'],
+            ],
+            [
+                'import { readMultipartFormData } from \'h3\';',
+                [],
+            ],
+            [
+                'import { defineEventHandler, getQuery } from \'nuxt/server\';',
+                [],
+            ],
+        ] as const)(
+            'should require nuxt/server for the helpers it provides in server code: %s',
+            ([code, expected], { expect }) => {
+                const input = `${code}\nexport default 1;\n`;
+                const messages = new Linter().verify(input, configs, { filename: 'server/api/items.get.ts' });
+                expect(messages.map((message) => message.ruleId)).toEqual(expected);
+            },
+        );
+
+        it('should keep the test-scope import restrictions in server test files', ({ expect }) => {
+            const input = 'import { expect } from \'vitest\';\nexpect(1);\n';
+            const messages = new Linter().verify(input, configs, { filename: 'server/utils/items.test.ts' });
+            expect(messages.map((message) => message.ruleId)).toEqual(['no-restricted-imports']);
         });
     });
 
