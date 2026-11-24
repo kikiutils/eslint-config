@@ -9,6 +9,7 @@ export function createTypeAwareConfig(): TypedFlatConfigItem {
             },
         },
         rules: {
+            'kikiutils/no-thenable-zod-refinement': 'error',
             'kikiutils/promise-function-async': 'error',
             // The typed replacements below report these more accurately.
             'no-implied-eval': 'off',

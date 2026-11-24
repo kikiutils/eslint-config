@@ -7,6 +7,7 @@ import { consistentParameterLayout } from './consistent-parameter-layout';
 import { nitroRouteMethodSuffix } from './nitro-route-method-suffix';
 import { noComposableInHeadGetter } from './no-composable-in-head-getter';
 import { noSilentCatch } from './no-silent-catch';
+import { noThenableZodRefinement } from './no-thenable-zod-refinement';
 import { promiseFunctionAsync } from './promise-function-async';
 import { statementPadding } from './statement-padding';
 
@@ -30,6 +31,7 @@ export const customPlugins = {
         'no-restricted-nuxt-syntax': noRestrictedSyntax,
         'no-restricted-test-imports': noRestrictedImports,
         'no-silent-catch': noSilentCatch,
+        'no-thenable-zod-refinement': noThenableZodRefinement,
         'promise-function-async': promiseFunctionAsync,
         'statement-padding': statementPadding,
     },
