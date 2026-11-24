@@ -15,6 +15,7 @@ import { createVueConfig } from '../src/vue';
 import { filterRules } from './utils';
 
 const ruleIds = [
+    'kikiutils/promise-function-async',
     'ts/await-thenable',
     'ts/no-base-to-string',
     'ts/no-floating-promises',
@@ -22,9 +23,21 @@ const ruleIds = [
     'ts/no-misused-promises',
     'ts/no-misused-spread',
     'ts/no-unnecessary-type-assertion',
-    'ts/promise-function-async',
     'ts/return-await',
     'ts/switch-exhaustiveness-check',
+];
+
+// A Promise intersected with data members, shaped like Nuxt's `AsyncData`.
+const asyncData = [
+    'type AsyncData = { data: { value: number } } & Promise<{ data: { value: number } }>;',
+    'declare function useAsyncData(): AsyncData;',
+    'function useList() { return useAsyncData(); }',
+    'declare function fetchData(): Promise<{ data: { value: number } }>;',
+    'function useMode(reactive: true): AsyncData;',
+    'function useMode(reactive: false): Promise<{ data: { value: number } }>;',
+    'function useMode(reactive: boolean) { return reactive ? useAsyncData() : fetchData(); }',
+    'const { data } = useList();',
+    'export { data, useMode };',
 ];
 
 describe('type-aware configs', () => {
@@ -88,12 +101,14 @@ describe('type-aware configs', () => {
                 'function load() { return Promise.resolve(1); }',
                 'async function immediate() { return 2; }',
                 'function sync() { return 3; }',
+                ...asyncData,
             ].join('\n');
 
             const expected = [
                 'async function load() { return await Promise.resolve(1); }',
                 'async function immediate() { return 2; }',
                 'function sync() { return 3; }',
+                ...asyncData,
             ].join('\n');
 
             const input = extension === 'vue' ? `<script lang="ts">\n${code}\n</script>\n` : code;

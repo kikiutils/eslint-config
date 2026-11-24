@@ -6,7 +6,7 @@ export function createSyntaxConfigs(
     predicate: (ruleId: string) => boolean,
 ): TypedFlatConfigItem[] {
     return [
-        ...filterRules(configs, predicate),
+        ...filterRules(configs, (ruleId) => ruleId !== 'kikiutils/promise-function-async' && predicate(ruleId)),
         { languageOptions: { parserOptions: { projectService: false } } },
     ];
 }

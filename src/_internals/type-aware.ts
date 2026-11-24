@@ -9,6 +9,7 @@ export function createTypeAwareConfig(): TypedFlatConfigItem {
             },
         },
         rules: {
+            'kikiutils/promise-function-async': 'error',
             'ts/await-thenable': 'error',
             'ts/no-base-to-string': 'error',
             'ts/no-floating-promises': [
@@ -27,7 +28,7 @@ export function createTypeAwareConfig(): TypedFlatConfigItem {
             'ts/no-misused-promises': 'error',
             'ts/no-misused-spread': 'error',
             'ts/no-unnecessary-type-assertion': 'error',
-            'ts/promise-function-async': 'error',
+            'ts/promise-function-async': 'off',
             'ts/require-await': 'off',
             'ts/return-await': [
                 'error',
