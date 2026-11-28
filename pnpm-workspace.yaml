@@ -2,8 +2,10 @@ blockExoticSubdeps: true
 minimumReleaseAge: 1440
 minimumReleaseAgeIgnoreMissingTime: false
 minimumReleaseAgeStrict: true
+
 minimumReleaseAgeExcludePrune: true
-# minimumReleaseAgeExclude:
+minimumReleaseAgeExclude:
+  - '@kikiutils/tsconfigs' # TODO: remove it
 
 resolutionMode: highest
 trustLockfile: false
