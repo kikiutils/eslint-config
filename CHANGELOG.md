@@ -1,5 +1,27 @@
 # Changelog
 
+## v11.5.0
+
+[compare changes](https://github.com/kikiutils/eslint-config/compare/v11.4.0...v11.5.0)
+
+### 🚀 Enhancements
+
+- Allow single-line JSDoc blocks and partial parameter docs ([c55f002](https://github.com/kikiutils/eslint-config/commit/c55f002))
+
+### 📦 Build
+
+- Require Node.js 24.15.0 and target ES2025 ([5563821](https://github.com/kikiutils/eslint-config/commit/5563821))
+
+### 🏡 Chore
+
+- Upgrade deps ([f9fc341](https://github.com/kikiutils/eslint-config/commit/f9fc341))
+- Exclude `@kikiutils/tsconfigs` from the minimum release age ([1c89d62](https://github.com/kikiutils/eslint-config/commit/1c89d62))
+- Upgrade deps ([1bd966c](https://github.com/kikiutils/eslint-config/commit/1bd966c))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v11.4.0
 
 [compare changes](https://github.com/kikiutils/eslint-config/compare/v11.3.0...v11.4.0)
