@@ -37,13 +37,7 @@ export const typescriptJsdocConfig = {
                 ],
             },
         ],
-        'jsdoc/multiline-blocks': [
-            'error',
-            {
-                noSingleLineBlocks: true,
-                singleLineTags: [],
-            },
-        ],
+        'jsdoc/multiline-blocks': 'error',
         'jsdoc/no-types': 'error',
     },
     settings: {

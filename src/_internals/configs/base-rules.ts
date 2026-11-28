@@ -28,17 +28,12 @@ export function createBaseRules(environment: 'bun' | 'node' = 'node'): Rules {
             'error',
             'multi-line',
         ],
-        'jsdoc/check-tag-names': 'error',
-        'jsdoc/multiline-blocks': [
-            'error',
-            {
-                noSingleLineBlocks: true,
-                singleLineTags: [
-                    'type',
-                    'import',
-                ],
-            },
+        'jsdoc/check-param-names': [
+            'warn',
+            { disableMissingParamChecks: true },
         ],
+        'jsdoc/check-tag-names': 'error',
+        'jsdoc/multiline-blocks': 'error',
         'jsdoc/no-blank-blocks': [
             'error',
             { enableFixer: true },
